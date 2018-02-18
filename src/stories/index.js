@@ -1,13 +1,13 @@
 import React from 'react';
 
+import { OrgDuration, OrgNavigationCheck, OrgTerrain, OrgPace } from '../atomic';
+
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { linkTo } from '@storybook/addon-links';
 
-import { Button, Welcome } from '@storybook/react/demo';
-
-storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
-
-storiesOf('Button', module)
-  .add('with text', () => <Button onClick={action('clicked')}>Hello Button</Button>)
-  .add('with some emoji', () => <Button onClick={action('clicked')}>😀 😎 👍 💯</Button>);
+const organisms = storiesOf('3.Organisms', module);
+organisms.add('Duration', () => <OrgDuration />);
+organisms.add('NavigationCheck', () => <OrgNavigationCheck />);
+organisms.add('Terrain', () => <OrgTerrain />);
+organisms.add('Pace', () => <OrgPace />);

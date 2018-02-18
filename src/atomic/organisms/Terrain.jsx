@@ -1,4 +1,6 @@
-const TerrainDifficulty = () => (
+import React from 'react';
+
+const Terrain = () => (
   <div>
     <div>Terrain Navigation Difficulty</div>
     <select>
@@ -8,3 +10,5 @@ const TerrainDifficulty = () => (
     </select>
   </div>
 );
+
+export default Terrain;
