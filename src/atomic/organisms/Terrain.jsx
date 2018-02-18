@@ -1,14 +1,15 @@
 import React from 'react';
+import Paper from 'material-ui/Paper';
 
 const Terrain = () => (
-  <div>
+  <Paper>
     <div>Terrain Navigation Difficulty</div>
     <select>
       <option value="Low" />
       <option value="Med" />
       <option value="High" />
     </select>
-  </div>
+  </Paper>
 );
 
 export default Terrain;

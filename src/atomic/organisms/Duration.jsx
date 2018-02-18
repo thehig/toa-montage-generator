@@ -1,10 +1,10 @@
 import React from 'react';
-
+import Paper from 'material-ui/Paper';
 const Duration = () => (
-  <div>
+  <Paper>
     <div>Duration</div>
     <div id="slider" />
-  </div>
+  </Paper>
 );
 
 export default Duration;
