@@ -2,22 +2,33 @@ import React from 'react';
 import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
+import Select from 'material-ui/Select';
 
-const Terrain = () => (
-  <Paper>
-    <Grid container>
+import { withStyles } from 'material-ui/styles';
+const styles = theme => ({
+  root: {
+    width: "100%"
+  },
+  select: {
+    width: "100%"
+  }
+});
+
+const Terrain = ({classes}) => (
+  <Paper className={classes.root}>
+    <Grid container className={classes.root}>
       <Grid item xs={6}>
         <Typography variant="subheading">Terrain</Typography>
       </Grid>
       <Grid item xs={6}>
-        <select>
-          <option value="Low" />
-          <option value="Med" />
-          <option value="High" />
-        </select>
+        <Select native className={classes.select}>
+          <option value="Low">Low</option>
+          <option value="Med">Med</option>
+          <option value="High">High</option>
+        </Select>
       </Grid>
     </Grid>
   </Paper>
 );
 
-export default Terrain;
+export default withStyles(styles)(Terrain);

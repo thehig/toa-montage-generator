@@ -3,9 +3,16 @@ import Paper from 'material-ui/Paper';
 import Grid from 'material-ui/Grid';
 import Typography from 'material-ui/Typography';
 
-const Duration = () => (
-  <Paper>
-    <Grid container>
+import { withStyles } from 'material-ui/styles';
+const styles = theme => ({
+  root: {
+    width: "100%"
+  }
+});
+
+const Duration = ({classes}) => (
+  <Paper className={classes.root}>
+    <Grid container className={classes.root}>
       <Grid item xs={6}>
         <Typography variant="subheading">Duration</Typography>
       </Grid>
@@ -16,4 +23,4 @@ const Duration = () => (
   </Paper>
 );
 
-export default Duration;
+export default withStyles(styles)(Duration);
