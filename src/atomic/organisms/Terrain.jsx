@@ -20,7 +20,7 @@ import terrainTypes from '../../data/terrain';
 
 class Terrain extends React.Component {
   state = {
-    Terrain: 'normal'
+    terrain: 0
   };
 
   handleChange = event => {
@@ -31,12 +31,12 @@ class Terrain extends React.Component {
     const { classes } = this.props;
     return (
       <FormControl className={classes.formControl}>
-        <InputLabel htmlFor="Terrain">Terrain</InputLabel>
+        <InputLabel htmlFor="terrain">Terrain</InputLabel>
         <Select
-          value={this.state.Terrain}
+          value={this.state.terrain}
           onChange={this.handleChange}
           inputProps={{
-            name: 'Terrain',
+            name: 'terrain',
             id: 'terrain',
           }}
         >

@@ -9,12 +9,12 @@ const styles = theme => ({
 });
 
 const List = ({classes}) => (
-  <Grid container>
-    <Grid item xs={12}><OrgNavigation /></Grid>
-    <Grid item xs={12}><OrgTerrain /></Grid>
-    <Grid item xs={12}><OrgPace /></Grid>
-    <Grid item xs={12}><OrgDuration /></Grid>
-  </Grid>
+  <div>
+    <OrgNavigation />
+    <OrgTerrain />
+    <OrgPace />
+    <OrgDuration />
+  </div>
 );
 
 export default withStyles(styles)(List);
