@@ -66,9 +66,8 @@ class Navigation extends React.Component {
           label="Bonus"
           className={classes.textField}
           value={this.state.bonus}
-          onChange={this.handleNameChange('name')}
+          onChange={this.handleNameChange('bonus')}
           type="number"
-          margin="normal"
         />
       </FormControl>
     );
