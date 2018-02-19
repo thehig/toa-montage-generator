@@ -61,9 +61,9 @@ class Navigation extends React.Component {
           <FormControlLabel value="normal" control={<Radio />} label="Normal" />
           <FormControlLabel value="adv" control={<Radio />} label="Advantage" />
         </RadioGroup>
+        <FormLabel component="legend">Survival Bonus</FormLabel>
         <TextField
           id="bonus"
-          label="Bonus"
           className={classes.textField}
           value={this.state.bonus}
           onChange={this.handleNameChange('bonus')}

@@ -1,35 +1,50 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import PropTypes from 'prop-types';
+import Input, { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 
 import { withStyles } from 'material-ui/styles';
 
-import terrainTypes from '../../data/terrain';
-
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: '100%',
   },
   select: {
-    width: "100%"
-  }
+    width: '100%',
+  },
 });
 
-const Terrain = ({classes}) => (
-  <Paper className={classes.root}>
-    <Grid container className={classes.root}>
-      <Grid item xs={6}>
-        <Typography variant="subheading">Terrain</Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Select native className={classes.select}>
-          { terrainTypes.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
+import terrainTypes from '../../data/terrain';
+
+class Terrain extends React.Component {
+  state = {
+    Terrain: 'normal'
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="Terrain">Terrain</InputLabel>
+        <Select
+          value={this.state.Terrain}
+          onChange={this.handleChange}
+          inputProps={{
+            name: 'Terrain',
+            id: 'terrain',
+          }}
+        >
+          { terrainTypes.map(t => <MenuItem key={t.id} value={t.id}>{t.name}</MenuItem>)}
         </Select>
-      </Grid>
-    </Grid>
-  </Paper>
-);
+      </FormControl>
+    );
+  }
+}
 
 export default withStyles(styles)(Terrain);

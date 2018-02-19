@@ -1,34 +1,50 @@
 import React from 'react';
-import Paper from 'material-ui/Paper';
-import Grid from 'material-ui/Grid';
-import Typography from 'material-ui/Typography';
+import PropTypes from 'prop-types';
+import Input, { InputLabel } from 'material-ui/Input';
+import { MenuItem } from 'material-ui/Menu';
+import { FormControl, FormHelperText } from 'material-ui/Form';
 import Select from 'material-ui/Select';
 
 import { withStyles } from 'material-ui/styles';
+
 const styles = theme => ({
   root: {
-    width: "100%"
+    width: '100%',
   },
   select: {
-    width: "100%"
-  }
+    width: '100%',
+  },
 });
 
-const Pace = ({classes}) => (
-  <Paper className={classes.root}>
-    <Grid container className={classes.root}>
-      <Grid item xs={6}>
-        <Typography variant="subheading">Pace</Typography>
-      </Grid>
-      <Grid item xs={6}>
-        <Select native className={classes.select}>
-          <option value="Slow">Slow</option>
-          <option value="Normal">Normal</option>
-          <option value="Fast">Fast</option>
+class Pace extends React.Component {
+  state = {
+    pace: 'normal'
+  };
+
+  handleChange = event => {
+    this.setState({ [event.target.name]: event.target.value });
+  };
+
+  render() {
+    const { classes } = this.props;
+    return (
+      <FormControl className={classes.formControl}>
+        <InputLabel htmlFor="pace">Pace</InputLabel>
+        <Select
+          value={this.state.pace}
+          onChange={this.handleChange}
+          inputProps={{
+            name: 'pace',
+            id: 'pace',
+          }}
+        >
+          <MenuItem value='slow'>Slow</MenuItem>
+          <MenuItem value='normal'>Normal</MenuItem>
+          <MenuItem value='fast'>Fast</MenuItem>
         </Select>
-      </Grid>
-    </Grid>
-  </Paper>
-);
+      </FormControl>
+    );
+  }
+}
 
 export default withStyles(styles)(Pace);
