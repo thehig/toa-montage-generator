@@ -5,6 +5,9 @@ import Typography from 'material-ui/Typography';
 import Select from 'material-ui/Select';
 
 import { withStyles } from 'material-ui/styles';
+
+import terrainTypes from '../../data/terrain';
+
 const styles = theme => ({
   root: {
     width: "100%"
@@ -22,9 +25,7 @@ const Terrain = ({classes}) => (
       </Grid>
       <Grid item xs={6}>
         <Select native className={classes.select}>
-          <option value="Low">Low</option>
-          <option value="Med">Med</option>
-          <option value="High">High</option>
+          { terrainTypes.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
         </Select>
       </Grid>
     </Grid>
