@@ -1,4 +1,4 @@
-import { roll } from '../resolver';
+import { roll } from '../logic/resolver';
 
 const d20RollsOne = () => 1;
 let rollHigherCounter = 1;

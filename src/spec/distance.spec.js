@@ -1,5 +1,4 @@
-import { resolver, distance, dice } from '../logic/resolver';
-
+import resolver, { dice } from '../logic/resolver';
 
 const loResolver = resolver({...dice, d4:() => 2})();
 const hiResolver = resolver({...dice, d4:() => 3})();

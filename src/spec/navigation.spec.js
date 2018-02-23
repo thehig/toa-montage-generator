@@ -1,5 +1,4 @@
-import { resolver, navigation, dice } from '../logic/resolver';
-
+import resolver, { dice } from '../logic/resolver';
 const d20RollsOne = () => 1;
 let rollHigherCounter = 1;
 const d20RollsHigher = () => rollHigherCounter++;
