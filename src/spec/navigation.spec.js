@@ -1,8 +1,3 @@
-//   fixedRolls.navigation(10, 'slow'),
-//   fixedRolls.navigation(10, 'normal'),
-//   fixedRolls.navigation(10, 'fast'),
-//   fixedRolls.direction()
-
 import { resolver, navigation, dice } from '../logic/resolver';
 
 const d20RollsOne = () => 1;
@@ -63,7 +58,11 @@ describe('navigation', () => {
   });
 
   describe('pace', () => {
-      let myNavigator = resolver({...dice, d20: 10})();
-    
+    let myNavigator = resolver({...dice, d4: () => 1, d20: () => 10})();
+    it('succeeds rolling 10 vs 15 with pace: slow', () => expect(myNavigator.navigation({DC: 15, pace: 'slow'})).toBe(true));
+    it('fails rolling 10 vs 16 with pace: slow', () => expect(myNavigator.navigation({DC: 16, pace: 'slow'})).toBe(false));
+
+    it('succeeds rolling 10 vs 5 with pace: fast', () => expect(myNavigator.navigation({DC: 5, pace: 'fast'})).toBe(true));
+    it('fails rolling 10 vs 6 with pace: fast', () => expect(myNavigator.navigation({DC: 6, pace: 'fast'})).toBe(false));
   });
 });
