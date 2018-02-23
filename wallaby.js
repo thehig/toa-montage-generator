@@ -13,7 +13,7 @@ module.exports = function (wallaby) {
   return {
     files: [
       // 'src/**/*.+(js|jsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg)',
-      'src/resolver.js',
+      'src/logic/**/*.js',
       '!src/**/*.spec.js?(x)',
       '!src/stories/**/*.*'
     ],

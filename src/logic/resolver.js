@@ -1,29 +1,3 @@
-export const getRandomInt = (min, max) => () =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
-
-
-
-export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
-
-/* 
-// Randomness tester
-let iterations = 100000;
-let results = [];
-
-const sides = 20;
-const dice = d20;
-
-for(let i = 0; i < sides; i++) {
-  results.push(0);
-}
-
-for(let i = 0; i < iterations; i++) {
-  const roll = dice();
-  results[roll - 1]++;
-}
-
-console.log(results);
-*/
 
 export const roll = (dice, { advantage = false, disadvantage = false } = {}) => {
   if (advantage && !disadvantage) return Math.max(dice(), dice());
@@ -32,7 +6,7 @@ export const roll = (dice, { advantage = false, disadvantage = false } = {}) => 
 };
 
 export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
-export const paces = ({ d4 }) => = (pace, speed = 1) => {
+export const paces = ({ d4 }) => (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
       return { navDC: -5, distance: speed - (d4() <= 2 && 1) };
@@ -47,14 +21,17 @@ export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
   modifier = 0,
   advantage = false,
   disadvantge = false,
-}) => ({
-  navigation: ({ navigationDC = 15, pace = 'normal' }) =>
-    roll(d20, { advantage, disadvantge }) + modifier >
-    navigationDC + paces({d4})(pace).navDC,
-  direction: () => directions[d6()],
-  distance: ({ pace, speed }) => paces({d4})(pace, speed).distance,
-  encounter: encounterDC => d20() >= encounterDC && d100(),
-});
+}) => {
+  const myPaces = paces({d4});
+  return {
+    navigation: ({ navigationDC = 15, pace = 'normal' }) =>
+      roll(d20, { advantage, disadvantge }) + modifier >
+      navigationDC + myPaces(pace).navDC,
+    direction: () => directions[d6()],
+    distance: ({ pace, speed }) => myPaces(pace, speed).distance,
+    encounter: encounterDC => d20() >= encounterDC && d100(),
+  };
+};
 
 export const montage = resolver => ({
   numberOfDays = 10,
