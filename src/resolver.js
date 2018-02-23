@@ -1,14 +1,7 @@
 export const getRandomInt = (min, max) => () =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
-const d2 = getRandomInt(1, 2);
-const d4 = getRandomInt(1, 4);
-const d6 = getRandomInt(1, 6);
-const d8 = getRandomInt(1, 8);
-const d10 = getRandomInt(1, 10);
-const d12 = getRandomInt(1, 12);
-const d20 = getRandomInt(1, 20);
-const d100 = getRandomInt(1, 100);
+
 
 export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
 
@@ -39,7 +32,7 @@ export const roll = (dice, { advantage = false, disadvantage = false } = {}) => 
 };
 
 export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
-export const paces = (pace, speed = 1) => {
+export const paces = ({ d4 }) => = (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
       return { navDC: -5, distance: speed - (d4() <= 2 && 1) };
@@ -57,9 +50,9 @@ export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
 }) => ({
   navigation: ({ navigationDC = 15, pace = 'normal' }) =>
     roll(d20, { advantage, disadvantge }) + modifier >
-    navigationDC + paces(pace).navDC,
+    navigationDC + paces({d4})(pace).navDC,
   direction: () => directions[d6()],
-  distance: ({ pace, speed }) => paces(pace, speed).distance,
+  distance: ({ pace, speed }) => paces({d4})(pace, speed).distance,
   encounter: encounterDC => d20() >= encounterDC && d100(),
 });
 
