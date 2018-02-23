@@ -1,7 +1,9 @@
-
-export const roll = (dice, { advantage = false, disadvantage = false } = {}) => {
+export const roll = (
+  dice,
+  { advantage = false, disadvantage = false } = {}
+) => {
   if (advantage && !disadvantage) return Math.max(dice(), dice());
-  if (!advantage && disadvantage) return Math.min(dice(), dice()); 
+  if (!advantage && disadvantage) return Math.min(dice(), dice());
   return dice();
 };
 
@@ -10,19 +12,19 @@ export const paces = ({ d4 }) => (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
       return { paceDC: -5, distance: speed - (d4() <= 2 && 1) };
+
     case 'fast':
       return { paceDC: +5, distance: speed + (d4() > 2 && 1) };
+
     default:
       return { paceDC: 0, distance: speed };
   }
 };
 
-export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
-  modifier = 0,
-  advantage = false,
-  disadvantage = false,
-}) => {
-  const myPaces = paces({d4});
+export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => (
+  { modifier = 0, advantage = false, disadvantage = false } = {}
+) => {
+  const myPaces = paces({ d4 });
   return {
     navigation: ({ DC = 15, pace = 'normal' }) =>
       roll(d20, { advantage, disadvantage }) + modifier >=
@@ -36,7 +38,7 @@ export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
 export const montage = resolver => ({
   numberOfDays = 10,
   terrain,
-  pace = "normal",
+  pace = 'normal',
   speed = 1,
   navigator,
 }) => () => {
@@ -46,18 +48,25 @@ export const montage = resolver => ({
   let lost = false;
 
   for (let i = 0; i < numberOfDays; i++) {
-    const navSuccess = myResolver.navigation({ navigationDC: terrain.navigationDC, pace });
+    const navSuccess = myResolver.navigation({
+      navigationDC: terrain.navigationDC,
+      pace,
+    });
     const day = {
       day: i,
-      encounters: [myResolver.encounter(terrain.encounterDC), myResolver.encounter(terrain.encounterDC), myResolver.encounter(terrain.encounterDC)],
-      distance: myResolver.distance({ speed, pace })
+      encounters: [
+        myResolver.encounter(terrain.encounterDC),
+        myResolver.encounter(terrain.encounterDC),
+        myResolver.encounter(terrain.encounterDC),
+      ],
+      distance: myResolver.distance({ speed, pace }),
     };
-    if(!navSuccess) {
+    if (!navSuccess) {
       lost = true;
       day.lost = true;
-      day.direction = myResolver.direction()
+      day.direction = myResolver.direction();
     }
-    
+
     daysResults.push(day);
   }
 

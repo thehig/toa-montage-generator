@@ -62,4 +62,8 @@ describe('navigation', () => {
     });
   });
 
+  describe('pace', () => {
+      let myNavigator = resolver({...dice, d20: 10})();
+    
+  });
 });
