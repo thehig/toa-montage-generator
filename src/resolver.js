@@ -1,4 +1,4 @@
-const getRandomInt = (min, max) => () =>
+export const getRandomInt = (min, max) => () =>
   Math.floor(Math.random() * (max - min + 1)) + min;
 
 const d2 = getRandomInt(1, 2);
@@ -10,7 +10,7 @@ const d12 = getRandomInt(1, 12);
 const d20 = getRandomInt(1, 20);
 const d100 = getRandomInt(1, 100);
 
-const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
+export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
 
 /* 
 // Randomness tester
@@ -32,14 +32,14 @@ for(let i = 0; i < iterations; i++) {
 console.log(results);
 */
 
-const roll = (dice, { advantage = false, disadvantge = false }) => {
+export const roll = (dice, { advantage = false, disadvantge = false }) => {
   if (advantage && !disadvantge) return Math.ceil([dice(), dice()]);
   if (!advantage && disadvantge) return Math.floor([dice(), dice()]);
   return dice();
 };
 
-const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
-const paces = (pace, speed = 1) => {
+export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
+export const paces = (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
       return { navDC: -5, distance: speed - (d4() <= 2 && 1) };
@@ -50,7 +50,7 @@ const paces = (pace, speed = 1) => {
   }
 };
 
-const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
+export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
   modifier = 0,
   advantage = false,
   disadvantge = false,
@@ -63,7 +63,7 @@ const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
   encounter: encounterDC => d20() >= encounterDC && d100(),
 });
 
-const montage = resolver => ({
+export const montage = resolver => ({
   numberOfDays = 10,
   terrain,
   pace = "normal",
@@ -94,58 +94,60 @@ const montage = resolver => ({
   return daysResults;
 };
 
-const randomResolver = resolver(dice);
+// const randomResolver = resolver(dice);
 
-const navigator = { modifier: 0 };
-const riggedResolver = resolver({
-  d2,
-  d4: () => 2,
-  d6: () => 3,
-  d8,
-  d10,
-  d12,
-  d20: () => 7,
-  d100: () => 99,
-});
+// const navigator = { modifier: 0 };
+// const riggedResolver = resolver({
+//   d2,
+//   d4: () => 2,
+//   d6: () => 3,
+//   d8,
+//   d10,
+//   d12,
+//   d20: () => 7,
+//   d100: () => 99,
+// });
 
-const fixedRolls = riggedResolver(navigator);
+// const fixedRolls = riggedResolver(navigator);
 
-console.log(
-  fixedRolls.navigation(10, 'slow'),
-  fixedRolls.navigation(10, 'normal'),
-  fixedRolls.navigation(10, 'fast'),
-  fixedRolls.direction()
-);
+// console.log(
+//   fixedRolls.navigation(10, 'slow'),
+//   fixedRolls.navigation(10, 'normal'),
+//   fixedRolls.navigation(10, 'fast'),
+//   fixedRolls.direction()
+// );
 
-console.log(
-  'distance',
-  'slow',
-  fixedRolls.distance('slow'),
-  'normal',
-  fixedRolls.distance('normal'),
-  'fast',
-  fixedRolls.distance('fast')
-);
+// console.log(
+//   'distance',
+//   'slow',
+//   fixedRolls.distance('slow'),
+//   'normal',
+//   fixedRolls.distance('normal'),
+//   'fast',
+//   fixedRolls.distance('fast')
+// );
 
-console.log(
-  'distance with boat',
-  'slow',
-  fixedRolls.distance('slow', 2),
-  'normal',
-  fixedRolls.distance('normal', 2),
-  'fast',
-  fixedRolls.distance('fast', 2)
-);
+// console.log(
+//   'distance with boat',
+//   'slow',
+//   fixedRolls.distance('slow', 2),
+//   'normal',
+//   fixedRolls.distance('normal', 2),
+//   'fast',
+//   fixedRolls.distance('fast', 2)
+// );
 
-console.log('encounter', fixedRolls.encounter(7));
+// console.log('encounter', fixedRolls.encounter(7));
 
-const myMontage = montage(randomResolver)({
-  navigator,
-  numberOfDays: 10,
-  terrain: {
-    navigationDC: 10,
-    encounterDC: 18
-  }
-})
+// const myMontage = montage(randomResolver)({
+//   navigator,
+//   numberOfDays: 10,
+//   terrain: {
+//     navigationDC: 10,
+//     encounterDC: 18
+//   }
+// })
 
-console.log('montage', myMontage());
+// console.log('montage', myMontage());
+
+export default resolver;
