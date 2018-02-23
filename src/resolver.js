@@ -32,9 +32,9 @@ for(let i = 0; i < iterations; i++) {
 console.log(results);
 */
 
-export const roll = (dice, { advantage = false, disadvantge = false }) => {
-  if (advantage && !disadvantge) return Math.ceil([dice(), dice()]);
-  if (!advantage && disadvantge) return Math.floor([dice(), dice()]);
+export const roll = (dice, { advantage = false, disadvantage = false } = {}) => {
+  if (advantage && !disadvantage) return Math.max(dice(), dice());
+  if (!advantage && disadvantage) return Math.min(dice(), dice()); 
   return dice();
 };
 
