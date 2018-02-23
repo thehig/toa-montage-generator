@@ -9,24 +9,24 @@ export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
 export const paces = ({ d4 }) => (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
-      return { navDC: -5, distance: speed - (d4() <= 2 && 1) };
+      return { paceDC: -5, distance: speed - (d4() <= 2 && 1) };
     case 'fast':
-      return { navDC: +5, distance: speed + (d4() > 2 && 1) };
+      return { paceDC: +5, distance: speed + (d4() > 2 && 1) };
     default:
-      return { navDC: 0, distance: speed };
+      return { paceDC: 0, distance: speed };
   }
 };
 
 export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => ({
   modifier = 0,
   advantage = false,
-  disadvantge = false,
+  disadvantage = false,
 }) => {
   const myPaces = paces({d4});
   return {
-    navigation: ({ navigationDC = 15, pace = 'normal' }) =>
-      roll(d20, { advantage, disadvantge }) + modifier >
-      navigationDC + myPaces(pace).navDC,
+    navigation: ({ DC = 15, pace = 'normal' }) =>
+      roll(d20, { advantage, disadvantage }) + modifier >=
+      DC + myPaces(pace).paceDC,
     direction: () => directions[d6()],
     distance: ({ pace, speed }) => myPaces(pace, speed).distance,
     encounter: encounterDC => d20() >= encounterDC && d100(),
