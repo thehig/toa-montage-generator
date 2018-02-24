@@ -29,7 +29,7 @@ export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => (
     navigation: ({ DC = 15, pace = 'normal' }) =>
       roll(d20, { advantage, disadvantage }) + modifier >=
       DC + myPaces(pace).paceDC,
-    direction: () => directions[d6()],
+    direction: () => directions[d6() - 1],
     distance: ({ pace, speed }) => myPaces(pace, speed).distance,
     encounter: encounterDC => d20() >= encounterDC && d100(),
   };
