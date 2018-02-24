@@ -1,5 +1,9 @@
 import { dice as defaultDice, roll as defaultRoll } from './dice';
-import { directions as defaultDirections, speeds as defaultSpeeds, paceModifiers as defaultPaceModifiers } from '../data/consts';
+import {
+  directions as defaultDirections,
+  speeds as defaultSpeeds,
+  paceModifiers as defaultPaceModifiers,
+} from '../data/consts';
 
 // const navigationCheck =  ({ DC = 15, pace = 'normal' } = {}) => roll(d20, { advantage, disadvantage }) + modifier >= DC + myPaces(pace).paceDC;
 
@@ -10,7 +14,7 @@ import { directions as defaultDirections, speeds as defaultSpeeds, paceModifiers
 // } = {}) => ({pace = "normal", speed="default"}) => {
 //   switch (pace) {
 //     case 'slow':
-//       return { 
+//       return {
 //         paceDC: paceModifiers[pace],
 //         distance: speeds[speed] - (dice.d4() <= 2 && 1) };
 
@@ -26,12 +30,8 @@ const navigationCheckBase = ({
   dice = defaultDice,
   roll = defaultRoll,
   paceModifiers = defaultPaceModifiers,
-  terrain: { 
-    id = 0,
-    name = 'DEFAULT_TERRAIN',
-    navDC = 10,
-    encChance = 20
-  } = {},
+  terrain: { id = 0, name = 'DEFAULT_TERRAIN', navDC = 10, encChance = 20 } = {
+  },
 }) => (
   {
     // Navigator
@@ -40,11 +40,9 @@ const navigationCheckBase = ({
     advantage = false,
     disadvantage = false,
   } = {}
-) =>
-  roll(dice.d20, { advantage, disadvantage }) + modifier >=
+) => () =>
+  roll(dice.d20, { advantage, disadvantage })(`nav check${advantage ? ' ADV' : ''}${disadvantage ? ' DISADV' : ''}`) + modifier >=
   navDC + (paceModifiers[pace] || 0);
-
-// Takes imports as props, uses them as defaults but can be overloaded
 export const resolver = (
   {
     // World
@@ -53,7 +51,7 @@ export const resolver = (
     directions = defaultDirections,
     speeds = defaultSpeeds,
     paceModifiers = defaultPaceModifiers,
-    terrain
+    terrain,
   } = {}
 ) => (
   {
@@ -67,16 +65,19 @@ export const resolver = (
   } = {}
 ) => {
   const navigationCheck = navigationCheckBase({
-    dice, roll, paceModifiers, terrain
+    dice,
+    roll,
+    paceModifiers,
+    terrain,
+  })({
+    modifier: survivalMod + miscMod,
+    pace,
+    advantage,
+    disadvantage,
   });
 
   return {
-    navigationCheck: () => navigationCheck({
-      modifier: survivalMod + miscMod,
-      pace,
-      advantage, 
-      disadvantage
-    })
+    navigationCheck,
   };
 };
 

@@ -1,5 +1,8 @@
-export const getRandomInt = (min, max) => () =>
-  Math.floor(Math.random() * (max - min + 1)) + min;
+export const getRandomInt = (min, max) => (name) => {
+  const result = Math.floor(Math.random() * (max - min + 1)) + min;
+  console.log(`d${max}=${result}: ${name}`);
+  return result;
+}
 
 export const d = num => () => getRandomInt(1, num);
 
@@ -15,10 +18,11 @@ export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
 
 export const roll = (
   dice,
-  { advantage = false, disadvantage = false } = {}
+  { advantage = false, disadvantage = false } = {},
+  name = ''
 ) => {
-  if (advantage && !disadvantage) return Math.max(dice(), dice());
-  if (!advantage && disadvantage) return Math.min(dice(), dice());
+  if (advantage && !disadvantage) return Math.max(dice('roll adv'), dice('roll adv'));
+  if (!advantage && disadvantage) return Math.min(dice('roll disadv'), dice('roll disadv'));
   return dice();
 };
 /* 

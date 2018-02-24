@@ -6,8 +6,9 @@ import * as defaultConsts from './src/data/consts';
 const world = resolver(defaultConsts);
 
 const HewHackinstone = {
-  survivalMod: +5,
-  miscMod: +2
+  survivalMod: +0,
+  miscMod: +2,
+  // advantage: true
 }
 
 const myResolver = world(HewHackinstone);
