@@ -26,32 +26,30 @@ export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => (
 ) => {
   const myPaces = paces({ d4 });
   return {
-    navigation: ({ DC = 15, pace = 'normal' }) =>
+    navigation: ({ DC = 15, pace = 'normal' } = {}) =>
       roll(d20, { advantage, disadvantage }) + modifier >=
       DC + myPaces(pace).paceDC,
     direction: () => directions[d6() - 1],
-    distance: ({ pace, speed }) => myPaces(pace, speed).distance,
+    distance: ({ pace, speed } = {}) => myPaces(pace, speed).distance,
     encounter: encounterDC => d20() >= encounterDC && d100(),
   };
 };
 
-export const montage = resolver => ({
-  numberOfDays = 10,
-  terrain,
-  pace = 'normal',
-  speed = 1,
-  navigator,
-}) => () => {
+export const montage = resolver => (
+  {
+    terrain = {},
+    navigator = {},
+    numberOfDays = 10,
+    pace = 'normal',
+    speed = 1,
+  } = {}
+) => {
   const myResolver = resolver(navigator);
 
   const daysResults = [];
   let lost = false;
 
   for (let i = 0; i < numberOfDays; i++) {
-    const navSuccess = myResolver.navigation({
-      navigationDC: terrain.navigationDC,
-      pace,
-    });
     const day = {
       day: i,
       encounters: [
@@ -61,13 +59,21 @@ export const montage = resolver => ({
       ],
       distance: myResolver.distance({ speed, pace }),
     };
-    if (!navSuccess) {
+
+    const navCheck = myResolver.navigation({ DC: terrain.DC, pace });
+
+    if (!navCheck) {
       lost = true;
       day.lost = true;
       day.direction = myResolver.direction();
     }
-
+    
     daysResults.push(day);
+
+    // Stop on encounter
+    if(day.encounters.filter(enc => enc !== false).length > 0) break;
+    // Stop on found
+    if(navCheck && lost) break;
   }
 
   return daysResults;
