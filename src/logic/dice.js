@@ -13,6 +13,14 @@ export const d20 = d(20);
 export const d100 = d(100);
 export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
 
+export const roll = (
+  dice,
+  { advantage = false, disadvantage = false } = {}
+) => {
+  if (advantage && !disadvantage) return Math.max(dice(), dice());
+  if (!advantage && disadvantage) return Math.min(dice(), dice());
+  return dice();
+};
 /* 
 // Randomness tester
 let iterations = 100000;

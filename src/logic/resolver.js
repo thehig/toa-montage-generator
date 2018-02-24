@@ -1,13 +1,96 @@
-export const roll = (
-  dice,
-  { advantage = false, disadvantage = false } = {}
+import { dice as defaultDice, roll as defaultRoll } from './dice';
+import { directions as defaultDirections, speeds as defaultSpeeds, paceModifiers as defaultPaceModifiers } from '../data/consts';
+
+// const navigationCheck =  ({ DC = 15, pace = 'normal' } = {}) => roll(d20, { advantage, disadvantage }) + modifier >= DC + myPaces(pace).paceDC;
+
+// const paces = ({
+//   dice = dice,
+//   paceModifiers = paceModifiers,
+//   speeds = speeds
+// } = {}) => ({pace = "normal", speed="default"}) => {
+//   switch (pace) {
+//     case 'slow':
+//       return { 
+//         paceDC: paceModifiers[pace],
+//         distance: speeds[speed] - (dice.d4() <= 2 && 1) };
+
+//     case 'fast':
+//       return { paceDC: +5, distance: speeds[speed] + (dice.d4() > 2 && 1) };
+
+//     default:
+//       return { paceDC: 0, distance: speed };
+//   }
+// };
+
+const navigationCheckBase = ({
+  dice = defaultDice,
+  roll = defaultRoll,
+  paceModifiers = defaultPaceModifiers,
+  terrain: { 
+    id = 0,
+    name = 'DEFAULT_TERRAIN',
+    navDC = 10,
+    encChance = 20
+  } = {},
+}) => (
+  {
+    // Navigator
+    modifier = 0,
+    pace = 'normal',
+    advantage = false,
+    disadvantage = false,
+  } = {}
+) =>
+  roll(dice.d20, { advantage, disadvantage }) + modifier >=
+  navDC + (paceModifiers[pace] || 0);
+
+// Takes imports as props, uses them as defaults but can be overloaded
+export const resolver = (
+  {
+    // World
+    dice = defaultDice,
+    roll = defaultRoll,
+    directions = defaultDirections,
+    speeds = defaultSpeeds,
+    paceModifiers = defaultPaceModifiers,
+    terrain
+  } = {}
+) => (
+  {
+    // Navigator
+    survivalMod = 0,
+    miscMod = 0,
+    advantage = false,
+    disadvantage = false,
+    speed = 'default',
+    pace = 'normal',
+  } = {}
 ) => {
-  if (advantage && !disadvantage) return Math.max(dice(), dice());
-  if (!advantage && disadvantage) return Math.min(dice(), dice());
-  return dice();
+  const navigationCheck = navigationCheckBase({
+    dice, roll, paceModifiers, terrain
+  });
+
+  return {
+    navigationCheck: () => navigationCheck({
+      modifier: survivalMod + miscMod,
+      pace,
+      advantage, 
+      disadvantage
+    })
+  };
 };
 
-export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
+/* 
+// const myPaces = paces({ d4 });
+// return {
+//   navigation: ({ DC = 15, pace = 'normal' } = {}) =>
+//     roll(d20, { advantage, disadvantage }) + modifier >=
+//     DC + myPaces(pace).paceDC,
+//   direction: () => directions[d6() - 1],
+//   distance: ({ pace, speed } = {}) => myPaces(pace, speed).distance,
+//   encounter: encounterDC => d20() >= encounterDC && d100(),
+// };
+
 export const paces = ({ d4 }) => (pace, speed = 1) => {
   switch (pace) {
     case 'slow':
@@ -24,15 +107,7 @@ export const paces = ({ d4 }) => (pace, speed = 1) => {
 export const resolver = ({ d2, d4, d6, d8, d10, d12, d20, d100 }) => (
   { modifier = 0, advantage = false, disadvantage = false } = {}
 ) => {
-  const myPaces = paces({ d4 });
-  return {
-    navigation: ({ DC = 15, pace = 'normal' } = {}) =>
-      roll(d20, { advantage, disadvantage }) + modifier >=
-      DC + myPaces(pace).paceDC,
-    direction: () => directions[d6() - 1],
-    distance: ({ pace, speed } = {}) => myPaces(pace, speed).distance,
-    encounter: encounterDC => d20() >= encounterDC && d100(),
-  };
+
 };
 
 export const montage = resolver => (
@@ -78,61 +153,5 @@ export const montage = resolver => (
 
   return daysResults;
 };
-
-// const randomResolver = resolver(dice);
-
-// const navigator = { modifier: 0 };
-// const riggedResolver = resolver({
-//   d2,
-//   d4: () => 2,
-//   d6: () => 3,
-//   d8,
-//   d10,
-//   d12,
-//   d20: () => 7,
-//   d100: () => 99,
-// });
-
-// const fixedRolls = riggedResolver(navigator);
-
-// console.log(
-//   fixedRolls.navigation(10, 'slow'),
-//   fixedRolls.navigation(10, 'normal'),
-//   fixedRolls.navigation(10, 'fast'),
-//   fixedRolls.direction()
-// );
-
-// console.log(
-//   'distance',
-//   'slow',
-//   fixedRolls.distance('slow'),
-//   'normal',
-//   fixedRolls.distance('normal'),
-//   'fast',
-//   fixedRolls.distance('fast')
-// );
-
-// console.log(
-//   'distance with boat',
-//   'slow',
-//   fixedRolls.distance('slow', 2),
-//   'normal',
-//   fixedRolls.distance('normal', 2),
-//   'fast',
-//   fixedRolls.distance('fast', 2)
-// );
-
-// console.log('encounter', fixedRolls.encounter(7));
-
-// const myMontage = montage(randomResolver)({
-//   navigator,
-//   numberOfDays: 10,
-//   terrain: {
-//     navigationDC: 10,
-//     encounterDC: 18
-//   }
-// })
-
-// console.log('montage', myMontage());
-
 export default resolver;
+ */

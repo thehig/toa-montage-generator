@@ -1,21 +1,16 @@
-import { resolver, montage } from './src/logic/resolver';
-import { dice } from './src/logic/dice';
+import { resolver } from './src/logic/resolver';
 
-const myMontage = montage(resolver(dice));
+import * as defaultConsts from './src/data/consts';
+// console.log(defaultConsts);
+
+const world = resolver(defaultConsts);
+
 const HewHackinstone = {
-  modifier: +7,
-  // advantage: true
-};
+  survivalMod: +5,
+  miscMod: +2
+}
 
-const DifficultTerrainFastPace = myMontage({
-  navigator: HewHackinstone,
-  terrain: {
-    DC: 20,
-    encounterDC: 1
-  },
-  numberOfDays: 100,
-  pace: 'fast',
-  speed: 2
-});
-
-console.log(DifficultTerrainFastPace);
+const myResolver = world(HewHackinstone);
+for(let i = 0; i < 10; i ++) {
+  console.log(myResolver.navigationCheck());
+}
