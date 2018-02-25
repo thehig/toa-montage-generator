@@ -5,9 +5,15 @@ import { montage } from '../logic/montage';
 import { paceModifiers, speeds, directions, weather } from '../data/consts';
 
 // Take some override props and create a resolver with the default values and overrides
-const buildResolver = overrides =>
-  resolver(
-    Object.assign({}, { paces: paceModifiers, speeds, directions, weather }, overrides)
+const buildMontage = overrides =>
+  montage(
+    resolver(
+      Object.assign(
+        {},
+        { paces: paceModifiers, speeds, directions, weather },
+        overrides
+      )
+    )
   );
 
 /*
@@ -31,44 +37,60 @@ const buildResolver = overrides =>
       }
  */
 
-const aGoodDaysResolver = buildResolver({
-  dice: {
-    d20: _dArray([
-      16, 12,     // Navigation with advantage
-      15, 4, 12,  // Encounters
-      3, 6, 12    // Weather
-    ])
-    // No d100 override because no Encounter triggers
-    // No d6 override because no Navigation fails
-    // No d4 override because pace is normal
-  }
-});
-
-const day = {
-  navigation: aGoodDaysResolver.navigationCheck({}),
-  encounters: [
-    aGoodDaysResolver.encounterCheck(),
-    aGoodDaysResolver.encounterCheck(),
-    aGoodDaysResolver.encounterCheck(),
-  ],
-  weather: [
-    aGoodDaysResolver.weatherCheck(),
-    aGoodDaysResolver.weatherCheck(),
-    aGoodDaysResolver.weatherCheck(),
-  ]
+const dayOptions = {
+  navigator: {
+    advantage: true
+  },
+  encounterDC: 16
 };
 
-console.log(JSON.stringify(day));
 
-describe('Montage', () => {
-  it('takes a resolver as a parameter');
-  it('takes param numDays');
 
-  it('runs for the specified numDays if no triggers stop it');
+describe.only('Montage', () => {
+  describe('day', () => {
+    it('returns an uneventful days travel', () => {
+      const day = buildMontage({
+        dice: {
+          d20: _dArray([
+            16, 12, // Navigation with advantage 
+            15, 4, 12, // Encounters
+            3, 6, 12, // Weather
+          ]),
+          // No d100 override because no Encounter triggers
+          // No d6 override because no Navigation fails
+          // No d4 override because pace is normal
+        },
+      })(dayOptions).day();
 
-  describe('day solver', () => {
-    it('stops on torrential weather');
-    it('stops on encounter');
-    it('stops on becameFound');
+      // Navigation
+      expect(day.navigation.success).toBe(true);
+      expect(day.navigation.rolls.length).toBe(1);
+      expect(day.navigation.rolls[0].roll).toBe(16);
+      expect(day.navigation.rolls[0].rolls.length).toBe(2);
+      expect(day.navigation.rolls[0].rolls[0]).toBe(16);
+      expect(day.navigation.rolls[0].rolls[1]).toBe(12);
+
+      // Encounters
+      expect(day.encounters.length).toBe(3);
+      expect(day.encounters[0].encounterRoll.roll).toBe(15);
+      expect(day.encounters[1].encounterRoll.roll).toBe(4);
+      expect(day.encounters[2].encounterRoll.roll).toBe(12);
+      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(0);
+
+      // Weather
+      expect(day.weather.length).toBe(3);
+      expect(day.weather[0].weatherRoll.roll).toBe(3);
+      expect(day.weather[0].name).toBe('none');
+      expect(day.weather[1].weatherRoll.roll).toBe(6);
+      expect(day.weather[1].name).toBe('light');
+      expect(day.weather[2].weatherRoll.roll).toBe(12);
+      expect(day.weather[2].name).toBe('medium');
+    });
+
+    // it('stops on torrential weather');
+
+    // it('stops on encounter');
+
+    // it('stops on becameFound');
   });
 });

@@ -1,4 +1,4 @@
-export const montage = resolver => ({ navigator, pace, speed, navigationDC, encounterDC }) => {
+export const montage = resolver => ({ navigator, pace, speed, navigationDC, encounterDC } = {}) => {
   const day = () => ({
     navigation: resolver.navigationCheck({
       navigator, pace, speed, DC: navigationDC
