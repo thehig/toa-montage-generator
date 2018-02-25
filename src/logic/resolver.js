@@ -7,7 +7,7 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
   resolverFunctions.navigationCheck = ({ navigator, DC = 10, pace = 'normal', speed = 'walk', lost = false }) => {
     const navigationResults = {
       rolls: [],
-      startedlost: lost,
+      startedLost: lost,
       pace,
       speed
     };
@@ -21,6 +21,7 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     });
     navigationResults.rolls.push(navigationCheck);
     navigationResults.success = navigationCheck.success;
+    navigationResults.lost = !navigationCheck.success;
     
     const speedVal = speeds.hasOwnProperty(speed) ? speeds[speed] : 1;
 
@@ -41,6 +42,7 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     if(!navigationCheck.success) {
       navigationResults.lost = true;
       const lostDirection = rollA.d6('direction');
+      console.log(lostDirection);
       navigationResults.rolls.push(lostDirection);
       navigationResults.direction = directions[lostDirection.roll - 1];
     }

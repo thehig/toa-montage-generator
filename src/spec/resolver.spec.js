@@ -124,45 +124,45 @@ describe('resolver', () => {
     });
   });
 
-  describe.skip('direction', () => {
-    const navcheck = buildResolver({
+  describe('direction', () => {
+    const navcheckd6 = returnNumber => buildResolver({
       paces: paceModifiers,
       speeds,
-      dice: { d20: _dArray([11]), d6: _dArray([1, 2, 3, 4, 5, 6]) },
+      dice: { d20: _dArray([11]), d6: _dArray(returnNumber) },
     }).navigationCheck;
 
     it('should return direction N if fails with a 1', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([1])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('N');
     });
 
     it('should return direction NE if fails with a 2', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([2])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('NE');
     });
 
     it('should return direction SE if fails with a 3', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([3])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('SE');
     });
 
     it('should return direction S if fails with a 4', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([4])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('S');
     });
 
     it('should return direction SW if fails with a 5', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([5])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('SW');
     });
 
     it('should return direction NW if fails with a 6', () => {
-      const check = navcheck({ navigator, versus: 12 });
+      const check = navcheckd6([6])({ navigator, DC: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('NW');
     });
