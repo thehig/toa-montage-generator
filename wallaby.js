@@ -18,7 +18,7 @@ module.exports = function (wallaby) {
       '!src/stories/**/*.*'
     ],
 
-    tests: ['src/**/*.spec.js?(x)'],
+    tests: ['src/spec/*.spec.js?(x)'],
 
     env: {
       type: 'node',
