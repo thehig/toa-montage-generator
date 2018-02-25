@@ -1,7 +1,7 @@
 import randomDice from './dice';
 
 export const resolver = ({ dice, paces, speeds, directions, weather }) => {
-  const rollA = { ...randomDice, ...dice };
+  const rollA = Object.assign({}, randomDice, dice);
 
   const navigationCheck = ({
     navigator,
@@ -22,11 +22,10 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     navigationResults.paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
 
     // Roll the d20 with the navigators adv/disadv and modifier versus the terrain DC
-    const navigationCheck = rollA.d20({
-      ...navigator,
+    const navigationCheck = rollA.d20(Object.assign({}, navigator, {
       name: 'navigation check',
       versus: DC + navigationResults.paceMod,
-    });
+    }));
 
     // Store the navigation roll
     navigationResults.rolls.push(navigationCheck);
@@ -79,7 +78,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     return navigationResults;
   };
 
-  const encounterCheck = ({ DC = 10 }) => {
+  const encounterCheck = ({ DC = 10 } = {}) => {
     const encounterResult = {};
 
     encounterResult.encounterRoll = rollA.d20({
