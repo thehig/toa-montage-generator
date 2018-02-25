@@ -47,4 +47,9 @@ describe('resolver', () => {
 
     });
   });
+
+  describe('distance', () => {});
+  describe('direction', () => {});
+  describe('encounter', () => {});
+  describe('weather', () => {});
 });
