@@ -3,8 +3,11 @@ import { resolver } from '../logic/resolver';
 
 import { paceModifiers, speeds, directions } from '../data/consts';
 
+// Take some override props and create a resolver with the default values and overrides
 const buildResolver = overrides =>
-  resolver(Object.assign({}, { paceModifiers, speeds, directions }, overrides));
+  resolver(
+    Object.assign({}, { paces: paceModifiers, speeds, directions }, overrides)
+  );
 
 describe('resolver', () => {
   it('takes world params and returns an object', () =>
@@ -13,8 +16,6 @@ describe('resolver', () => {
   describe('navigation check', () => {
     it('takes navigator, terrain and pace params', () => {
       const navcheck = buildResolver({
-        paces: paceModifiers,
-        speeds,
         dice: { d20: _dArray([11]) },
       }).navigationCheck;
 
@@ -27,8 +28,6 @@ describe('resolver', () => {
     });
 
     const navcheck = buildResolver({
-      paces: paceModifiers,
-      speeds,
       dice: { d20: _dArray([11]) },
     }).navigationCheck;
 
@@ -66,18 +65,12 @@ describe('resolver', () => {
 
     describe('distance/pace', () => {
       const navcheck = buildResolver({
-        paces: paceModifiers,
-        speeds,
         dice: { d20: _dArray([11]) },
       }).navigationCheck;
       const navcheckD4Low = buildResolver({
-        paces: paceModifiers,
-        speeds,
         dice: { d20: _dArray([11]), d4: _dArray([1, 2]) },
       }).navigationCheck;
       const navcheckD4High = buildResolver({
-        paces: paceModifiers,
-        speeds,
         dice: { d20: _dArray([11]), d4: _dArray([3, 4]) },
       }).navigationCheck;
       const navigator = {};
@@ -125,8 +118,6 @@ describe('resolver', () => {
     describe('lost', () => {
       const navcheckD20 = returnNumber =>
         buildResolver({
-          paces: paceModifiers,
-          speeds,
           dice: { d20: _dArray(returnNumber) },
         }).navigationCheck;
       it('becomes lost after a failed nav check', () => {
@@ -150,8 +141,6 @@ describe('resolver', () => {
     describe('direction', () => {
       const navcheckd6 = returnNumber =>
         buildResolver({
-          paces: paceModifiers,
-          speeds,
           dice: { d20: _dArray([11]), d6: _dArray(returnNumber) },
         }).navigationCheck;
 
@@ -196,8 +185,6 @@ describe('resolver', () => {
   describe('encounter', () => {
     const encounterD20 = (d20, d100) =>
       buildResolver({
-        paces: paceModifiers,
-        speeds,
         dice: { d20: _dArray(d20), d100: _dArray(d100) },
       }).encounter;
 
@@ -208,7 +195,7 @@ describe('resolver', () => {
       expect(encounterResult.encounterRoll.success).toBe(true);
       expect(encounterResult.encounter).toBe(50);
     });
-  
+
     it('returns false for 10 vs 16', () => {
       const encounterResult = encounterD20([10], [50])({
         DC: 16,
@@ -218,5 +205,16 @@ describe('resolver', () => {
     });
   });
 
-  describe('weather', () => {});
+  describe('weather', () => {
+    const weatherD20 = d20 =>
+      buildResolver({
+        dice: { d20: _dArray(d20) },
+      }).weather;
+
+    it('returns "none" for 1 - 5');
+    it('returns "light" for 6 - 10');
+    it('returns "medium" for 11 - 15');
+    it('returns "heavy" for 16 - 18');
+    it('returns "torrent" for 19 - 20');
+  });
 });
