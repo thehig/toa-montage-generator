@@ -1,12 +1,12 @@
 import { _dArray } from '../logic/dice';
 import { resolver } from '../logic/resolver';
 
-import { paceModifiers, speeds, directions } from '../data/consts';
+import { paceModifiers, speeds, directions, weather } from '../data/consts';
 
 // Take some override props and create a resolver with the default values and overrides
 const buildResolver = overrides =>
   resolver(
-    Object.assign({}, { paces: paceModifiers, speeds, directions }, overrides)
+    Object.assign({}, { paces: paceModifiers, speeds, directions, weather }, overrides)
   );
 
 describe('resolver', () => {
@@ -211,10 +211,11 @@ describe('resolver', () => {
         dice: { d20: _dArray(d20) },
       }).weather;
 
-    it('returns "none" for 1 - 5');
-    it('returns "light" for 6 - 10');
-    it('returns "medium" for 11 - 15');
-    it('returns "heavy" for 16 - 18');
-    it('returns "torrent" for 19 - 20');
+
+    it('returns "none" for 1 - 5', () => expect(weatherD20([1, 2, 3, 4, 5])().name).toBe('none'));
+    it('returns "light" for 6 - 10', () => expect(weatherD20([6, 7, 8, 9, 10])().name).toBe('light'));
+    it('returns "medium" for 11 - 15', () => expect(weatherD20([11, 12, 13, 14, 15])().name).toBe('medium'));
+    it('returns "heavy" for 16 - 18', () => expect(weatherD20([16, 17, 18])().name).toBe('heavy'));
+    it('returns "torrent" for 19 - 20', () => expect(weatherD20([19, 20])().name).toBe('torrent'));
   });
 });

@@ -1,6 +1,6 @@
 import randomDice from './dice';
 
-export const resolver = ({ dice, paces, speeds, directions }) => {
+export const resolver = ({ dice, paces, speeds, directions, weather }) => {
   const resolverFunctions = {};
   const rollA = { ...randomDice, ...dice };
 
@@ -95,6 +95,24 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     }
 
     return encounterResult;
+  };
+
+  resolverFunctions.weather = () => {
+    const weatherRoll = rollA.d20('Weather');
+
+    // Find the weather value that matches this roll
+    const weatherResult = Object.keys(weather).filter(
+      key => {
+        const effect = weather[key];
+        return weatherRoll.roll >= effect.min && weatherRoll.roll <= effect.max;
+      }
+    )[0];
+
+    return {
+      weatherRoll,
+      name: weatherResult,
+      effect: weather[weatherResult]
+    };
   };
 
   return resolverFunctions;
