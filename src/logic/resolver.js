@@ -2,7 +2,7 @@ import randomDice from './dice';
 
 export const resolver = ({ dice, paces, speeds, directions }) => {
   const resolverFunctions = {};
-  const rollA = {...randomDice, dice};
+  const rollA = {...randomDice, ...dice};
 
   resolverFunctions.navigationCheck = ({ navigator, DC = 10, pace = 'normal', speed = 'walk', lost = false }) => {
     const navigationResults = {
