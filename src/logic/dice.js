@@ -33,6 +33,10 @@ export const roll = die => options => {
     result.roll = result.rolls[0];
   }
 
+  if (versus) {
+    result.success = result.roll + modifier >= versus;
+  }
+
   return result;
 };
 

@@ -40,3 +40,14 @@ describe('advantage', () => {
     expect(result.rolls.length).toBe(1);
   })
 });
+
+describe('versus', () => {
+  const d20 = _dArray([12, 15]);
+  it("is true if d20 > 10", () => expect(d20({versus: 10}).success).toBe(true));
+  it("is false if d20 < 20", () => expect(d20({versus: 20}).success).toBe(false));
+
+  it("includes the modifier", () => {
+    expect(d20({versus: 10, modifier: -20}).success).toBe(false);
+    expect(d20({versus: 20, modifier: 10}).success).toBe(true);
+  });
+});
