@@ -80,6 +80,10 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     return navigationResults;
   };
 
+  resolverFunctions.encounter = ({ DC = 10 }) => {
+    return rollA.d20({ versus: DC, name: "Encounter" });
+  };
+
   return resolverFunctions;
 };
 

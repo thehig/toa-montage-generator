@@ -146,6 +146,7 @@ describe('resolver', () => {
         expect(check.becameFound).toBe(true);
       });
     });
+
     describe('direction', () => {
       const navcheckd6 = returnNumber =>
       buildResolver({
@@ -193,11 +194,21 @@ describe('resolver', () => {
   });
 
   describe('encounter', () => {
-    const encounter = buildResolver({
+    const encounterD20 = diceresults => buildResolver({
       paces: paceModifiers,
       speeds,
-      dice: { d20: _dArray([11]) },
+      dice: { d20: _dArray(diceresults) },
     }).encounter;
+
+    it('returns true for 20 vs 16', () => {
+      const encounterResult = encounterD20([20])({ DC: 16 }).success;
+      expect(encounterResult).toBe(true);
+    });
+
+    it('returns false for 10 vs 16', () => {
+      const encounterResult = encounterD20([10])({ DC: 16 }).success;
+      expect(encounterResult).toBe(false);
+    });
   });
 
   describe('weather', () => {});
