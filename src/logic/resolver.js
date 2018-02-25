@@ -64,8 +64,19 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
       // Roll a d6 to determine what direction is travelled
       const lostDirection = rollA.d6({name: 'lost direction'});
       navigationResults.rolls.push(lostDirection);
+      // Convert to letter notation for Hexes
       navigationResults.direction = directions[lostDirection.roll - 1];
     }
+
+    // Determine the status of the party after this navigation check
+    if(!navigationCheck.success && !lost) {
+      navigationResults.becameLost = true;
+    } else if(!navigationCheck.success && lost) {
+      navigationResults.stillLost = true;
+    } else if(navigationCheck.success && lost) {
+      navigationResults.becameFound = true;
+    }
+
     return navigationResults;
   };
 
