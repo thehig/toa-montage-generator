@@ -1,54 +1,44 @@
+import { _dArray } from './src/logic/dice';
+import { resolver } from './src/logic/resolver';
+// import { montage } from './src/logic/montage';
 
-// What I want to write is d20({advantage: true, name: "Navigation Check", modifier: +3, versus: 12})
-import dice, { d, _d, _dArray } from './src/logic/dice';
+import { paceModifiers, speeds, directions, weather } from './src/data/consts';
 
-// const { d20 } = dice;
-// const d20 = d(20);
-// const d20 = _d(() => 7);
-const d20 = _dArray([12, 13]);
+// Take some override props and create a resolver with the default values and overrides
+const buildResolver = overrides =>
+  resolver(
+    Object.assign({}, { paces: paceModifiers, speeds, directions, weather }, overrides)
+  );
 
-console.log(d20());
-console.log(d20({advantage: true}));
-console.log(d20({disadvantage: true}));
-console.log(d20({advantage: true, disadvantage: true}));
+const aGoodDaysResolver = buildResolver({
+  dice: {
+    d20: _dArray([
+      16, 12,     // Navigation with advantage
+      15, 4, 12,  // Encounters
+      3, 5, 2     // Weather
+    ])
+    // No d100 override because no Encounter triggers
+    // No d6 override because no Navigation fails
+    // No d4 override because pace is normal
+  }
+});
 
+const day = {
+  navigation: aGoodDaysResolver.navigationCheck({
+    navigator: {
+      advantage: true
+    }
+  }),
+  encounters: [
+    aGoodDaysResolver.encounterCheck({ DC: 16 }),
+    aGoodDaysResolver.encounterCheck({ DC: 16 }),
+    aGoodDaysResolver.encounterCheck({ DC: 16 }),
+  ],
+  weather: [
+    aGoodDaysResolver.weatherCheck(),
+    aGoodDaysResolver.weatherCheck(),
+    aGoodDaysResolver.weatherCheck(),
+  ]
+};
 
-console.log(d20().roll, d20().roll,d20().roll,d20().roll,d20().roll,d20().roll,d20().roll,d20().roll,)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* import { resolver } from './src/logic/resolver';
-
-import * as defaultConsts from './src/data/consts';
-// console.log(defaultConsts);
-
-const world = resolver(defaultConsts);
-
-const HewHackinstone = {
-  survivalMod: +0,
-  miscMod: +2,
-  // advantage: true
-}
-
-const myResolver = world(HewHackinstone);
-for(let i = 0; i < 10; i ++) {
-  console.log(myResolver.navigationCheck());
-} */
+console.log(JSON.stringify(day, null, 4));
