@@ -1,10 +1,37 @@
-export const getRandomInt = (min, max) => (name) => {
+export const getRandomInt = (min, max) => name => {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(`d${max}=${result}: ${name}`);
+  console.log(`d${max}=${result}${name ? name : ''}`);
   return result;
-}
+};
 
-export const d = num => () => getRandomInt(1, num);
+export const roll = die => options => {
+  // Deconstruct options or configure defaults
+  const {
+    name = '',
+    advantage = false,
+    disadvantage = false,
+    modifier = 0,
+    versus = undefined,
+  } = options || {};
+  let result = {
+    options,
+    rolls: [die(), die()],
+    roll: -1,
+  };
+
+  console.log("name", name, "advantage", advantage, "disadvantage", disadvantage, "modifier", modifier, "versus", versus);
+
+  if (advantage && !disadvantage) result.roll = Math.max(...result.rolls);
+  else if (!advantage && disadvantage) result.roll = Math.min(...result.rolls);
+  else {
+    result.rolls.pop();
+    result.roll = result.rolls[0];
+  }
+
+  return result;
+};
+
+export const d = num => roll(getRandomInt(1, num));
 
 export const d2 = d(2);
 export const d4 = d(4);
@@ -16,15 +43,8 @@ export const d20 = d(20);
 export const d100 = d(100);
 export const dice = { d2, d4, d6, d8, d10, d12, d20, d100 };
 
-export const roll = (
-  dice,
-  { advantage = false, disadvantage = false } = {},
-  name = ''
-) => {
-  if (advantage && !disadvantage) return Math.max(dice('roll adv'), dice('roll adv'));
-  if (!advantage && disadvantage) return Math.min(dice('roll disadv'), dice('roll disadv'));
-  return dice();
-};
+export default dice;
+
 /* 
 // Randomness tester
 let iterations = 100000;
