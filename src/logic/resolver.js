@@ -1,22 +1,50 @@
-export const resolver = ({ dice, paces, speeds }) => {
+import randomDice from './dice';
+
+export const resolver = ({ dice, paces, speeds, directions }) => {
   const resolverFunctions = {};
+  const rollA = {...randomDice, dice};
 
-  resolverFunctions.navigationCheck = ({ navigator, DC = 10, pace = 'normal', speed = 'walk' }) => {
-    const paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
+  resolverFunctions.navigationCheck = ({ navigator, DC = 10, pace = 'normal', speed = 'walk', lost = false }) => {
+    const navigationResults = {
+      rolls: [],
+      startedlost: lost,
+      pace,
+      speed
+    };
 
-    const diceResults = dice.d20({
+    navigationResults.paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
+
+    const navigationCheck = rollA.d20({
       ...navigator,
       name: 'navigation check',
-      versus: DC + paceMod,
+      versus: DC + navigationResults.paceMod,
     });
+    navigationResults.rolls.push(navigationCheck);
+    navigationResults.success = navigationCheck.success;
     
     const speedVal = speeds.hasOwnProperty(speed) ? speeds[speed] : 1;
-    
-    if(pace === 'slow') diceResults.distance = dice.d4({ name: `pace: ${pace}`}).roll < 3 ? speedVal -1 : speedVal;
-    else if(pace === 'fast') diceResults.distance = dice.d4({ name: `pace: ${pace}`}).roll > 2 ? speedVal +1 : speedVal;
-    else diceResults.distance = speedVal;
 
-    return diceResults;
+    if(pace === 'slow') {
+      const distanceResult = rollA.d4({ name: `pace: ${pace}`});
+      navigationResults.rolls.push(distanceResult);
+      navigationResults.distance = distanceResult.roll < 3 ? speedVal -1 : speedVal;
+    }
+    else if(pace === 'fast') {
+      const distanceResult = rollA.d4({ name: `pace: ${pace}`});
+      navigationResults.rolls.push(distanceResult);
+      navigationResults.distance = distanceResult.roll > 2 ? speedVal +1 : speedVal;
+    }
+    else {
+      navigationResults.distance = speedVal;
+    }
+
+    if(!navigationCheck.success) {
+      navigationResults.lost = true;
+      const lostDirection = rollA.d6('direction');
+      navigationResults.rolls.push(lostDirection);
+      navigationResults.direction = directions[lostDirection.roll - 1];
+    }
+    return navigationResults;
   };
 
   return resolverFunctions;
