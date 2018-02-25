@@ -15,23 +15,36 @@ export const roll = die => options => {
   } = options || {};
   let result = {
     options,
-    rolls: [die(), die()],
+    rolls: [die()],
     roll: -1,
   };
 
-  console.log("name", name, "advantage", advantage, "disadvantage", disadvantage, "modifier", modifier, "versus", versus);
+  // console.log("name", name, "advantage", advantage, "disadvantage", disadvantage, "modifier", modifier, "versus", versus);
 
-  if (advantage && !disadvantage) result.roll = Math.max(...result.rolls);
-  else if (!advantage && disadvantage) result.roll = Math.min(...result.rolls);
+  if (advantage && !disadvantage) {
+    result.rolls.push(die());
+    result.roll = Math.max(...result.rolls);
+  }
+  else if (!advantage && disadvantage) {
+    result.rolls.push(die());
+    result.roll = Math.min(...result.rolls);
+  }
   else {
-    result.rolls.pop();
     result.roll = result.rolls[0];
   }
 
   return result;
 };
 
-export const d = num => roll(getRandomInt(1, num));
+export const d = sides => roll(getRandomInt(1, sides));
+export const _d = generator => roll(generator);
+export const _dArray = results => {
+  let index = 0;
+  return roll(() => {
+    let result = results[index++ % results.length];
+    return result;
+  });
+}
 
 export const d2 = d(2);
 export const d4 = d(4);
