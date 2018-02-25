@@ -1,13 +1,23 @@
-export const resolver = ({ dice }) => {
+export const resolver = ({ dice, paces, speeds }) => {
   const resolverFunctions = {};
 
-  resolverFunctions.navigationCheck = ({ navigator, DC = 10, paceMod = 0 }) =>
-    dice.d20({
-      advantage: navigator.advantage,
-      disadvantage: navigator.disadvantage,
-      modifier: navigator.modifier,
+  resolverFunctions.navigationCheck = ({ navigator, DC = 10, pace = 'normal', speed = 'walk' }) => {
+    const paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
+
+    const diceResults = dice.d20({
+      ...navigator,
+      name: 'navigation check',
       versus: DC + paceMod,
     });
+    
+    const speedVal = speeds.hasOwnProperty(speed) ? speeds[speed] : 1;
+    
+    if(pace === 'slow') diceResults.distance = dice.d4({ name: `pace: ${pace}`}).roll < 3 ? speedVal -1 : speedVal;
+    else if(pace === 'fast') diceResults.distance = dice.d4({ name: `pace: ${pace}`}).roll > 2 ? speedVal +1 : speedVal;
+    else diceResults.distance = speedVal;
+
+    return diceResults;
+  };
 
   return resolverFunctions;
 };

@@ -14,6 +14,7 @@ module.exports = function (wallaby) {
     files: [
       // 'src/**/*.+(js|jsx|json|snap|css|less|sass|scss|jpg|jpeg|gif|png|svg)',
       'src/logic/**/*.js',
+      'src/data/**/*.js',
       '!src/**/*.spec.js?(x)',
       '!src/stories/**/*.*'
     ],

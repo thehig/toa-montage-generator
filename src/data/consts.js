@@ -4,7 +4,7 @@ export const directions = ['N', 'NE', 'SE', 'S', 'SW', 'NW'];
 
 // # Hexes of travel per day under normal circumstances
 export const speeds = {
-  default: 1,
+  walk: 1,
   boat: 2
 };
 

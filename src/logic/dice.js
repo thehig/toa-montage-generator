@@ -24,12 +24,10 @@ export const roll = die => options => {
   if (advantage && !disadvantage) {
     result.rolls.push(die());
     result.roll = Math.max(...result.rolls);
-  }
-  else if (!advantage && disadvantage) {
+  } else if (!advantage && disadvantage) {
     result.rolls.push(die());
     result.roll = Math.min(...result.rolls);
-  }
-  else {
+  } else {
     result.roll = result.rolls[0];
   }
 
@@ -37,6 +35,9 @@ export const roll = die => options => {
     result.success = result.roll + modifier >= versus;
   }
 
+  console.log(
+    `${name}: ${result.rolls}${versus ? ' vs ' + versus + ' ' + result.success : ''}`
+  );
   return result;
 };
 
@@ -48,7 +49,7 @@ export const _dArray = results => {
     let result = results[index++ % results.length];
     return result;
   });
-}
+};
 
 export const d2 = d(2);
 export const d4 = d(4);
