@@ -1,6 +1,6 @@
 import { _dArray } from './src/logic/dice';
 import { resolver } from './src/logic/resolver';
-// import { montage } from './src/logic/montage';
+import { montage } from './src/logic/montage';
 
 import { paceModifiers, speeds, directions, weather } from './src/data/consts';
 
@@ -23,22 +23,11 @@ const aGoodDaysResolver = buildResolver({
   }
 });
 
-const day = {
-  navigation: aGoodDaysResolver.navigationCheck({
-    navigator: {
-      advantage: true
-    }
-  }),
-  encounters: [
-    aGoodDaysResolver.encounterCheck({ DC: 16 }),
-    aGoodDaysResolver.encounterCheck({ DC: 16 }),
-    aGoodDaysResolver.encounterCheck({ DC: 16 }),
-  ],
-  weather: [
-    aGoodDaysResolver.weatherCheck(),
-    aGoodDaysResolver.weatherCheck(),
-    aGoodDaysResolver.weatherCheck(),
-  ]
-};
+const myMontage = montage(aGoodDaysResolver)({
+  navigator: {
+    advantage: true
+  }
+});
+const day = myMontage.day();
 
 console.log(JSON.stringify(day, null, 4));
