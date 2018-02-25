@@ -3,23 +3,23 @@ import { resolver } from '../logic/resolver';
 
 import { paceModifiers, speeds, directions } from '../data/consts';
 
+const buildResolver = overrides => resolver(Object.assign({}, { paceModifiers, speeds, directions }, overrides));
+
 describe('resolver', () => {
-  const defaultProps = { paceModifiers, speeds, directions };
 
   it('takes world params and returns an object', () =>
     expect(
-      typeof resolver(Object.assign({}, defaultProps, { some: 'function' }))
+      typeof buildResolver({ some: 'function' })
     ).toBe('object'));
 
   describe('navigation check', () => {
     it('takes navigator, terrain and pace params', () => {
-      const navcheck = resolver(
-        Object.assign({}, defaultProps, {
+      const navcheck = buildResolver({
           paces: paceModifiers,
           speeds,
           dice: { d20: _dArray([11]) },
-        })
-      ).navigationCheck;
+        }).navigationCheck;
+
       const navCheck = navcheck({
         navigator: {},
         DC: 10,
@@ -28,13 +28,11 @@ describe('resolver', () => {
       expect(typeof navCheck).toBe('object');
     });
 
-    const navcheck = resolver(
-      Object.assign({}, defaultProps, {
+    const navcheck = buildResolver({
         paces: paceModifiers,
         speeds,
         dice: { d20: _dArray([11]) },
-      })
-    ).navigationCheck;
+      }).navigationCheck;
 
     describe('with a bad navigator (-1)', () => {
       const navigator = { modifier: -1 };
@@ -70,27 +68,22 @@ describe('resolver', () => {
   });
 
   describe('distance', () => {
-    const navcheck = resolver(
-      Object.assign({}, defaultProps, {
+    const navcheck = buildResolver({
         paces: paceModifiers,
         speeds,
         dice: { d20: _dArray([11]) },
-      })
-    ).navigationCheck;
-    const lonavcheck = resolver(
-      Object.assign({}, defaultProps, {
+      }).navigationCheck;
+
+    const lonavcheck = buildResolver({
         paces: paceModifiers,
         speeds,
         dice: { d20: _dArray([11]), d4: _dArray([1, 2]) },
-      })
-    ).navigationCheck;
-    const hinavcheck = resolver(
-      Object.assign({}, defaultProps, {
+      }).navigationCheck;
+    const hinavcheck = buildResolver({
         paces: paceModifiers,
         speeds,
         dice: { d20: _dArray([11]), d4: _dArray([3, 4]) },
-      })
-    ).navigationCheck;
+      }).navigationCheck;
     const navigator = {};
 
     describe('on foot', () => {
@@ -134,13 +127,11 @@ describe('resolver', () => {
   });
 
   describe.skip('direction', () => {
-    const navcheck = resolver(
-      Object.assign({}, defaultProps, {
+    const navcheck = buildResolver({
         paces: paceModifiers,
         speeds,
         dice: { d20: _dArray([11]), d6: _dArray([1, 2, 3, 4, 5, 6]) },
-      })
-    ).navigationCheck;
+      }).navigationCheck;
 
     it('should return direction N if fails with a 1', () => {
       const check = navcheck({ navigator, versus: 12 });
