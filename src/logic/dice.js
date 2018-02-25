@@ -1,6 +1,6 @@
 export const getRandomInt = (min, max) => name => {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
-  console.log(`d${max}=${result}${name ? name : ''}`);
+  // console.log(`d${max}=${result}${name ? name : ''}`);
   return result;
 };
 
@@ -35,9 +35,9 @@ export const roll = die => options => {
     result.success = result.roll + modifier >= versus;
   }
 
-  console.log(
-    `${name}: ${result.rolls}${versus ? ' vs ' + versus + ' ' + result.success : ''}`
-  );
+  // console.log(
+  //   `${name}: ${result.rolls}${versus ? ' vs ' + versus + '' + result.success : ''}`
+  // );
   return result;
 };
 
