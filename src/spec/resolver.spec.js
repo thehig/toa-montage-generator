@@ -186,7 +186,7 @@ describe('resolver', () => {
     const encounterD20 = (d20, d100) =>
       buildResolver({
         dice: { d20: _dArray(d20), d100: _dArray(d100) },
-      }).encounter;
+      }).encounterCheck;
 
     it('returns encounter roll for 20 vs 16', () => {
       const encounterResult = encounterD20([20], [50])({
@@ -209,7 +209,7 @@ describe('resolver', () => {
     const weatherD20 = d20 =>
       buildResolver({
         dice: { d20: _dArray(d20) },
-      }).weather;
+      }).weatherCheck;
 
 
     it('returns "none" for 1 - 5', () => expect(weatherD20([1, 2, 3, 4, 5])().name).toBe('none'));

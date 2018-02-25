@@ -1,10 +1,9 @@
 import randomDice from './dice';
 
 export const resolver = ({ dice, paces, speeds, directions, weather }) => {
-  const resolverFunctions = {};
   const rollA = { ...randomDice, ...dice };
 
-  resolverFunctions.navigationCheck = ({
+  const navigationCheck = ({
     navigator,
     DC = 10,
     pace = 'normal',
@@ -80,7 +79,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     return navigationResults;
   };
 
-  resolverFunctions.encounter = ({ DC = 10 }) => {
+  const encounterCheck = ({ DC = 10 }) => {
     const encounterResult = {};
 
     encounterResult.encounterRoll = rollA.d20({
@@ -97,7 +96,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     return encounterResult;
   };
 
-  resolverFunctions.weather = () => {
+  const weatherCheck = () => {
     const weatherRoll = rollA.d20('Weather');
 
     // Find the weather value that matches this roll
@@ -115,7 +114,11 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     };
   };
 
-  return resolverFunctions;
+  return {
+    navigationCheck,
+    encounterCheck,
+    weatherCheck
+  };
 };
 
 // const daysTravel = ({ dice }) =>
