@@ -62,18 +62,18 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     if (!navigationCheck.success) {
       navigationResults.lost = true;
       // Roll a d6 to determine what direction is travelled
-      const lostDirection = rollA.d6({name: 'lost direction'});
+      const lostDirection = rollA.d6({ name: 'Lost Direction' });
       navigationResults.rolls.push(lostDirection);
       // Convert to letter notation for Hexes
       navigationResults.direction = directions[lostDirection.roll - 1];
     }
 
     // Determine the status of the party after this navigation check
-    if(!navigationCheck.success && !lost) {
+    if (!navigationCheck.success && !lost) {
       navigationResults.becameLost = true;
-    } else if(!navigationCheck.success && lost) {
+    } else if (!navigationCheck.success && lost) {
       navigationResults.stillLost = true;
-    } else if(navigationCheck.success && lost) {
+    } else if (navigationCheck.success && lost) {
       navigationResults.becameFound = true;
     }
 
@@ -81,7 +81,20 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
   };
 
   resolverFunctions.encounter = ({ DC = 10 }) => {
-    return rollA.d20({ versus: DC, name: "Encounter" });
+    const encounterResult = {};
+
+    encounterResult.encounterRoll = rollA.d20({
+      versus: DC,
+      name: 'Encounter Chance',
+    });
+    if (encounterResult.encounterRoll.success) {
+      encounterResult.tableRoll = rollA.d100({ name: 'Encounter Table' });
+      encounterResult.encounter = encounterResult.tableRoll.roll;
+    } else {
+      encounterResult.encounter = false;
+    }
+
+    return encounterResult;
   };
 
   return resolverFunctions;

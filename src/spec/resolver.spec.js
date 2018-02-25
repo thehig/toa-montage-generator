@@ -139,7 +139,7 @@ describe('resolver', () => {
         expect(check.lost).toBe(true);
         expect(check.stillLost).toBe(true);
       });
-      
+
       it('becomes found after successful nav check', () => {
         const check = navcheckD20([20])({ navigator, DC: 12, lost: true });
         expect(check.lost).toBe(false);
@@ -149,11 +149,11 @@ describe('resolver', () => {
 
     describe('direction', () => {
       const navcheckd6 = returnNumber =>
-      buildResolver({
-        paces: paceModifiers,
-        speeds,
-        dice: { d20: _dArray([11]), d6: _dArray(returnNumber) },
-      }).navigationCheck;
+        buildResolver({
+          paces: paceModifiers,
+          speeds,
+          dice: { d20: _dArray([11]), d6: _dArray(returnNumber) },
+        }).navigationCheck;
 
       it('should return direction N if fails with a 1', () => {
         const check = navcheckd6([1])({ navigator, DC: 12 });
@@ -194,20 +194,27 @@ describe('resolver', () => {
   });
 
   describe('encounter', () => {
-    const encounterD20 = diceresults => buildResolver({
-      paces: paceModifiers,
-      speeds,
-      dice: { d20: _dArray(diceresults) },
-    }).encounter;
+    const encounterD20 = (d20, d100) =>
+      buildResolver({
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray(d20), d100: _dArray(d100) },
+      }).encounter;
 
-    it('returns true for 20 vs 16', () => {
-      const encounterResult = encounterD20([20])({ DC: 16 }).success;
-      expect(encounterResult).toBe(true);
+    it('returns encounter roll for 20 vs 16', () => {
+      const encounterResult = encounterD20([20], [50])({
+        DC: 16,
+      });
+      expect(encounterResult.encounterRoll.success).toBe(true);
+      expect(encounterResult.encounter).toBe(50);
     });
-
+  
     it('returns false for 10 vs 16', () => {
-      const encounterResult = encounterD20([10])({ DC: 16 }).success;
-      expect(encounterResult).toBe(false);
+      const encounterResult = encounterD20([10], [50])({
+        DC: 16,
+      });
+      expect(encounterResult.encounterRoll.success).toBe(false);
+      expect(encounterResult.encounter).toBe(false);
     });
   });
 
