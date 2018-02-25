@@ -11,6 +11,7 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
     speed = 'walk',
     lost = false,
   }) => {
+    // Start with our default results object
     const navigationResults = {
       rolls: [],
       startedLost: lost,
@@ -18,39 +19,50 @@ export const resolver = ({ dice, paces, speeds, directions }) => {
       speed,
     };
 
+    // Figure out what the DC modifier is for the selected pace ('slow', 'normal', 'fast')
     navigationResults.paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
 
+    // Roll the d20 with the navigators adv/disadv and modifier versus the terrain DC
     const navigationCheck = rollA.d20({
       ...navigator,
       name: 'navigation check',
       versus: DC + navigationResults.paceMod,
     });
+
+    // Store the navigation roll
     navigationResults.rolls.push(navigationCheck);
+
+    // Store success and lost (inverse)
     navigationResults.success = navigationCheck.success;
     navigationResults.lost = !navigationCheck.success;
 
+    // Determine the distances for the current mode of travel ('walk', 'boat') measured in hexes per day
     const speedVal = speeds.hasOwnProperty(speed) ? speeds[speed] : 1;
 
     if (pace === 'slow') {
+      // Roll d4. On a low roll, players move -1 speed
       const distanceResult = rollA.d4({ name: `pace: ${pace}` });
       navigationResults.rolls.push(distanceResult);
       navigationResults.distance = distanceResult.roll < 3
         ? speedVal - 1
         : speedVal;
     } else if (pace === 'fast') {
+      // Roll a d4. On a high roll, players move +1 speed
       const distanceResult = rollA.d4({ name: `pace: ${pace}` });
       navigationResults.rolls.push(distanceResult);
       navigationResults.distance = distanceResult.roll > 2
         ? speedVal + 1
         : speedVal;
     } else {
+      // Normal pace for the mode of travel
       navigationResults.distance = speedVal;
     }
 
+    // If navigation failed, we get lost
     if (!navigationCheck.success) {
       navigationResults.lost = true;
-      const lostDirection = rollA.d6('direction');
-      console.log(lostDirection);
+      // Roll a d6 to determine what direction is travelled
+      const lostDirection = rollA.d6({name: 'lost direction'});
       navigationResults.rolls.push(lostDirection);
       navigationResults.direction = directions[lostDirection.roll - 1];
     }
