@@ -7,12 +7,19 @@ describe('resolver', () => {
   const defaultProps = { paceModifiers, speeds, directions };
 
   it('takes world params and returns an object', () =>
-    expect(typeof resolver(Object.assign({}, defaultProps, { some: 'function' }))).toBe('object'));
+    expect(
+      typeof resolver(Object.assign({}, defaultProps, { some: 'function' }))
+    ).toBe('object'));
 
   describe('navigation check', () => {
     it('takes navigator, terrain and pace params', () => {
-      const navcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]) } }))
-        .navigationCheck;
+      const navcheck = resolver(
+        Object.assign({}, defaultProps, {
+          paces: paceModifiers,
+          speeds,
+          dice: { d20: _dArray([11]) },
+        })
+      ).navigationCheck;
       const navCheck = navcheck({
         navigator: {},
         DC: 10,
@@ -21,7 +28,13 @@ describe('resolver', () => {
       expect(typeof navCheck).toBe('object');
     });
 
-    const navcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]) } })).navigationCheck;
+    const navcheck = resolver(
+      Object.assign({}, defaultProps, {
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray([11]) },
+      })
+    ).navigationCheck;
 
     describe('with a bad navigator (-1)', () => {
       const navigator = { modifier: -1 };
@@ -57,9 +70,27 @@ describe('resolver', () => {
   });
 
   describe('distance', () => {
-    const navcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]) } })).navigationCheck;
-    const lonavcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]), d4: _dArray([1, 2]) } })).navigationCheck;
-    const hinavcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]), d4: _dArray([3, 4]) } })).navigationCheck;
+    const navcheck = resolver(
+      Object.assign({}, defaultProps, {
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray([11]) },
+      })
+    ).navigationCheck;
+    const lonavcheck = resolver(
+      Object.assign({}, defaultProps, {
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray([11]), d4: _dArray([1, 2]) },
+      })
+    ).navigationCheck;
+    const hinavcheck = resolver(
+      Object.assign({}, defaultProps, {
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray([11]), d4: _dArray([3, 4]) },
+      })
+    ).navigationCheck;
     const navigator = {};
 
     describe('on foot', () => {
@@ -78,60 +109,71 @@ describe('resolver', () => {
     });
     describe('with a boat', () => {
       it('should have distance 2 when pace is normal', () =>
-        expect(navcheck({ navigator, speed: 'boat', pace: 'normal' }).distance).toBe(2));
+        expect(
+          navcheck({ navigator, speed: 'boat', pace: 'normal' }).distance
+        ).toBe(2));
 
       it('should have distance 1 when pace is slow and d4 rolls low', () =>
-        expect(lonavcheck({ navigator, speed: 'boat', pace: 'slow' }).distance).toBe(1));
+        expect(
+          lonavcheck({ navigator, speed: 'boat', pace: 'slow' }).distance
+        ).toBe(1));
       it('should have distance 2 when pace is slow and d4 rolls high', () =>
-        expect(hinavcheck({ navigator, speed: 'boat', pace: 'slow' }).distance).toBe(2));
+        expect(
+          hinavcheck({ navigator, speed: 'boat', pace: 'slow' }).distance
+        ).toBe(2));
 
       it('should have distance 2 when pace is fast and d4 rolls low', () =>
-        expect(lonavcheck({ navigator, speed: 'boat', pace: 'fast' }).distance).toBe(2));
+        expect(
+          lonavcheck({ navigator, speed: 'boat', pace: 'fast' }).distance
+        ).toBe(2));
       it('should have distance 3 when pace is fast and d4 rolls high', () =>
-        expect(hinavcheck({ navigator, speed: 'boat', pace: 'fast' }).distance).toBe(3));
+        expect(
+          hinavcheck({ navigator, speed: 'boat', pace: 'fast' }).distance
+        ).toBe(3));
     });
   });
 
   describe.skip('direction', () => {
-    const navcheck = resolver(Object.assign({}, defaultProps, { paces: paceModifiers, speeds, dice: { d20: _dArray([11]), d6: _dArray([1, 2, 3, 4, 5, 6]) } })).navigationCheck;
+    const navcheck = resolver(
+      Object.assign({}, defaultProps, {
+        paces: paceModifiers,
+        speeds,
+        dice: { d20: _dArray([11]), d6: _dArray([1, 2, 3, 4, 5, 6]) },
+      })
+    ).navigationCheck;
 
     it('should return direction N if fails with a 1', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('N');
     });
 
-    
     it('should return direction NE if fails with a 2', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('NE');
     });
 
-    
     it('should return direction SE if fails with a 3', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('SE');
     });
 
-    
     it('should return direction S if fails with a 4', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('S');
     });
 
-    
     it('should return direction SW if fails with a 5', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('SW');
     });
 
-    
     it('should return direction NW if fails with a 6', () => {
-      const check = navcheck({navigator, versus: 12});
+      const check = navcheck({ navigator, versus: 12 });
       expect(check.lost).toBe(true);
       expect(check.direction).toBe('NW');
     });
