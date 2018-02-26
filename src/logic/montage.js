@@ -48,7 +48,6 @@ export const montage = resolver => (
         result.reasonsForStopping.push("Weather");
       }
     }
-    console.log(JSON.stringify(result.days[0], null, 2));
     return result;
   };
 
