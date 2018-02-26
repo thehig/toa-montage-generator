@@ -231,6 +231,23 @@ describe('Montage', () => {
       expect(travel.reasonsForStopping.length).toBe(1);
       expect(travel.reasonsForStopping[0]).toBe("Became Found");
     });
+    it('can offset the days index', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            20, // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+          ]),
+        },
+      })().travel(3, { daysOffset: 17 });
+
+      expect(travel.completed).toBe(true);
+      expect(travel.days.length).toBe(3);
+      expect(travel.reasonsForStopping.length).toBe(0);
+
+      expect(travel.days[2].index).toBe(20);
+    })
   });
 
   describe('Multi-day travel', () => {

@@ -21,7 +21,7 @@ export const montage = resolver => (
     ],
   });
 
-  const travel = (numDays, { lost = false } = {}) => {
+  const travel = (numDays, { lost = false, daysOffset = 0 } = {}) => {
     const result = {
       days: [],
       completed: true,
@@ -33,7 +33,7 @@ export const montage = resolver => (
       if (result.completed === false) break;
 
       const daysTravel = day(result.lost);
-      daysTravel.index = i + 1;
+      daysTravel.index = i + 1 + daysOffset;
 
       result.days.push(daysTravel);
       result.distance = result.distance + Number(daysTravel.navigation.distance);
