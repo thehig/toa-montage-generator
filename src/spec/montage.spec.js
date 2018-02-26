@@ -37,22 +37,13 @@ const buildMontage = overrides =>
       }
  */
 
-const dayOptions = {
-  navigator: {
-    advantage: true
-  },
-  encounterDC: 16
-};
-
-
-
 describe.only('Montage', () => {
   describe('day', () => {
     it('returns an uneventful days travel', () => {
       const day = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage 
+            16, 12, // Navigation with advantage
             15, 4, 12, // Encounters
             3, 6, 12, // Weather
           ]),
@@ -60,7 +51,12 @@ describe.only('Montage', () => {
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
         },
-      })(dayOptions).day();
+      })({
+        navigator: {
+          advantage: true,
+        },
+        encounterDC: 16,
+      }).day();
 
       // Navigation
       expect(day.navigation.success).toBe(true);
@@ -69,13 +65,16 @@ describe.only('Montage', () => {
       expect(day.navigation.rolls[0].rolls.length).toBe(2);
       expect(day.navigation.rolls[0].rolls[0]).toBe(16);
       expect(day.navigation.rolls[0].rolls[1]).toBe(12);
+      expect(day.navigation.distance).toBe(1);
 
       // Encounters
       expect(day.encounters.length).toBe(3);
       expect(day.encounters[0].encounterRoll.roll).toBe(15);
       expect(day.encounters[1].encounterRoll.roll).toBe(4);
       expect(day.encounters[2].encounterRoll.roll).toBe(12);
-      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(0);
+      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(
+        0
+      );
 
       // Weather
       expect(day.weather.length).toBe(3);
@@ -87,10 +86,68 @@ describe.only('Montage', () => {
       expect(day.weather[2].name).toBe('medium');
     });
 
-    // it('stops on torrential weather');
+    it('returns a bad days travel', () => {
+      const day = buildMontage({
+        dice: {
+          d20: _dArray([
+            4, 6, // Navigation with disadvantage
+            18, 16, 19, // Encounter rolls
+            18, 19, 19, // Weather rolls
+          ]),
+          d100: _dArray([
+            95, 21, 66, // Encounters
+          ]),
+          d6: _dArray([4]), // Lost direction
+          d4: _dArray([1]), // Pace
+        },
+      })({
+        navigator: {
+          disadvantage: true
+        },
+        pace: 'slow',
+        encounterDC: 16
+      }).day();
 
-    // it('stops on encounter');
+      // Navigation
+      expect(day.navigation.success).toBe(false);
+      expect(day.navigation.becameLost).toBe(true);
+      expect(day.navigation.rolls.length).toBe(3);
+      expect(day.navigation.rolls[0].roll).toBe(4);
+      expect(day.navigation.rolls[0].rolls.length).toBe(2);
+      expect(day.navigation.rolls[0].rolls[0]).toBe(4);
+      expect(day.navigation.rolls[0].rolls[1]).toBe(6);
 
-    // it('stops on becameFound');
+      // TODO: No direction if distance == 0
+      expect(day.navigation.direction).toBe('S');
+      expect(day.navigation.distance).toBe(0);
+
+      // Encounters
+      expect(day.encounters.length).toBe(3);
+      expect(day.encounters[0].encounterRoll.roll).toBe(18);
+      expect(day.encounters[0].encounter).toBe(95);
+      expect(day.encounters[1].encounterRoll.roll).toBe(16);
+      expect(day.encounters[1].encounter).toBe(21);
+      expect(day.encounters[2].encounterRoll.roll).toBe(19);
+      expect(day.encounters[2].encounter).toBe(66);
+      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(
+        3
+      );
+
+      // Weather
+      expect(day.weather.length).toBe(3);
+      expect(day.weather[0].weatherRoll.roll).toBe(18);
+      expect(day.weather[0].name).toBe('heavy');
+      expect(day.weather[1].weatherRoll.roll).toBe(19);
+      expect(day.weather[1].name).toBe('torrent');
+      expect(day.weather[2].weatherRoll.roll).toBe(19);
+      expect(day.weather[2].name).toBe('torrent');
+    });
   });
+
+  // describe('travel', () => {
+  //   it('runs for N days without incident');
+  //   it('stops on torrential weather');
+  //   it('stops on encounter');
+  //   it('stops on becameFound');
+  // });
 });
