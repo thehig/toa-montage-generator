@@ -233,13 +233,13 @@ describe('Montage', () => {
     });
   });
 
-  describe('Complex travel', () => {
-    it('stops on BecameFound', () => {
+  describe('Multi-day travel', () => {
+    it('Lost on day one, found on day 3', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
             // Day 1
-            20,      // Navigation
+            1,      // Navigation
             1, 1, 1, // Encounters
             1, 1, 1, // Weather
             
@@ -256,25 +256,101 @@ describe('Montage', () => {
         },
       })({
         /* navigator */
-        advantage: false,
-        disadvantage: false,
-        lost: false
       }).travel(5);
-
-      // console.log(JSON.stringify(travel, null, 2));
-      // const rolls = travel.days.map((day, index) => ({
-      //   day: index + 1,
-      //   navRolls: day.navigation.rolls.map(roll => roll.roll),
-      //   encounterRolls: day.encounters.map(enc => enc.encounterRoll.roll),
-      //   weatherRolls: day.weather.map(weather => weather.weatherRoll.roll),
-      // }));
-
-      // console.log(rolls);
   
       expect(travel.completed).toBe(false);
       expect(travel.days.length).toBe(3);
       expect(travel.reasonsForStopping.length).toBe(1);
       expect(travel.reasonsForStopping[0]).toBe("Became Found");
     });
+
+    it('Encounter on day 2', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            // Day 1
+            1,      // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+            
+            // Day 2
+            1,        // Navigation
+            1, 20, 1, // Encounters
+            1, 1, 1,  // Weather
+          ]),
+        },
+      })({
+        /* navigator */
+      }).travel(5);
+  
+      expect(travel.completed).toBe(false);
+      expect(travel.days.length).toBe(2);
+      expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Encounter(s)");
+    });
+
+    it('Torrent on day 5', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            // Day 1
+            1,      // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+            
+            // Day 2
+            1,        // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1,  // Weather
+            
+            // Day 3
+            1,        // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1,  // Weather
+            
+            // Day 4
+            1,        // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1,  // Weather
+            
+            // Day 5
+            1,        // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 20,  // Weather
+
+          ]),
+        },
+      })({
+        /* navigator */
+      }).travel(5);
+  
+      expect(travel.completed).toBe(false);
+      expect(travel.days.length).toBe(5);
+      expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Weather");
+    });
+
+    
+    it('5 days fast pace walking distance is 10 hexes', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            20,         // Navigation
+            1, 1, 1,    // Encounters
+            1, 1, 1,    // Weather
+          ]),
+          d4: _dArray([4])
+        },
+      })({
+        /* navigator */
+      }).travel(5);
+  
+      expect(travel.completed).toBe(true);
+      expect(travel.days.length).toBe(5);
+      expect(travel.reasonsForStopping.length).toBe(0);
+      expect(travel.distance.length).toBe(10);
+    });
+
+    it('starts lost, becameFound on day 1');
   });
 });
