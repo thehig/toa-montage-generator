@@ -21,13 +21,13 @@ export const montage = resolver => (
     ],
   });
 
-  const travel = numDays => {
+  const travel = (numDays, { lost = false } = {}) => {
     const result = {
       days: [],
       completed: true,
       reasonsForStopping: [],
       distance: 0,
-      lost: false
+      lost
     };
     for (let i = 0; i < numDays; i++) {
       if (result.completed === false) break;

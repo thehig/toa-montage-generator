@@ -339,7 +339,7 @@ describe('Montage', () => {
             1, 1, 1,    // Encounters
             1, 1, 1,    // Weather
           ]),
-          d4: _dArray([4])
+          d4: _dArray([4]) // Roll high on pace
         },
       })({
         /* navigator */
@@ -353,6 +353,24 @@ describe('Montage', () => {
       expect(travel.distance).toBe(15);
     });
 
-    it('starts lost, becameFound on day 1');
+    it('starts lost, becameFound on day 1', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            // Day 1
+            20, // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+          ]),
+          d4: _dArray([4])
+        }
+      })({ /* navigator */}).travel(5, { lost: true });
+
+      expect(travel.completed).toBe(false);
+      expect(travel.days.length).toBe(1);
+      expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Became Found");
+      expect(travel.distance).toBe(1);
+    });
   });
 });
