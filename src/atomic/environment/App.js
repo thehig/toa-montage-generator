@@ -8,6 +8,8 @@ import MontageForm from '../organisms/MontageForm';
 import store from '../../redux/store';
 
 class App extends Component {
+  onMontageSubmit = evt => console.log(evt);
+
   render() {
     return (
       <Provider store={store}>
@@ -16,7 +18,7 @@ class App extends Component {
             <img src={logo} className="App-logo" alt="logo" />
             <h1 className="App-title">Welcome to React</h1>
           </header>
-          <MontageForm />
+          <MontageForm onSubmit={this.onMontageSubmit} />
         </div>
       </Provider>
     );
