@@ -164,10 +164,75 @@ describe.only('Montage', () => {
         encounterDC: 16,
       }).travel(200);
       
-      expect(travel.length).toBe(200);
+      expect(travel.completed).toBe(true);
+      expect(travel.days.length).toBe(200);
     });
-    it('stops on torrential weather');
-    it('stops on encounter');
-    it('stops on becameFound');
+    it('stops on torrential weather', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            16, 12, // Navigation with advantage
+            15, 4, 12, // Encounters
+            3, 6, 20, // Weather
+          ]),
+          // No d100 override because no Encounter triggers
+          // No d6 override because no Navigation fails
+          // No d4 override because pace is normal
+        },
+      })({
+        navigator: {
+          advantage: true,
+        },
+        encounterDC: 16,
+      }).travel(200);
+      
+      expect(travel.days.length).toBe(1);
+      expect(travel.reasonsForStopping.length).toBe(1);
+    });
+    it('stops on encounter', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            16, 12, // Navigation with advantage
+            15, 4, 20, // Encounters
+            3, 6, 4, // Weather
+          ]),
+          // No d100 override because no Encounter triggers
+          // No d6 override because no Navigation fails
+          // No d4 override because pace is normal
+        },
+      })({
+        navigator: {
+          advantage: true,
+        },
+        encounterDC: 16,
+      }).travel(200);
+      
+      expect(travel.days.length).toBe(1);
+      expect(travel.reasonsForStopping.length).toBe(1);
+    });
+    it('stops on becameFound', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            16, 12, // Navigation with advantage
+            15, 4, 12, // Encounters
+            3, 6, 12, // Weather
+          ]),
+          // No d100 override because no Encounter triggers
+          // No d6 override because no Navigation fails
+          // No d4 override because pace is normal
+        },
+      })({
+        navigator: {
+          advantage: true,
+        },
+        lost: true,
+        encounterDC: 16,
+      }).travel(200);
+
+      expect(travel.days.length).toBe(1);
+      expect(travel.reasonsForStopping.length).toBe(1);
+    });
   });
 });
