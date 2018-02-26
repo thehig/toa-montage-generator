@@ -22,10 +22,12 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     navigationResults.paceMod = paces.hasOwnProperty(pace) ? paces[pace] : 0;
 
     // Roll the d20 with the navigators adv/disadv and modifier versus the terrain DC
-    const navigationCheck = rollA.d20(Object.assign({}, navigator, {
-      name: 'navigation check',
-      versus: DC + navigationResults.paceMod,
-    }));
+    const navigationCheck = rollA.d20(
+      Object.assign({}, navigator, {
+        name: 'navigation check',
+        versus: DC + navigationResults.paceMod,
+      })
+    );
 
     // Store the navigation roll
     navigationResults.rolls.push(navigationCheck);
@@ -99,24 +101,22 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     const weatherRoll = rollA.d20('Weather');
 
     // Find the weather value that matches this roll
-    const weatherResult = Object.keys(weather).filter(
-      key => {
-        const effect = weather[key];
-        return weatherRoll.roll >= effect.min && weatherRoll.roll <= effect.max;
-      }
-    )[0];
+    const weatherResult = Object.keys(weather).filter(key => {
+      const effect = weather[key];
+      return weatherRoll.roll >= effect.min && weatherRoll.roll <= effect.max;
+    })[0];
 
     return {
       weatherRoll,
       name: weatherResult,
-      effect: weather[weatherResult]
+      effect: weather[weatherResult],
     };
   };
 
   return {
     navigationCheck,
     encounterCheck,
-    weatherCheck
+    weatherCheck,
   };
 };
 

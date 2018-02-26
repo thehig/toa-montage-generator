@@ -14,37 +14,36 @@ export const paceModifiers = {
   fast: +5,
 };
 
-
 export const weather = {
   none: {
     min: 1,
     max: 5,
-    name: "None",
-    effects: ""
+    name: 'None',
+    effects: '',
   },
   light: {
     min: 6,
     max: 10,
-    name: "Light",
-    effects: ""
+    name: 'Light',
+    effects: '',
   },
   medium: {
     min: 11,
     max: 15,
-    name: "Medium",
-    effects: ""
+    name: 'Medium',
+    effects: '',
   },
   heavy: {
     min: 16,
     max: 18,
-    name: "Heavy",
-    effects: ""
+    name: 'Heavy',
+    effects: '',
   },
   torrent: {
     min: 19,
     max: 20,
-    name: "Torrent",
-    effects: ""
+    name: 'Torrent',
+    effects: '',
   },
 };
 

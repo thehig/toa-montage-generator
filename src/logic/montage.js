@@ -25,11 +25,11 @@ export const montage = resolver => (
     const result = {
       days: [],
       completed: true,
-      reasonsForStopping: []
+      reasonsForStopping: [],
     };
     for (let i = 0; i < numDays; i++) {
-      if(result.completed === false) break;
-      
+      if (result.completed === false) break;
+
       const daysTravel = day();
       daysTravel.index = i + 1;
 
@@ -37,15 +37,19 @@ export const montage = resolver => (
 
       if (daysTravel.navigation.becameFound) {
         result.completed = false;
-        result.reasonsForStopping.push("Became Found");
+        result.reasonsForStopping.push('Became Found');
       }
-      if (daysTravel.encounters.filter(enc => enc.encounter !== false).length > 0){
+      if (
+        daysTravel.encounters.filter(enc => enc.encounter !== false).length > 0
+      ) {
         result.completed = false;
-        result.reasonsForStopping.push("Encounter(s)");
+        result.reasonsForStopping.push('Encounter(s)');
       }
-      if (daysTravel.weather.filter(weat => weat.name === "torrent").length > 0) {
+      if (
+        daysTravel.weather.filter(weat => weat.name === 'torrent').length > 0
+      ) {
         result.completed = false;
-        result.reasonsForStopping.push("Weather");
+        result.reasonsForStopping.push('Weather');
       }
     }
     return result;

@@ -9,6 +9,7 @@ const myMontage = montage(
 const HewHackinstone = {
   modifier: +3,
   advantage: true,
+
   // disadvantage: true,
 };
 
@@ -21,7 +22,7 @@ const options = {
   navigator: HewHackinstone,
   pace: 'fast',
   speed: 'boat',
-  lost: true
+  lost: true,
 };
 
 const travelConfig = Object.assign({}, terrain, options);
@@ -35,9 +36,9 @@ if (myResult.completed) {
 }
 
 const myLastDayReadout = {
-  'completed': myResult.completed /*?*/,
-  'days': lastDay.index /*?*/,
-  'distances': myResult.days.map(day => day.navigation.distance) /*?*/,
+  completed: myResult.completed /*?*/,
+  days: lastDay.index /*?*/,
+  distances: myResult.days.map(day => day.navigation.distance) /*?*/,
   'total distance': myResult.days.reduce(
     (acc, next) => acc + next.navigation.distance,
     0
@@ -45,12 +46,12 @@ const myLastDayReadout = {
   'reason for stopping': myResult.reasonsForStopping /*?*/,
   'nav rolls': lastDay.navigation.rolls.map(
     roll =>
-      `${roll.roll}${roll.options.advantage ? '+' : ''}${roll.options.disadvantage ? '-' : ''}${roll.options.name ? " " + roll.options.name : ''}`
+      `${roll.roll}${roll.options.advantage ? '+' : ''}${roll.options.disadvantage ? '-' : ''}${roll.options.name ? ' ' + roll.options.name : ''}`
   ) /*?*/,
   'encounter rolls': lastDay.encounters.map(
     encounter => encounter.encounterRoll.roll
   ) /*?*/,
-  'encounters': lastDay.encounters
+  encounters: lastDay.encounters
     .filter(encounter => encounter.encounter !== false)
     .map(encounter => encounter.encounter) /*?*/,
   'weather rolls': lastDay.weather.map(
