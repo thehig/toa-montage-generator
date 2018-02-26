@@ -207,9 +207,14 @@ describe('Montage', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage
-            15, 4, 12, // Encounters
-            3, 6, 12, // Weather
+            // Day 1
+            1, 1,       // Navigation with advantage
+            1, 1, 1,  // Encounters
+            1, 1, 1,   // Weather
+            // Day 2
+            20, 1,       // Navigation with advantage
+            1, 1, 1,  // Encounters
+            1, 1, 1,   // Weather
           ]),
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
@@ -219,11 +224,55 @@ describe('Montage', () => {
         navigator: {
           advantage: true
         },
-        lost: true,
         encounterDC: 16,
       }).travel(200);
 
-      expect(travel.days.length).toBe(1);
+      expect(travel.days.length).toBe(2);
+      expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Became Found");
+    });
+  });
+
+  describe('Complex travel', () => {
+    it('stops on BecameFound', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            // Day 1
+            20,      // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+            
+            // Day 2
+            1,       // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+  
+            // Day 3
+            20,      // Navigation
+            1, 1, 1, // Encounters
+            1, 1, 1, // Weather
+          ]),
+        },
+      })({
+        /* navigator */
+        advantage: false,
+        disadvantage: false,
+        lost: false
+      }).travel(5);
+
+      // console.log(JSON.stringify(travel, null, 2));
+      // const rolls = travel.days.map((day, index) => ({
+      //   day: index + 1,
+      //   navRolls: day.navigation.rolls.map(roll => roll.roll),
+      //   encounterRolls: day.encounters.map(enc => enc.encounterRoll.roll),
+      //   weatherRolls: day.weather.map(weather => weather.weatherRoll.roll),
+      // }));
+
+      // console.log(rolls);
+  
+      expect(travel.completed).toBe(false);
+      expect(travel.days.length).toBe(3);
       expect(travel.reasonsForStopping.length).toBe(1);
       expect(travel.reasonsForStopping[0]).toBe("Became Found");
     });

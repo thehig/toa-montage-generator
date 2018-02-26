@@ -1,7 +1,7 @@
 export const montage = resolver => (
-  { navigator, pace, speed, navigationDC, encounterDC, lost } = {}
+  { navigator, pace, speed, navigationDC, encounterDC } = {}
 ) => {
-  const day = () => ({
+  const day = (lost = false) => ({
     navigation: resolver.navigationCheck({
       navigator,
       lost,
@@ -26,14 +26,19 @@ export const montage = resolver => (
       days: [],
       completed: true,
       reasonsForStopping: [],
+      lost: false
     };
     for (let i = 0; i < numDays; i++) {
       if (result.completed === false) break;
 
-      const daysTravel = day();
+      const daysTravel = day(result.lost);
       daysTravel.index = i + 1;
 
       result.days.push(daysTravel);
+
+      if(daysTravel.navigation.becameLost) {
+        result.lost = true;
+      }
 
       if (daysTravel.navigation.becameFound) {
         result.completed = false;
@@ -52,7 +57,7 @@ export const montage = resolver => (
         result.reasonsForStopping.push('Weather');
       }
     }
-    return result;
+    return result; /*?*/
   };
 
   return {
