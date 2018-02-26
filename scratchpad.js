@@ -25,10 +25,10 @@ const navcheckOptions = {
     modifier: +3,
     advantage: true
   },
-  pace: "fast",
-  speed: "boat",
+  pace: "slow",
+  speed: "walk",
   encounterDC: 20, // Higher the DC the less likely an encounter is
-  navigationDC: 15 // Higher the DC the more likely to get lost
+  navigationDC: 1 // Higher the DC the more likely to get lost
 };
 
 // Configure Montage
@@ -36,20 +36,16 @@ const navcheckOptions = {
 //    montageStartState:
 //      daysOffset:   Offset the days number in output by this much for chaining montages
 //      lost:         Determine if navigations begins in a 'lost' state
-const numberOfDays = 4;
+const numberOfDays = 1;
 const montageStartState = {
-  daysOffset: 22,
-  lost: true
+  // daysOffset: 22,
+  // lost: true
 };
 
+// ===== Run Montage =====
 const travel = montage(resolver(resolverConfig)) (navcheckOptions) .travel(numberOfDays, montageStartState);
-
 const lastDay = travel.days.pop();
-if (travel.completed) {
-  console.log(`Successfully travelled for ${numberOfDays} days`);
-}
-
-const myLastDayReadout = {
+const readout = {
   completed: travel.completed,
   days: travel.days.length,
   dayNum: lastDay.index,
@@ -70,4 +66,7 @@ const myLastDayReadout = {
   ),
 };
 
-console.log(myLastDayReadout);
+console.log(`
+After ${readout.days} day(s) ${navcheckOptions.speed}ing at a
+${navcheckOptions.pace} pace covering ${readout.distance},
+the party ${readout.completed ? "completes their montage" : "is stopped by trigger(s):\n\t" + readout["reason for stopping"] }`);
