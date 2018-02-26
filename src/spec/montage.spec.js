@@ -26,18 +26,7 @@ const buildMontage = overrides =>
     Weather - d20
 */
 
-/*
-  TODO:
-    Create a resolver that will return the dice values I want, in order
-      {
-        d20: nav, nav?, encounter, encounter, encounter, weather
-        d100: encounter?, encounter?, encounter?
-        d6: direction?
-        d4: pace?
-      }
- */
-
-describe.only('Montage', () => {
+describe('Montage', () => {
   describe('day', () => {
     it('returns an uneventful days travel', () => {
       const day = buildMontage({
@@ -188,6 +177,7 @@ describe.only('Montage', () => {
       
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Weather");
     });
     it('stops on encounter', () => {
       const travel = buildMontage({
@@ -210,6 +200,8 @@ describe.only('Montage', () => {
       
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Encounter(s)");
+
     });
     it('stops on becameFound', () => {
       const travel = buildMontage({
@@ -225,7 +217,7 @@ describe.only('Montage', () => {
         },
       })({
         navigator: {
-          advantage: true,
+          advantage: true
         },
         lost: true,
         encounterDC: 16,
@@ -233,6 +225,7 @@ describe.only('Montage', () => {
 
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
+      expect(travel.reasonsForStopping[0]).toBe("Became Found");
     });
   });
 });

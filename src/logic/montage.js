@@ -1,9 +1,10 @@
 export const montage = resolver => (
-  { navigator, pace, speed, navigationDC, encounterDC } = {}
+  { navigator, pace, speed, navigationDC, encounterDC, lost } = {}
 ) => {
   const day = () => ({
     navigation: resolver.navigationCheck({
       navigator,
+      lost,
       pace,
       speed,
       DC: navigationDC,
@@ -38,16 +39,16 @@ export const montage = resolver => (
         result.completed = false;
         result.reasonsForStopping.push("Became Found");
       }
-      if (daysTravel.encounters.filter(enc => enc.encounter !== false) > 0){
+      if (daysTravel.encounters.filter(enc => enc.encounter !== false).length > 0){
         result.completed = false;
         result.reasonsForStopping.push("Encounter(s)");
       }
-      if (daysTravel.weather.filter(weat => weat.name === "torrent") > 0) {
+      if (daysTravel.weather.filter(weat => weat.name === "torrent").length > 0) {
         result.completed = false;
         result.reasonsForStopping.push("Weather");
       }
     }
-    console.log(JSON.stringify(result, null, 2));
+    console.log(JSON.stringify(result.days[0], null, 2));
     return result;
   };
 
