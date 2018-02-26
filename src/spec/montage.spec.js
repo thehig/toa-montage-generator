@@ -144,10 +144,30 @@ describe.only('Montage', () => {
     });
   });
 
-  // describe('travel', () => {
-  //   it('runs for N days without incident');
-  //   it('stops on torrential weather');
-  //   it('stops on encounter');
-  //   it('stops on becameFound');
-  // });
+  describe('travel', () => {
+    it('runs for 200 days without incident', () => {
+      const travel = buildMontage({
+        dice: {
+          d20: _dArray([
+            16, 12, // Navigation with advantage
+            15, 4, 12, // Encounters
+            3, 6, 12, // Weather
+          ]),
+          // No d100 override because no Encounter triggers
+          // No d6 override because no Navigation fails
+          // No d4 override because pace is normal
+        },
+      })({
+        navigator: {
+          advantage: true,
+        },
+        encounterDC: 16,
+      }).travel(200);
+      
+      expect(travel.length).toBe(200);
+    });
+    it('stops on torrential weather');
+    it('stops on encounter');
+    it('stops on becameFound');
+  });
 });

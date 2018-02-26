@@ -15,7 +15,17 @@ export const montage = resolver => ({ navigator, pace, speed, navigationDC, enco
     ]
   });
 
+  const travel = numDays => {
+    const daysOfTravel = [];
+    for(let i = 0; i < numDays; i++) {
+      const daysTravel = day();
+      daysOfTravel.push(daysTravel);
+    }
+    return daysOfTravel;
+  };
+
   return {
-    day
+    day,
+    travel
   };
 };
