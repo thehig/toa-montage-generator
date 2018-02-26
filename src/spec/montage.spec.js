@@ -331,7 +331,7 @@ describe('Montage', () => {
     });
 
     
-    it.only('5 days fast pace boating distance is 15 hexes', () => {
+    it('5 days fast pace boating distance is 15 hexes', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([

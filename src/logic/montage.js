@@ -36,7 +36,7 @@ export const montage = resolver => (
       daysTravel.index = i + 1;
 
       result.days.push(daysTravel);
-      result.distance = result.distance + Number(daysTravel.navigation.distance /*?*/);
+      result.distance = result.distance + Number(daysTravel.navigation.distance);
       // Trigger stop events
       if(daysTravel.navigation.becameLost) {
         result.lost = true;
