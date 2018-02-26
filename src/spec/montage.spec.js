@@ -331,7 +331,7 @@ describe('Montage', () => {
     });
 
     
-    it('5 days fast pace walking distance is 10 hexes', () => {
+    it.only('5 days fast pace boating distance is 15 hexes', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
@@ -343,12 +343,14 @@ describe('Montage', () => {
         },
       })({
         /* navigator */
+        pace: 'fast',
+        speed: 'boat'
       }).travel(5);
   
       expect(travel.completed).toBe(true);
       expect(travel.days.length).toBe(5);
       expect(travel.reasonsForStopping.length).toBe(0);
-      expect(travel.distance.length).toBe(10);
+      expect(travel.distance).toBe(15);
     });
 
     it('starts lost, becameFound on day 1');

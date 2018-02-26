@@ -26,6 +26,7 @@ export const montage = resolver => (
       days: [],
       completed: true,
       reasonsForStopping: [],
+      distance: 0,
       lost: false
     };
     for (let i = 0; i < numDays; i++) {
@@ -35,11 +36,11 @@ export const montage = resolver => (
       daysTravel.index = i + 1;
 
       result.days.push(daysTravel);
-
+      result.distance = result.distance + Number(daysTravel.navigation.distance /*?*/);
+      // Trigger stop events
       if(daysTravel.navigation.becameLost) {
         result.lost = true;
       }
-
       if (daysTravel.navigation.becameFound) {
         result.completed = false;
         result.reasonsForStopping.push('Became Found');
@@ -57,7 +58,7 @@ export const montage = resolver => (
         result.reasonsForStopping.push('Weather');
       }
     }
-    return result; /*?*/
+    return result;
   };
 
   return {
