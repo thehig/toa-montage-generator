@@ -7,13 +7,13 @@ const myMontage = montage(
 );
 
 const HewHackinstone = {
-  modifier: -5,
-  disadvantage: true,
+  modifier: +3,
+  // disadvantage: true,
 };
 
 const terrain = {
-  encounterDC: 20,
-  navigationDC: 20,
+  encounterDC: 20, // Higher the DC the less likely an encounter is
+  navigationDC: 15, // Higher the DC the more likely to get lost
 };
 
 const options = {
@@ -26,19 +26,25 @@ const travelConfig = Object.assign({}, terrain, options);
 const numberOfDays = 4;
 
 const myResult = myMontage(travelConfig).travel(numberOfDays);
+const lastDay = myResult.days.pop();
 
 if (myResult.completed) {
   console.log(`Successfully travelled for ${numberOfDays} days`);
 }
-console.log(myResult.days.length, myResult.reasonsForStopping);
-
-const lastDay = myResult.days.pop();
 
 const myLastDayReadout = {
   completed: myResult.completed /*?*/,
-  days: lastDay.index/*?*/,
-  'reason for stopping': myResult.reasonsForStopping/*?*/,
-  'nav rolls': lastDay.navigation.rolls.map(roll => roll.roll) /*?*/,
+  days: lastDay.index /*?*/,
+  distances: myResult.days.map(day => day.navigation.distance) /*?*/,
+  'total distance': myResult.days.reduce(
+    (acc, next) => acc + next.navigation.distance,
+    0
+  ) /*?*/,
+  'reason for stopping': myResult.reasonsForStopping /*?*/,
+  'nav rolls': lastDay.navigation.rolls.map(
+    roll =>
+      `${roll.roll}${roll.options.advantage ? '+' : ''}${roll.options.disadvantage ? '-' : ''}${roll.options.name ? " " + roll.options.name : ''}`
+  ) /*?*/,
   'encounter rolls': lastDay.encounters.map(
     encounter => encounter.encounterRoll.roll
   ) /*?*/,
