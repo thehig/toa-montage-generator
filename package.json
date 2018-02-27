@@ -7,6 +7,7 @@
   "license": "MIT",
   "dependencies": {
     "command-line-args": "^5.0.2",
+    "command-line-usage": "^4.1.0",
     "material-ui": "^1.0.0-beta.34",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
@@ -32,5 +33,12 @@
     "@storybook/addons": "^3.3.13",
     "@storybook/react": "^3.3.13",
     "babel-core": "^6.26.0"
+  },
+  "quokka": {
+    "env": {
+      "params": {
+        "env": "NODE_ENV=test"
+      }
+    }
   }
 }
