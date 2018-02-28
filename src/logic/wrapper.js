@@ -1,6 +1,6 @@
 import { resolver as _resolver } from './resolver';
 import { montage as _montage } from './montage';
-import { paceModifiers, speeds, directions, weather } from '../data/consts';
+import { paceModifiers, speeds, directions, weather } from './consts';
 
 export const resolver = _resolver({
   paces: paceModifiers, speeds, directions, weather
@@ -13,7 +13,7 @@ export const generateReadout = travel => {
 
   return {
     completed: travel.completed,
-    lost: lastDay.navigation.lost,
+    lost: lastDay && lastDay.navigation && lastDay.navigation.lost,
     days: travel.days.length,
     dayNum: lastDay.index,
     distance: `${travel.distance} Hexes`,

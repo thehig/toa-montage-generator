@@ -1,6 +1,6 @@
-const commandLineArgs = require('command-line-args');
-const getUsage = require('command-line-usage');
-const { montage, generateReadout, narrate } = require('./src/logic/wrapper');
+import  commandLineArgs from 'command-line-args';
+import  getUsage from 'command-line-usage';
+import  { montage, generateReadout, narrate } from './wrapper';
 
 // Configure command-line-args
 const optionDefinitions = [
