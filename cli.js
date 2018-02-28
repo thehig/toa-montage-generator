@@ -1,6 +1,8 @@
 const commandLineArgs = require('command-line-args');
 const getUsage = require('command-line-usage');
+const { montage, generateReadout, narrate } = require('./src/logic/wrapper');
 
+// Configure command-line-args
 const optionDefinitions = [
   // Configure navigation check
   {
@@ -14,15 +16,11 @@ const optionDefinitions = [
   {
     group: 'navigator',
     name: 'advantage',
-    type: Boolean,
-    typeLabel: '[underline]{true|false}',
     description: 'Roll twice, take the higher',
   },
   {
     group: 'navigator',
     name: 'disadvantage',
-    type: Boolean,
-    typeLabel: '[underline]{true|false}',
     description: 'Roll twice, take the lower',
   },
   {
@@ -89,6 +87,7 @@ const optionDefinitions = [
   },
 ];
 
+// Configure command-line-usage
 const sections = [
   {
     header: 'Tomb of Annihilation Montage Generator',
@@ -120,16 +119,19 @@ const sections = [
     group: '_none',
   },
 ];
-
 const usage = getUsage(sections);
 
+// Parse incoming options (unless Quokka)
 let options;
 if (process.env.NODE_ENV !== 'test') {
   options = commandLineArgs(optionDefinitions);
 } else {
   // When running using Quokka, these values will be used instead of commandLineArgs
   options = {
-    _all: {},
+    _all: {
+      numdays: 5,
+    },
+    _none: {},
     navigator: {},
     navigation: {},
     terrain: {},
@@ -137,4 +139,42 @@ if (process.env.NODE_ENV !== 'test') {
   };
 }
 
-console.log('option', options);
+const exit = (code = -1) => {
+  console.log(usage);
+  process.exit(code);
+};
+
+// Show usage document
+if (options._all.hasOwnProperty('help')) exit();
+
+try {
+  // ===== Run Montage =====
+  const travel = montage({
+    navigator: {
+      modifier: options._all.modifier,
+      advantage: options._all.hasOwnProperty('advantage'),
+      disadvantage: options._all.hasOwnProperty('disadvantage'),
+    },
+    pace: options._all.pace,
+    speed: options._all.speed,
+    encounterDC: options._all.encounterDC,
+    navigationDC: options._all.navigationDC,
+  }).travel(options._all.numdays, {
+    daysOffset: options._all.offset,
+    lost: options._all.lost,
+  });
+
+  console.log(travel);
+
+  // Generate more manageable output
+  const readout = generateReadout(travel);
+  console.log(JSON.stringify(readout, null, 2));
+  const narration = narrate({
+    readout,
+    navoptions: { speed: options._all.speed, pace: options._all.pace },
+  });
+  console.log(narration);
+} catch (exception) {
+  console.error(exception);
+  exit(1);
+}
