@@ -1,15 +1,4 @@
-import { resolver } from './src/logic/resolver';
-import { montage } from './src/logic/montage';
-import { paceModifiers, speeds, directions, weather } from './src/data/consts';
-
-// Configure resolver
-//    paces: { 'slow': -5, 'fast': +5 }
-//    speeds: { 'walk': 1, 'boat': 2 }
-//    directions: ['N', 'NE', 'SE', 'S', 'SW', 'NW']
-//    weather: [ none: { min: 1, max: 5, name: 'None', effects: '', }, ... ]
-const resolverConfig = {
-  paces: paceModifiers, speeds, directions, weather
-};
+import { montage, generateReadout, narrate } from './src/logic/wrapper';
 
 // Configure navigation check
 //    navigator:
@@ -43,30 +32,41 @@ const montageStartState = {
 };
 
 // ===== Run Montage =====
-const travel = montage(resolver(resolverConfig)) (navcheckOptions) .travel(numberOfDays, montageStartState);
-const lastDay = travel.days.pop();
-const readout = {
-  completed: travel.completed,
-  days: travel.days.length,
-  dayNum: lastDay.index,
-  distance: `${travel.distance} Hexes`,
-  'reason for stopping': travel.reasonsForStopping,
-  'nav rolls': lastDay.navigation.rolls.map(
-    roll =>
-      `${roll.roll}${roll.options.advantage ? '+' : ''}${roll.options.disadvantage ? '-' : ''}${roll.options.name ? ' ' + roll.options.name : ''}`
-  ),
-  'encounter rolls': lastDay.encounters.map(
-    encounter => encounter.encounterRoll.roll
-  ),
-  encounters: lastDay.encounters
-    .filter(encounter => encounter.encounter !== false)
-    .map(encounter => encounter.encounter),
-  'weather rolls': lastDay.weather.map(
-    weather => weather.weatherRoll.roll
-  ),
-};
+const travel = montage(navcheckOptions) .travel(numberOfDays, montageStartState);
 
-console.log(`
-After ${readout.days} day(s) ${navcheckOptions.speed}ing at a
-${navcheckOptions.pace} pace covering ${readout.distance},
-the party ${readout.completed ? "completes their montage" : "is stopped by trigger(s):\n\t" + readout["reason for stopping"] }`);
+// travel
+console.log("=== travel");
+console.log("keys:", Object.keys(travel));
+console.log("keys:", Object.keys(travel.days));
+console.log(travel.completed);
+console.log(travel.reasonsForStopping);
+console.log(travel.distance);
+console.log(travel.lost);
+
+console.log("=== day[0]");
+const day = travel.days[0];
+console.log("keys:", Object.keys(day));
+console.log(day.index);
+
+console.log("=== day[0].navigation");
+const nav = day.navigation;
+console.log("keys:", Object.keys(nav));
+console.log(nav);
+
+console.log("=== day[0].encounters[0]");
+const enc = day.encounters[0];
+console.log("keys:", Object.keys(enc));
+console.log(enc);
+
+console.log("=== day[0].weather[0]");
+const wthr = day.weather[0];
+console.log("keys:", Object.keys(wthr));
+console.log(wthr);
+
+
+const readout = travel.days.map(day => ({
+  options: day.navigation.rolls.map(roll => roll.options),
+}));
+
+console.log(JSON.stringify(readout, null, 2));
+// console.log(readout);
