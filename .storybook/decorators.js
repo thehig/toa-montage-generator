@@ -5,8 +5,12 @@ import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
 
 const theme = createMuiTheme();
 
-export const MuiProvider = () => getStory => (
-  <MuiThemeProvider theme={theme}>
-    {getStory()}
-  </MuiThemeProvider>
-);
+// const MuiProvider = function () {
+//   return function (getStory) {
+//     return <MuiThemeProvider theme={theme}>{getStory()}</MuiThemeProvider>;
+//   }
+// }
+
+// export const MuiProvider = () => getStory => (
+//   <MuiThemeProvider theme={theme}>{getStory()}</MuiThemeProvider>
+// );

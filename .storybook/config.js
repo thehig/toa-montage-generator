@@ -5,6 +5,6 @@ function loadStories() {
   require('../src/stories');
 }
 
-addDecorator(MuiProvider());
+// addDecorator(MuiProvider());
 
 configure(loadStories, module);
