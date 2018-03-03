@@ -2,13 +2,8 @@ import React from 'react';
 
 // Storybook
 import { storiesOf } from '@storybook/react';
-import { action } from '@storybook/addon-actions';
 
-// Redux Form Component Wrapper
-import { Field } from 'redux-form';
-
-// Submit Button
-import MUIButton from 'material-ui/Button';
+// Theme
 import blue from 'material-ui/colors/blue';
 
 // SelectField Options
@@ -22,14 +17,17 @@ import { FormControlLabel } from 'material-ui/Form';
 import {
   ReduxDecorator,
   ThemeDecorator,
-  FormWrapper,
+  ReduxFormWithSingleField,
 } from '../../.storybook/decorators';
 
 // Components
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
 
-
-// 1. Atoms
+/**
+ * Create stories of a group of components intended to be used on redux-forms Fields
+ *
+ *  Add Decorators: [Redux Store, Material UI Theme]
+ */
 // eslint-disable-next-line
 let atoms = storiesOf('1.Atoms', module)
   .addDecorator(
@@ -47,7 +45,41 @@ let atoms = storiesOf('1.Atoms', module)
     })
   );
 
-const components = [
+
+
+/**
+ * Test a collection of components that should all take the same props and display them in some way
+ * 
+ * Takes a component object to be spread onto a Redux Form Field
+ * Creates stories of this component which should support
+ * 
+ *    no label:           no label property is set for the Field
+ *    with label:         label set to $name, should be visible in all cases
+ *    validation error:   *must* be visible, else component is not yet properly defined
+ */
+const makeStoriesOf = component => {
+  atoms.add(`${component.name} - no label`, () =>
+    ReduxFormWithSingleField()(component)
+  );
+  atoms.add(`${component.name} - with label`, () =>
+    ReduxFormWithSingleField({ label: component.name })(component)
+  );
+  atoms.add(`${component.name} - validation error`, () =>
+    ReduxFormWithSingleField({
+      validate: (/* value */) => 'This will always cause an error',
+    })(component)
+  );
+};
+
+/**
+ * The components to test. Props will be spread onto redux forms 'Field' component
+ * 
+ *    name:       Required    The name of the Field in state, dom (only one visible at a time)
+ *    component:  Required    The component to send to the redux <Field />
+ * 
+ *    children:               Render inside component. Used to pass groups of options to selectors
+ */
+const reduxFormSingleFields = [
   {
     name: 'SelectField',
     component: SelectField,
@@ -66,12 +98,10 @@ const components = [
   {
     name: 'TextField',
     component: TextField,
-    children: null,
   },
   {
     name: 'Checkbox',
     component: Checkbox,
-    children: null,
   },
   {
     name: 'RadioGroup',
@@ -105,32 +135,7 @@ const components = [
     ],
   },
 ];
-
-/**
- * Takes two sets of props to be applied to a Redux Form Field component, inner and outer
- * Returns 
- *    <FormWrapper> - a reduxForm()'ed, <form> component
- *    <Field> - a redux-form component with inner and outer props spread
- *    <Button> - a button with type="submit" which will trigger the FormWrapper onSubmit
- */
-const ReduxFormField = (outerProps = {}) => ( innerProps = {}) => (
-  <FormWrapper onSubmit={action(`${name} handleSubmit`)}>
-    <Field {...innerProps} {...outerProps} />
-    <MUIButton color="primary" type="submit">
-      Submit
-    </MUIButton>
-  </FormWrapper>
-);
-
-components.map(component => {
-  atoms.add(`${component.name} - no label`, () => ReduxFormField()(component));
-  atoms.add(`${component.name} - with label`, () => ReduxFormField({label: component.name})(component));
-  atoms.add(`${component.name} - validation error`, () =>
-    ReduxFormField({
-      validate: (/* value */) => 'This will always cause an error',
-    })(component)
-  );
-});
+reduxFormSingleFields.map(makeStoriesOf);
 
 // 3. Organisms
 // MontageForm
