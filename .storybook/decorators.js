@@ -14,31 +14,44 @@ import { action } from '@storybook/addon-actions';
 
 import mockFormStore from './mockFormStore';
 
-export const ReduxDecorator = (initialState) => getStory => (
-  <Provider store={mockFormStore({ mocked: 'successfully', ...initialState })}>
+const defaultInitialState = {
+  mocked: 'successfully',
+};
+/**
+ * Create a Redux provider with a given initial state
+ */
+export const ReduxDecorator = initialState => getStory => (
+  <Provider store={mockFormStore({ ...defaultInitialState, ...initialState })}>
     {getStory()}
   </Provider>
 );
 
-const defaultTheme = createMuiTheme({
+const defaultTheme = {
   palette: {
     primary: purple,
     secondary: green,
   },
-});
-export const ThemeDecorator = (theme = defaultTheme) => getStory => (
-  <MuiThemeProvider theme={theme}>{getStory()}</MuiThemeProvider>
+};
+/**
+ * Create a MUI Theme Provider with a given theme object
+ */
+export const ThemeDecorator = theme => getStory => (
+  <MuiThemeProvider theme={createMuiTheme({ ...defaultTheme, ...theme })}>
+    {getStory()}
+  </MuiThemeProvider>
 );
 
-// Note that even though the prop here is called 'handleSubmit', 
-//  we should pass the prop named 'onSubmit' for redux form to work its magic
-// EG: <FormWrapper onSubmit={action('handleSubmit')}>
 const FormWrapperBase = ({ children = null, handleSubmit }) => (
+  // Note that even though the prop here is called 'handleSubmit',
+  //  we should pass the prop named 'onSubmit' for redux form to work its magic
+  // EG: <FormWrapper onSubmit={action('handleSubmit')}>
   <form onSubmit={handleSubmit}>
     {children}
-    <MUIButton type="submit">Submit</MUIButton>
   </form>
 );
+/**
+ * Create a <form> component bound with reduxForm and an onSubmit function
+ */
 export const FormWrapper = reduxForm({
   form: 'reduxFormWrapper',
 })(FormWrapperBase);

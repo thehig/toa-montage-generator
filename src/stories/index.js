@@ -7,6 +7,9 @@ import { action } from '@storybook/addon-actions';
 // Redux Form Component Wrapper
 import { Field } from 'redux-form';
 
+// Submit Button
+import MUIButton from 'material-ui/Button';
+
 // SelectField Options
 import { MenuItem } from 'material-ui/Menu';
 
@@ -42,18 +45,21 @@ atoms.add('SelectField', () => (
       <MenuItem value="normal">Normal</MenuItem>
       <MenuItem value="fast">Fast</MenuItem>
     </Field>
+    <MUIButton type="submit">Submit</MUIButton>
   </FormWrapper>
 ));
 
 atoms.add('TextField', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="textfield" component={TextField} label="Textfield Label" />
+    <MUIButton type="submit">Submit</MUIButton>
   </FormWrapper>
 ));
 
 atoms.add('Checkbox', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="checkbox" component={Checkbox} label="Checkbox Label" />
+    <MUIButton type="submit">Submit</MUIButton>
   </FormWrapper>
 ));
 
@@ -82,6 +88,7 @@ atoms.add('RadioGroup', () => (
         label="(Disabled option)"
       />
     </Field>
+    <MUIButton type="submit">Submit</MUIButton>
   </FormWrapper>
 ));
 
