@@ -10,6 +10,17 @@ import MUISelect from 'material-ui/Select';
 
 const noop = () => {};
 
+/* 
+// Example Usage:
+<div>
+  <Field name="pace" component={SelectField} label="Pace">
+    <MenuItem value="slow">Slow</MenuItem>
+    <MenuItem value="normal">Normal</MenuItem>
+    <MenuItem value="fast">Fast</MenuItem>
+  </Field>
+</div>
+ */
+
 const SelectField = ({
   input,
   label,
