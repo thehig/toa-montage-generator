@@ -3,7 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 
 // Radio Buttons
 import Radio from 'material-ui/Radio';
-import { FormControlLabel, } from 'material-ui/Form';
+import { FormControlLabel } from 'material-ui/Form';
 
 // Select Menu Item
 import { MenuItem } from 'material-ui/Menu';
@@ -13,18 +13,18 @@ import { TextField, RadioGroup, SelectField, Checkbox } from '../';
 const validate = values => {
   const errors = {};
   const requiredFields = [
-    // 'firstName',
-    // 'lastName',
-    // 'email',
-    'favoriteColor',
-    'employed',
-    'sex',
-    'notes',
+    'advantage',
+    'disadvantage',
+    'modifier',
+    'pace',
+    'speed',
+    'navigationDC',
+    'encounterDC',
+    'numdays',
+    'lost'
   ];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      console.log('field', field, values);
-      // debugger;
       errors[field] = 'Required';
     }
   });
@@ -37,52 +37,65 @@ const validate = values => {
   return errors;
 };
 
-
 const MaterialUiForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
+      {/* NAVIGATOR */}
       <div>
-        <Field
-          name="firstName"
-          component={TextField}
-          label="First Name"
-        />
+        <Field name="advantage" component={Checkbox} label="Advantage" />
       </div>
       <div>
-        <Field name="lastName" component={TextField} label="Last Name" />
+        <Field name="disadvantage" component={Checkbox} label="Disdvantage" />
       </div>
       <div>
-        <Field name="email" component={TextField} label="Email" />
+        <Field name="modifier" component={TextField} label="Modifier" />
       </div>
+      {/* NAVIGATOR */}
+
+      {/* PACE & SPEED */}
       <div>
-        <Field name="sex" component={RadioGroup}>
-          <FormControlLabel value="male" control={<Radio />} label="Male" />
-          <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <Field name="pace" component={SelectField} label="Pace">
+          <MenuItem value="slow">Slow</MenuItem>
+          <MenuItem value="normal">Normal</MenuItem>
+          <MenuItem value="fast">Fast</MenuItem>
         </Field>
       </div>
       <div>
-        <Field
-          name="favoriteColor"
-          component={SelectField}
-          label="Favorite Color">
-          <MenuItem value="ff0000">Red</MenuItem>
-          <MenuItem value="00ff00">Green</MenuItem>
-          <MenuItem value="0000ff">Blue</MenuItem>
+        <Field name="speed" component={SelectField} label="Speed">
+          <MenuItem value="walk">Walking</MenuItem>
+          <MenuItem value="boat">Boating</MenuItem>
         </Field>
       </div>
-      <div>
-        <Field name="employed" component={Checkbox} label="Employed" />
-      </div>
+      {/* PACE & SPEED */}
+
+      {/* DC INPUT */}
       <div>
         <Field
-          name="notes"
+          name="navigationDC"
           component={TextField}
-          label="Notes"
-          multiline={true}
-          rows={2}
+          label="Navigation DC"
         />
       </div>
+      <div>
+        <Field name="encounterDC" component={TextField} label="Encounter DC" />
+      </div>
+      {/* DC INPUT */}
+
+      {/* TRAVEL */}
+      <div>
+        <Field name="numdays" component={TextField} label="Num days" />
+      </div>
+
+      <div>
+        <Field name="lost" component={Checkbox} label="Starts lost" />
+      </div>
+
+      <div>
+        <Field name="daysoffset" component={TextField} label="Days Offset" />
+      </div>
+      {/* TRAVEL */}
+
       <div>
         <button type="submit" disabled={pristine || submitting}>
           Submit
