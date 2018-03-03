@@ -5,7 +5,7 @@ import { MontageForm } from '../';
 import { montageSubmit } from '../../redux/montage';
 
 class MontagePage extends Component {
-  onMontageSubmit = evt => console.log(evt);
+  onMontageSubmit = evt => this.props.montageSubmit(evt);
 
   render() {
     const { montage } = this.props;
@@ -24,7 +24,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    montageSubmit: dispatch(montageSubmit),
+    montageSubmit: montageOptions => dispatch(montageSubmit(montageOptions)),
   };
 }
 
