@@ -55,3 +55,20 @@ const FormWrapperBase = ({ children = null, handleSubmit }) => (
 export const FormWrapper = reduxForm({
   form: 'reduxFormWrapper',
 })(FormWrapperBase);
+
+
+/**
+ * Take two sets of props to be applied to a Redux Form Field component
+ * Returns 
+ *    <FormWrapper> - a reduxForm()'ed, <form> component with submit bound
+ *    <Field> - a redux-form component with props spread
+ *    <Button> - a button with type="submit" which will trigger the FormWrapper onSubmit
+ */
+export const ReduxFormWithSingleField = (higherPriorityProps = {}) => ( lowerPriorityProps = {}) => (
+  <FormWrapper onSubmit={action(`${name} handleSubmit`)}>
+    <Field {...lowerPriorityProps} {...higherPriorityProps} />
+    <MUIButton color="primary" type="submit">
+      Submit
+    </MUIButton>
+  </FormWrapper>
+);
