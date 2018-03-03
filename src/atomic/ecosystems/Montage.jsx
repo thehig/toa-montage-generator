@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { MontageForm } from '../';
+import { MontageForm, MontageOutput } from '../';
 import { montageSubmit } from '../../redux/montage';
 
 class MontagePage extends Component {
   onMontageSubmit = evt => this.props.montageSubmit(evt);
 
   render() {
-    const { montage } = this.props;
-    const { options } = montage;
+    const { options, content } = this.props;
     return (
-      <MontageForm onSubmit={this.onMontageSubmit} initialValues={options} />
+      <div>
+        <MontageForm onSubmit={this.onMontageSubmit} initialValues={options} />
+        { content && <MontageOutput montage={content} /> }
+      </div>
     );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    montage: state.montage,
+    options: state.montage.options,
+    content: state.montage.content,
   };
 }
 
