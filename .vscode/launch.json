@@ -5,6 +5,7 @@
   "version": "0.2.0",
   "configurations": [
     {
+      // Source: https://github.com/storybooks/storybook/issues/1754
       "type": "chrome",
       "request": "launch",
       "name": "Storybook Debug",
