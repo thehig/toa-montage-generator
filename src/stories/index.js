@@ -9,6 +9,7 @@ import { Field } from 'redux-form';
 
 // Submit Button
 import MUIButton from 'material-ui/Button';
+import blue from 'material-ui/colors/blue';
 
 // SelectField Options
 import { MenuItem } from 'material-ui/Menu';
@@ -27,16 +28,24 @@ import {
 // Components
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
 
+// Submit Button
+const FormSubmitButton = () => <MUIButton color="primary" type="submit">Submit</MUIButton>;
+
 // 1. Atoms
 // eslint-disable-next-line
 let atoms = storiesOf('1.Atoms', module)
   .addDecorator(
     ReduxDecorator({
-      /* Initial Value */
+      /* Initial redux state */
       stories: 'atoms',
     })
   )
-  .addDecorator(ThemeDecorator());
+  .addDecorator(ThemeDecorator({
+    /* Base theme overrides */
+    palette: {
+      primary: blue
+    }
+  }));
 
 atoms.add('SelectField', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
@@ -45,21 +54,21 @@ atoms.add('SelectField', () => (
       <MenuItem value="normal">Normal</MenuItem>
       <MenuItem value="fast">Fast</MenuItem>
     </Field>
-    <MUIButton type="submit">Submit</MUIButton>
+    <FormSubmitButton />
   </FormWrapper>
 ));
 
 atoms.add('TextField', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="textfield" component={TextField} label="Textfield Label" />
-    <MUIButton type="submit">Submit</MUIButton>
+    <FormSubmitButton />
   </FormWrapper>
 ));
 
 atoms.add('Checkbox', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="checkbox" component={Checkbox} label="Checkbox Label" />
-    <MUIButton type="submit">Submit</MUIButton>
+    <FormSubmitButton />
   </FormWrapper>
 ));
 
@@ -88,7 +97,7 @@ atoms.add('RadioGroup', () => (
         label="(Disabled option)"
       />
     </Field>
-    <MUIButton type="submit">Submit</MUIButton>
+    <FormSubmitButton />
   </FormWrapper>
 ));
 
