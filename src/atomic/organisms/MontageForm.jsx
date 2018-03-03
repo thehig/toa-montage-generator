@@ -37,7 +37,7 @@ const validate = values => {
   return errors;
 };
 
-const MaterialUiForm = props => {
+const MontageForm = props => {
   const { handleSubmit, pristine, reset, submitting } = props;
   return (
     <form onSubmit={handleSubmit}>
@@ -97,10 +97,10 @@ const MaterialUiForm = props => {
       {/* TRAVEL */}
 
       <div>
-        <MUIButton variant="fab" color="secondary" aria-label="edit" type="submit" disabled={pristine || submitting}>
+        <MUIButton variant="fab" color="secondary" aria-label="go" type="submit" disabled={pristine || submitting}>
           <PlayArrowIcon />
         </MUIButton>
-        <MUIButton variant="fab" aria-label="delete" disabled={pristine || submitting} onClick={reset}>
+        <MUIButton variant="fab" aria-label="reset" disabled={pristine || submitting} onClick={reset}>
           <RefreshIcon />
         </MUIButton>
       </div>
@@ -109,6 +109,6 @@ const MaterialUiForm = props => {
 };
 
 export default reduxForm({
-  form: 'MaterialUiForm', // a unique identifier for this form
+  form: 'MontageForm', // a unique identifier for this form
   validate,
-})(MaterialUiForm);
+})(MontageForm);
