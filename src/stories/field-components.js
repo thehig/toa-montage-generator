@@ -29,11 +29,11 @@ import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
  *  Add Decorators: [Redux Store, Material UI Theme]
  */
 // eslint-disable-next-line
-let atoms = storiesOf('1.Atoms', module)
+let stories = storiesOf('Redux Form Field Components', module)
   .addDecorator(
     ReduxDecorator({
       /* Initial redux state */
-      stories: 'atoms',
+      stories: 'redux-form-field-components',
     })
   )
   .addDecorator(
@@ -58,15 +58,21 @@ let atoms = storiesOf('1.Atoms', module)
  *    validation error:   *must* be visible, else component is not yet properly defined
  */
 const makeStoriesOf = component => {
-  atoms.add(`${component.name} - no label`, () =>
+  stories.add(`${component.name} - no label`, () =>
     ReduxFormWithSingleField()(component)
   );
-  atoms.add(`${component.name} - with label`, () =>
+  stories.add(`${component.name} - with label`, () =>
     ReduxFormWithSingleField({ label: component.name })(component)
   );
-  atoms.add(`${component.name} - validation error`, () =>
+  stories.add(`${component.name} - validation error`, () =>
     ReduxFormWithSingleField({
       validate: (/* value */) => 'This will always cause an error',
+    })(component)
+  );
+  stories.add(`${component.name} - label and validation error`, () =>
+    ReduxFormWithSingleField({
+      validate: (/* value */) => 'This will always cause an error',
+      label: `This is the label for ${component.name}`
     })(component)
   );
 };
@@ -77,9 +83,9 @@ const makeStoriesOf = component => {
  *    name:       Required    The name of the Field in state, dom (only one visible at a time)
  *    component:  Required    The component to send to the redux <Field />
  * 
- *    children:               Render inside component. Used to pass groups of options to selectors
+ *    children:               Render inside component. Used to pass groups of options to <select> for example
  */
-const reduxFormSingleFields = [
+const reduxFormFieldComponents = [
   {
     name: 'SelectField',
     component: SelectField,
@@ -135,11 +141,4 @@ const reduxFormSingleFields = [
     ],
   },
 ];
-reduxFormSingleFields.map(makeStoriesOf);
-
-// 3. Organisms
-// MontageForm
-// MontageOutput
-
-// 4. Ecosystems
-// MontagePage
+reduxFormFieldComponents.map(makeStoriesOf);
