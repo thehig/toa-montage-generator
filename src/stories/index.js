@@ -11,31 +11,18 @@ import { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button';
 
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
-import { ReduxDecorator, ThemeDecorator } from '../../.storybook/decorators';
+import { ReduxDecorator, ThemeDecorator, FormWrapper } from '../../.storybook/decorators';
 
 // 1. Atoms
 let atoms = storiesOf('1.Atoms', module)
-  .addDecorator(ReduxDecorator())
+  .addDecorator(ReduxDecorator({
+    /* Initial Value */
+    stories: 'atoms'
+  }))
   .addDecorator(ThemeDecorator());
 
-const FormWrapperBase = ({ children }) => (
-  <form onSubmit={action('form onSubmit')}>{children}</form>
-);
-
-const FormWrapper = reduxForm({
-  form: 'reduxFormWrapper',
-})(FormWrapperBase);
-
-// atoms.add('SelectField', () => (
-//     <Field name="selectField" component={SelectField} label="SelectField">
-//       <MenuItem value="slow">Slow</MenuItem>
-//       <MenuItem value="normal">Normal</MenuItem>
-//       <MenuItem value="fast">Fast</MenuItem>
-//     </Field>
-//   ));
-
-atoms.add('Something', () => (
-  <FormWrapper>
+atoms.add('SelectField', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="selectField" component={SelectField} label="SelectField">
       <MenuItem value="slow">Slow</MenuItem>
       <MenuItem value="normal">Normal</MenuItem>
