@@ -18,6 +18,14 @@ let atoms = storiesOf('1.Atoms', module)
   .addDecorator(ReduxDecorator())
   .addDecorator(ThemeDecorator());
 
+const FormWrapperBase = ({ children }) => (
+  <form onSubmit={action('form onSubmit')}>{children}</form>
+);
+
+const FormWrapper = reduxForm({
+  form: 'reduxFormWrapper',
+})(FormWrapperBase);
+
 // atoms.add('SelectField', () => (
 //     <Field name="selectField" component={SelectField} label="SelectField">
 //       <MenuItem value="slow">Slow</MenuItem>
@@ -26,7 +34,15 @@ let atoms = storiesOf('1.Atoms', module)
 //     </Field>
 //   ));
 
-atoms.add('Something', () => <Button color="primary" onClick={action('onClick')}>With something</Button>);
+atoms.add('Something', () => (
+  <FormWrapper>
+    <Field name="selectField" component={SelectField} label="SelectField">
+      <MenuItem value="slow">Slow</MenuItem>
+      <MenuItem value="normal">Normal</MenuItem>
+      <MenuItem value="fast">Fast</MenuItem>
+    </Field>
+  </FormWrapper>
+));
 
 // TextField
 // Checkbox
