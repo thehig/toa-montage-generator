@@ -1,7 +1,7 @@
 import { _dArray } from '../logic/dice';
 import { resolver } from '../logic/resolver';
 
-import { paceModifiers, speeds, directions, weather } from '../data/consts';
+import { paceModifiers, speeds, directions, weather } from '../logic/consts';
 
 // Take some override props and create a resolver with the default values and overrides
 const buildResolver = overrides =>
