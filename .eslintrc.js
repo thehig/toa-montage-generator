@@ -21,6 +21,7 @@ module.exports = {
     indent: ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": 0,
     semi: ["error", "always"],
-    "react/no-unescaped-entities": 0
+    "react/no-unescaped-entities": 0,
+    "react/prop-types": "warn"
   }
 };

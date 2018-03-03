@@ -1,17 +1,14 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-import {
-  FormControl,
-  FormHelperText,
-  FormControlLabel,
-} from 'material-ui/Form';
+// Radio Buttons
+import Radio from 'material-ui/Radio';
+import { FormControlLabel, } from 'material-ui/Form';
 
-import TextField from 'material-ui/TextField';
-import Radio, { RadioGroup as RadioButtonGroup } from 'material-ui/Radio';
-import Checkbox from 'material-ui/Checkbox';
-import SelectField from 'material-ui/Select';
+// Select Menu Item
 import { MenuItem } from 'material-ui/Menu';
+
+import { TextField, RadioGroup, SelectField, Checkbox } from '../';
 
 const validate = values => {
   const errors = {};
@@ -48,18 +45,18 @@ const MaterialUiForm = props => {
       <div>
         <Field
           name="firstName"
-          component={renderTextField}
+          component={TextField}
           label="First Name"
         />
       </div>
       <div>
-        <Field name="lastName" component={renderTextField} label="Last Name" />
+        <Field name="lastName" component={TextField} label="Last Name" />
       </div>
       <div>
-        <Field name="email" component={renderTextField} label="Email" />
+        <Field name="email" component={TextField} label="Email" />
       </div>
       <div>
-        <Field name="sex" component={renderRadioGroup}>
+        <Field name="sex" component={RadioGroup}>
           <FormControlLabel value="male" control={<Radio />} label="Male" />
           <FormControlLabel value="female" control={<Radio />} label="Female" />
         </Field>
@@ -67,7 +64,7 @@ const MaterialUiForm = props => {
       <div>
         <Field
           name="favoriteColor"
-          component={renderSelectField}
+          component={SelectField}
           label="Favorite Color">
           <MenuItem value="ff0000">Red</MenuItem>
           <MenuItem value="00ff00">Green</MenuItem>
@@ -75,12 +72,12 @@ const MaterialUiForm = props => {
         </Field>
       </div>
       <div>
-        <Field name="employed" component={renderCheckbox} label="Employed" />
+        <Field name="employed" component={Checkbox} label="Employed" />
       </div>
       <div>
         <Field
           name="notes"
-          component={renderTextField}
+          component={TextField}
           label="Notes"
           multiline={true}
           rows={2}

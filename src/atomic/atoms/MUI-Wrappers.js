@@ -1,11 +1,24 @@
-const renderTextField = ({
+import React from 'react';
+
+import {
+  FormControl,
+  FormHelperText,
+  FormControlLabel,
+} from 'material-ui/Form';
+
+import MUITextField from 'material-ui/TextField';
+import { RadioGroup as MUIRadioGroup } from 'material-ui/Radio';
+import MUICheckbox from 'material-ui/Checkbox';
+import MUISelect from 'material-ui/Select';
+
+export const TextField = ({
   input,
   label,
   meta: { touched, error },
   ...custom
 }) => (
   <FormControl error={Boolean(touched && error)}>
-    <TextField
+    <MUITextField
       error={Boolean(touched && error)}
       label={error || label}
       {...input}
@@ -14,11 +27,11 @@ const renderTextField = ({
   </FormControl>
 );
 
-const renderCheckbox = ({ input, meta: { touched, error }, label }) => (
+export const Checkbox = ({ input, meta: { touched, error }, label }) => (
   <FormControlLabel
     error={touched && error ? error : null}
     control={
-      <Checkbox
+      <MUICheckbox
         checked={input.value ? true : false}
         onChange={input.onChange}
       />
@@ -27,9 +40,9 @@ const renderCheckbox = ({ input, meta: { touched, error }, label }) => (
   />
 );
 
-const renderRadioGroup = ({ input, meta: { touched, error }, ...rest }) => (
+export const RadioGroup = ({ input, meta: { touched, error }, ...rest }) => (
   <FormControl error={Boolean(touched && error)}>
-    <RadioButtonGroup
+    <MUIRadioGroup
       {...input}
       {...rest}
       value={input.value}
@@ -38,7 +51,7 @@ const renderRadioGroup = ({ input, meta: { touched, error }, ...rest }) => (
   </FormControl>
 );
 
-const renderSelectField = ({
+export const SelectField = ({
   input,
   label,
   meta: { touched, error },
@@ -46,7 +59,7 @@ const renderSelectField = ({
   ...custom
 }) => (
   <FormControl error={Boolean(touched && error)}>
-    <SelectField
+    <MUISelect
       {...input}
       onChange={event => input.onChange(event.target.value)}
       onBlur={event => {}}
