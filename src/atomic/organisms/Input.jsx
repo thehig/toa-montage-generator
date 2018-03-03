@@ -4,6 +4,10 @@ import { Field, reduxForm } from 'redux-form';
 // Select Menu Item
 import { MenuItem } from 'material-ui/Menu';
 
+import MUIButton from 'material-ui/Button';
+import PlayArrowIcon from 'material-ui-icons/PlayArrow';
+import RefreshIcon from 'material-ui-icons/Refresh';
+
 import { TextField, SelectField, Checkbox } from '../';
 
 const validate = values => {
@@ -93,12 +97,12 @@ const MaterialUiForm = props => {
       {/* TRAVEL */}
 
       <div>
-        <button type="submit" disabled={pristine || submitting}>
-          Submit
-        </button>
-        <button type="button" disabled={pristine || submitting} onClick={reset}>
-          Clear Values
-        </button>
+        <MUIButton variant="fab" color="secondary" aria-label="edit" type="submit" disabled={pristine || submitting}>
+          <PlayArrowIcon />
+        </MUIButton>
+        <MUIButton variant="fab" aria-label="delete" disabled={pristine || submitting} onClick={reset}>
+          <RefreshIcon />
+        </MUIButton>
       </div>
     </form>
   );
