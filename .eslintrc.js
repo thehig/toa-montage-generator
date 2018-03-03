@@ -18,6 +18,7 @@ module.exports = {
   plugins: ["react", "jsx-a11y", "jest"],
   rules: {
     "no-console": "warn",
+    "react/display-name": "off", // Causes annoyances with JSX inside higher order components
     indent: ["error", 2, { "SwitchCase": 1 }],
     "linebreak-style": 0,
     semi: ["error", "always"],
