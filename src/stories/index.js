@@ -28,8 +28,6 @@ import {
 // Components
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
 
-// Submit Button
-const FormSubmitButton = () => <MUIButton color="primary" type="submit">Submit</MUIButton>;
 
 // 1. Atoms
 // eslint-disable-next-line
@@ -40,122 +38,99 @@ let atoms = storiesOf('1.Atoms', module)
       stories: 'atoms',
     })
   )
-  .addDecorator(ThemeDecorator({
-    /* Base theme overrides */
-    palette: {
-      primary: blue
-    }
-  }));
+  .addDecorator(
+    ThemeDecorator({
+      /* Base theme overrides */
+      palette: {
+        primary: blue,
+      },
+    })
+  );
 
-const alwaysError = (/* value */) => "This will always cause an error that is very needlessly long";
-
-atoms.add('SelectField', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="selectField" component={SelectField} label="SelectField">
-      <MenuItem value="slow">Slow</MenuItem>
-      <MenuItem value="normal">Normal</MenuItem>
-      <MenuItem value="fast">Fast</MenuItem>
-    </Field>
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('SelectField with an error (!pristine)', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="selectField" component={SelectField} label="SelectField" validate={alwaysError} >
-      <MenuItem value="slow">Slow</MenuItem>
-      <MenuItem value="normal">Normal</MenuItem>
-      <MenuItem value="fast">Fast</MenuItem>
-    </Field>
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('TextField', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="textfield" component={TextField} label="Textfield Label" />
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('TextField with an error (!pristine)', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="textfield" component={TextField} label="Textfield Label" validate={alwaysError} />
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('Checkbox', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="checkbox" component={Checkbox} label="Checkbox Label" />
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('Checkbox with an error (!pristine)', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="checkbox" component={Checkbox} label="Checkbox Label" validate={alwaysError} />
-    <FormSubmitButton />
-  </FormWrapper>
-));
-
-atoms.add('RadioGroup', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="radiogroup" component={RadioGroup} label="RadioGroup Label">
+const components = [
+  {
+    name: 'SelectField',
+    component: SelectField,
+    children: [
+      <MenuItem key="slow" value="slow">
+        Slow
+      </MenuItem>,
+      <MenuItem key="normal" value="normal">
+        Normal
+      </MenuItem>,
+      <MenuItem key="fast" value="fast">
+        Fast
+      </MenuItem>,
+    ],
+  },
+  {
+    name: 'TextField',
+    component: TextField,
+    children: null,
+  },
+  {
+    name: 'Checkbox',
+    component: Checkbox,
+    children: null,
+  },
+  {
+    name: 'RadioGroup',
+    component: RadioGroup,
+    children: [
       <FormControlLabel
+        key="male"
         value="male"
         control={<Radio color="primary" />}
         label="Male"
-      />
+      />,
       <FormControlLabel
+        key="female"
         value="female"
         control={<Radio color="primary" />}
         label="Female"
-      />
+      />,
       <FormControlLabel
+        key="other"
         value="other"
         control={<Radio color="primary" />}
         label="Other"
-      />
+      />,
       <FormControlLabel
+        key="disabled"
         value="disabled"
         disabled
         control={<Radio />}
         label="(Disabled option)"
-      />
-    </Field>
-    <FormSubmitButton />
-  </FormWrapper>
-));
+      />,
+    ],
+  },
+];
 
-atoms.add('RadioGroup with an error (!pristine)', () => (
-  <FormWrapper onSubmit={action('handleSubmit')}>
-    <Field name="radiogroup" component={RadioGroup} label="RadioGroup Label" validate={alwaysError}>
-      <FormControlLabel
-        value="male"
-        control={<Radio color="primary" />}
-        label="Male"
-      />
-      <FormControlLabel
-        value="female"
-        control={<Radio color="primary" />}
-        label="Female"
-      />
-      <FormControlLabel
-        value="other"
-        control={<Radio color="primary" />}
-        label="Other"
-      />
-      <FormControlLabel
-        value="disabled"
-        disabled
-        control={<Radio />}
-        label="(Disabled option)"
-      />
-    </Field>
-    <FormSubmitButton />
+/**
+ * Takes two sets of props to be applied to a Redux Form Field component, inner and outer
+ * Returns 
+ *    <FormWrapper> - a reduxForm()'ed, <form> component
+ *    <Field> - a redux-form component with inner and outer props spread
+ *    <Button> - a button with type="submit" which will trigger the FormWrapper onSubmit
+ */
+const ReduxFormField = (outerProps = {}) => ( innerProps = {}) => (
+  <FormWrapper onSubmit={action(`${name} handleSubmit`)}>
+    <Field {...innerProps} {...outerProps} />
+    <MUIButton color="primary" type="submit">
+      Submit
+    </MUIButton>
   </FormWrapper>
-));
+);
+
+components.map(component => {
+  atoms.add(`${component.name} - no label`, () => ReduxFormField()(component));
+  atoms.add(`${component.name} - with label`, () => ReduxFormField({label: component.name})(component));
+  atoms.add(`${component.name} - validation error`, () =>
+    ReduxFormField({
+      validate: (/* value */) => 'This will always cause an error',
+    })(component)
+  );
+});
 
 // 3. Organisms
 // MontageForm
