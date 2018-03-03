@@ -15,7 +15,7 @@ export const TextField = ({
   meta: { touched, error },
   ...custom
 }) => (
-  <FormControl error={Boolean(touched && error)}>
+  <FormControl error={Boolean(touched && error)} fullWidth>
     <MUITextField
       error={Boolean(touched && error)}
       label={label}

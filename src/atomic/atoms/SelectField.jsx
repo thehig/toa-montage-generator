@@ -17,7 +17,7 @@ const SelectField = ({
   children,
   ...custom
 }) => (
-  <FormControl error={Boolean(touched && error)}>
+  <FormControl error={Boolean(touched && error)} fullWidth>
     <MUIInputLabel>{label}</MUIInputLabel>
     <MUISelect
       {...input}
