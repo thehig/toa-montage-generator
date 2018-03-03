@@ -2,14 +2,16 @@ import React from 'react';
 
 import {
   FormControl,
-  FormHelperText,
+  // FormHelperText,
   FormControlLabel,
 } from 'material-ui/Form';
 
+// import { InputLabel as MUIInputLabel } from 'material-ui/Input';
 import MUITextField from 'material-ui/TextField';
 import { RadioGroup as MUIRadioGroup } from 'material-ui/Radio';
 import MUICheckbox from 'material-ui/Checkbox';
-import MUISelect from 'material-ui/Select';
+
+const noop = () => {};
 
 export const TextField = ({
   input,
@@ -48,25 +50,5 @@ export const RadioGroup = ({ input, meta: { touched, error }, ...rest }) => (
       value={input.value}
       onChange={(event, value) => input.onChange(value)}
     />
-  </FormControl>
-);
-
-export const SelectField = ({
-  input,
-  label,
-  meta: { touched, error },
-  children,
-  ...custom
-}) => (
-  <FormControl error={Boolean(touched && error)}>
-    <MUISelect
-      {...input}
-      onChange={event => input.onChange(event.target.value)}
-      onBlur={event => {}}
-      // https://github.com/erikras/redux-form/issues/2768
-      children={children}
-      {...custom}
-    />
-    <FormHelperText>{error || label}</FormHelperText>
   </FormControl>
 );
