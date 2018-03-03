@@ -13,15 +13,12 @@ import { TextField, SelectField, Checkbox } from '../';
 const validate = values => {
   const errors = {};
   const requiredFields = [
-    'advantage',
-    'disadvantage',
     'modifier',
     'pace',
     'speed',
     'navigationDC',
     'encounterDC',
     'numdays',
-    'lost'
   ];
   requiredFields.forEach(field => {
     if (!values[field]) {
@@ -97,7 +94,7 @@ const MontageForm = props => {
       {/* TRAVEL */}
 
       <div>
-        <MUIButton variant="fab" color="secondary" aria-label="go" type="submit" disabled={submitting}>
+        <MUIButton type="submit" variant="fab" color="secondary" aria-label="go" disabled={submitting}>
           <PlayArrowIcon />
         </MUIButton>
         <MUIButton variant="fab" aria-label="reset" disabled={pristine || submitting} onClick={reset}>
