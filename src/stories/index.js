@@ -1,24 +1,38 @@
 import React from 'react';
 
+// Storybook
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { linkTo } from '@storybook/addon-links';
 
-import { Field, reduxForm } from 'redux-form';
+// Redux Form Component Wrapper
+import { Field } from 'redux-form';
 
+// SelectField Options
 import { MenuItem } from 'material-ui/Menu';
 
-import Button from 'material-ui/Button';
+// RadioGroup Options
+import Radio from 'material-ui/Radio';
+import { FormControlLabel } from 'material-ui/Form';
 
+// Storybook Decorators
+import {
+  ReduxDecorator,
+  ThemeDecorator,
+  FormWrapper,
+} from '../../.storybook/decorators';
+
+// Components
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
-import { ReduxDecorator, ThemeDecorator, FormWrapper } from '../../.storybook/decorators';
 
 // 1. Atoms
+// eslint-disable-next-line
 let atoms = storiesOf('1.Atoms', module)
-  .addDecorator(ReduxDecorator({
-    /* Initial Value */
-    stories: 'atoms'
-  }))
+  .addDecorator(
+    ReduxDecorator({
+      /* Initial Value */
+      stories: 'atoms',
+    })
+  )
   .addDecorator(ThemeDecorator());
 
 atoms.add('SelectField', () => (
@@ -31,9 +45,45 @@ atoms.add('SelectField', () => (
   </FormWrapper>
 ));
 
-// TextField
-// Checkbox
-// RadioGroup
+atoms.add('TextField', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="textfield" component={TextField} label="Textfield Label" />
+  </FormWrapper>
+));
+
+atoms.add('Checkbox', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="checkbox" component={Checkbox} label="Checkbox Label" />
+  </FormWrapper>
+));
+
+atoms.add('RadioGroup', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="radiogroup" component={RadioGroup} label="RadioGroup Label">
+      <FormControlLabel
+        value="male"
+        control={<Radio color="primary" />}
+        label="Male"
+      />
+      <FormControlLabel
+        value="female"
+        control={<Radio color="primary" />}
+        label="Female"
+      />
+      <FormControlLabel
+        value="other"
+        control={<Radio color="primary" />}
+        label="Other"
+      />
+      <FormControlLabel
+        value="disabled"
+        disabled
+        control={<Radio />}
+        label="(Disabled option)"
+      />
+    </Field>
+  </FormWrapper>
+));
 
 // 3. Organisms
 // MontageForm
