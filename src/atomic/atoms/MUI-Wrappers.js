@@ -13,21 +13,7 @@ import MUICheckbox from 'material-ui/Checkbox';
 
 const noop = () => {};
 
-export const TextField = ({
-  input,
-  label,
-  meta: { touched, error },
-  ...custom
-}) => (
-  <FormControl error={Boolean(touched && error)}>
-    <MUITextField
-      error={Boolean(touched && error)}
-      label={error || label}
-      {...input}
-      {...custom}
-    />
-  </FormControl>
-);
+
 
 export const Checkbox = ({ input, meta: { touched, error }, label }) => (
   <FormControlLabel
