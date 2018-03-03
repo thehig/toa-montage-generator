@@ -2,34 +2,51 @@ import React from 'react';
 
 import 'typeface-roboto';
 import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
+import purple from 'material-ui/colors/purple';
+import green from 'material-ui/colors/green';
 import MUIButton from 'material-ui/Button';
 
-import { Field, reduxForm } from 'redux-form';
+import { createStore, combineReducers } from 'redux';
+import { Provider, connect } from 'react-redux';
+import { reducer as reduxFormReducer, reduxForm, Field } from 'redux-form';
+
 import { action } from '@storybook/addon-actions';
 
-const theme = createMuiTheme();
+import mockFormStore from './mockFormStore';
 
-export const MuiProvider = () => getStory => (
+export const ReduxDecorator = () => getStory => (
+  <Provider store={mockFormStore({ mocked: 'successfully' })}>
+    {getStory()}
+  </Provider>
+);
+
+const defaultTheme = createMuiTheme({
+  palette: {
+    primary: purple,
+    secondary: green,
+  }
+});
+export const ThemeDecorator = (theme = defaultTheme) => getStory => (
   <MuiThemeProvider theme={theme}>{getStory()}</MuiThemeProvider>
 );
 
-// export const reduxFormWrapper = formName => getStory =>
-//   reduxForm({
-//     form: formName,
-//   })(
+// const FormWrapperBase = ({ children }) => (
+//   <form onSubmit={action('form onSubmit')}>
+//     {children}
+//     <MUIButton type="submit">Submit</MUIButton>
+//   </form>
+// );
 
-//   );
+// const ConnectedFormWrapper = connect(() => {}, null)(FormWrapperBase);
 
-export const reduxFormWrapper = getStory => {
-  const FormWrapper = (
-    <form onSubmit={action('form onSubmit')}>
-      Story Here
-      <MUIButton type="submit">Submit</MUIButton>
-    </form>
-  );
+// const FormWrapper = reduxForm({
+//   form: 'reduxFormWrapper',
+// })(ConnectedFormWrapper);
 
-  // return FormWrapper;
-  return reduxForm({
-    form: 'reduxFormWrapper'
-  })(FormWrapper);
-};
+// export const FullReduxWrapper = () => getStory => (
+//   <Provider store={storyStore()}>
+//     <MuiThemeProvider theme={theme}>
+//       <FormWrapper>{getStory()}</FormWrapper>
+//     </MuiThemeProvider>
+//   </Provider>
+// );

@@ -8,22 +8,29 @@ import { Field, reduxForm } from 'redux-form';
 
 import { MenuItem } from 'material-ui/Menu';
 
+import Button from 'material-ui/Button';
+
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
-import { reduxFormWrapper } from '../../.storybook/decorators';
+import { ReduxDecorator, ThemeDecorator } from '../../.storybook/decorators';
 
 // 1. Atoms
-const atoms = storiesOf('1.Atoms', module);
-atoms.addDecorator(reduxFormWrapper);
-atoms.add('SelectField', () => (
-  <Field name="selectField" component={SelectField} label="SelectField">
-    <MenuItem value="slow">Slow</MenuItem>
-    <MenuItem value="normal">Normal</MenuItem>
-    <MenuItem value="fast">Fast</MenuItem>
-  </Field>
-));
-// atoms.add('TextField', () => <Field name="TextField" label="TextField" component={TextField} />);
-// atoms.add('Checkbox', () => <Field name="Checkbox" label="Checkbox" component={Checkbox} />);
-// atoms.add('RadioGroup', () => <Field name="RadioGroup" label="RadioGroup" component={RadioGroup} />);
+let atoms = storiesOf('1.Atoms', module)
+  .addDecorator(ReduxDecorator())
+  .addDecorator(ThemeDecorator());
+
+// atoms.add('SelectField', () => (
+//     <Field name="selectField" component={SelectField} label="SelectField">
+//       <MenuItem value="slow">Slow</MenuItem>
+//       <MenuItem value="normal">Normal</MenuItem>
+//       <MenuItem value="fast">Fast</MenuItem>
+//     </Field>
+//   ));
+
+atoms.add('Something', () => <Button color="primary" onClick={action('onClick')}>With something</Button>);
+
+// TextField
+// Checkbox
+// RadioGroup
 
 // 3. Organisms
 // MontageForm
