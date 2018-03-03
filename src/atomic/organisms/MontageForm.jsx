@@ -97,7 +97,7 @@ const MontageForm = props => {
       {/* TRAVEL */}
 
       <div>
-        <MUIButton variant="fab" color="secondary" aria-label="go" type="submit" disabled={pristine || submitting}>
+        <MUIButton variant="fab" color="secondary" aria-label="go" type="submit" disabled={submitting}>
           <PlayArrowIcon />
         </MUIButton>
         <MUIButton variant="fab" aria-label="reset" disabled={pristine || submitting} onClick={reset}>
