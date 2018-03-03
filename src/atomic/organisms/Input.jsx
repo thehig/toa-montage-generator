@@ -1,14 +1,10 @@
 import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 
-// Radio Buttons
-import Radio from 'material-ui/Radio';
-import { FormControlLabel } from 'material-ui/Form';
-
 // Select Menu Item
 import { MenuItem } from 'material-ui/Menu';
 
-import { TextField, RadioGroup, SelectField, Checkbox } from '../';
+import { TextField, SelectField, Checkbox } from '../';
 
 const validate = values => {
   const errors = {};
