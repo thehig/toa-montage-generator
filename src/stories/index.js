@@ -47,9 +47,22 @@ let atoms = storiesOf('1.Atoms', module)
     }
   }));
 
+const alwaysError = (/* value */) => "This will always cause an error that is very needlessly long";
+
 atoms.add('SelectField', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="selectField" component={SelectField} label="SelectField">
+      <MenuItem value="slow">Slow</MenuItem>
+      <MenuItem value="normal">Normal</MenuItem>
+      <MenuItem value="fast">Fast</MenuItem>
+    </Field>
+    <FormSubmitButton />
+  </FormWrapper>
+));
+
+atoms.add('SelectField with an error (!pristine)', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="selectField" component={SelectField} label="SelectField" validate={alwaysError} >
       <MenuItem value="slow">Slow</MenuItem>
       <MenuItem value="normal">Normal</MenuItem>
       <MenuItem value="fast">Fast</MenuItem>
@@ -65,6 +78,13 @@ atoms.add('TextField', () => (
   </FormWrapper>
 ));
 
+atoms.add('TextField with an error (!pristine)', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="textfield" component={TextField} label="Textfield Label" validate={alwaysError} />
+    <FormSubmitButton />
+  </FormWrapper>
+));
+
 atoms.add('Checkbox', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="checkbox" component={Checkbox} label="Checkbox Label" />
@@ -72,9 +92,45 @@ atoms.add('Checkbox', () => (
   </FormWrapper>
 ));
 
+atoms.add('Checkbox with an error (!pristine)', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="checkbox" component={Checkbox} label="Checkbox Label" validate={alwaysError} />
+    <FormSubmitButton />
+  </FormWrapper>
+));
+
 atoms.add('RadioGroup', () => (
   <FormWrapper onSubmit={action('handleSubmit')}>
     <Field name="radiogroup" component={RadioGroup} label="RadioGroup Label">
+      <FormControlLabel
+        value="male"
+        control={<Radio color="primary" />}
+        label="Male"
+      />
+      <FormControlLabel
+        value="female"
+        control={<Radio color="primary" />}
+        label="Female"
+      />
+      <FormControlLabel
+        value="other"
+        control={<Radio color="primary" />}
+        label="Other"
+      />
+      <FormControlLabel
+        value="disabled"
+        disabled
+        control={<Radio />}
+        label="(Disabled option)"
+      />
+    </Field>
+    <FormSubmitButton />
+  </FormWrapper>
+));
+
+atoms.add('RadioGroup with an error (!pristine)', () => (
+  <FormWrapper onSubmit={action('handleSubmit')}>
+    <Field name="radiogroup" component={RadioGroup} label="RadioGroup Label" validate={alwaysError}>
       <FormControlLabel
         value="male"
         control={<Radio color="primary" />}
