@@ -24,65 +24,52 @@ import {
 import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
 
 /**
- * Create stories of a group of components intended to be used on redux-forms Fields
- *
- *  Add Decorators: [Redux Store, Material UI Theme]
- */
-// eslint-disable-next-line
-let stories = storiesOf('Redux Form Field Components', module)
-  .addDecorator(
-    ReduxDecorator({
-      /* Initial redux state */
-      stories: 'redux-form-field-components',
-    })
-  )
-  .addDecorator(
-    ThemeDecorator({
-      /* Base theme overrides */
-      palette: {
-        primary: blue,
-      },
-    })
-  );
-
-
-
-/**
  * Test a collection of components that should all take the same props and display them in some way
- * 
+ *
  * Takes a component object to be spread onto a Redux Form Field
  * Creates stories of this component which should support
- * 
+ *
  *    no label:           no label property is set for the Field
  *    with label:         label set to $name, should be visible in all cases
  *    validation error:   *must* be visible, else component is not yet properly defined
  */
-const makeStoriesOf = component => {
-  stories.add(`${component.name} - no label`, () =>
-    ReduxFormWithSingleField()(component)
-  );
-  stories.add(`${component.name} - with label`, () =>
-    ReduxFormWithSingleField({ label: component.name })(component)
-  );
-  stories.add(`${component.name} - validation error`, () =>
-    ReduxFormWithSingleField({
-      validate: (/* value */) => 'This will always cause an error',
-    })(component)
-  );
-  stories.add(`${component.name} - label and validation error`, () =>
-    ReduxFormWithSingleField({
-      validate: (/* value */) => 'This will always cause an error',
-      label: `This is the label for ${component.name}`
-    })(component)
-  );
+const makeStories = component => {
+  const render = ReduxFormWithSingleField(component);
+  const validate = (/* value */) => 'This will always cause an error';
+  const { name } = component;
+
+  // eslint-disable-next-line
+  storiesOf(`Redux-Form Field/${name}`, module)
+    // Add redux <Provider> with store
+    .addDecorator(
+      ReduxDecorator({
+        /* Initial redux state */
+        stories: `redux-form-field-${name}`,
+      })
+    )
+    // Add <MuiThemeProvider> with theme
+    .addDecorator(
+      ThemeDecorator({
+        /* Base theme overrides */
+        palette: {
+          primary: blue,
+        },
+      })
+    )
+    .add(`minimal props`, () => render())
+    .add(`with label`, () => render({ label: `${name} label` }))
+    .add(`validation error`, () => render({ validate }))
+    .add(`label and validation error`, () =>
+      render({ validate, label: `This is the label for ${name}` })
+    );
 };
 
 /**
  * The components to test. Props will be spread onto redux forms 'Field' component
- * 
+ *
  *    name:       Required    The name of the Field in state, dom (only one visible at a time)
  *    component:  Required    The component to send to the redux <Field />
- * 
+ *
  *    children:               Render inside component. Used to pass groups of options to <select> for example
  */
 const reduxFormFieldComponents = [
@@ -141,4 +128,4 @@ const reduxFormFieldComponents = [
     ],
   },
 ];
-reduxFormFieldComponents.map(makeStoriesOf);
+reduxFormFieldComponents.map(makeStories);
