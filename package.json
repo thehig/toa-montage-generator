@@ -6,11 +6,18 @@
   "author": "David Higgins <thehig@gmail.com>",
   "license": "MIT",
   "dependencies": {
+    "command-line-args": "^5.0.2",
+    "command-line-usage": "^4.1.0",
     "material-ui": "^1.0.0-beta.34",
+    "material-ui-icons": "^1.0.0-beta.35",
     "prop-types": "^15.6.0",
     "react": "16.0.0",
     "react-dom": "16.0.0",
+    "react-redux": "^5.0.7",
     "react-scripts": "1.1.1",
+    "redux": "^3.7.2",
+    "redux-form": "^7.2.3",
+    "redux-thunk": "^2.2.0",
     "typeface-roboto": "^0.0.54"
   },
   "scripts": {
@@ -19,13 +26,27 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
-    "build-storybook": "build-storybook -s public"
+    "build-storybook": "build-storybook -s public",
+    "build-cli": "babel src/logic --out-dir build/logic",
+    "montage": "node build/logic/cli"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.3.13",
     "@storybook/addon-links": "^3.3.13",
+    "@storybook/addon-storyshots": "^3.3.14",
     "@storybook/addons": "^3.3.13",
     "@storybook/react": "^3.3.13",
-    "babel-core": "^6.26.0"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
+    "eslint-plugin-jest": "^21.12.2",
+    "react-test-renderer": "^16.2.0"
+  },
+  "quokka": {
+    "env": {
+      "params": {
+        "env": "NODE_ENV=test"
+      }
+    }
   }
 }
