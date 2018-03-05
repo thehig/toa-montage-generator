@@ -18,7 +18,7 @@ import {
 } from '../../.storybook/decorators';
 
 // Components
-import { SelectField, TextField, Checkbox, RadioButtonGroup } from '../atomic';
+import { SelectField, TextField, CheckboxGroup, RadioButtonGroup } from '../atomic';
 
 /**
  * Test a collection of components that should all take the same props and display them in some way
@@ -90,8 +90,14 @@ const reduxFormFieldComponents = [
     component: TextField,
   },
   {
-    name: 'Checkbox',
-    component: Checkbox,
+    name: 'CheckboxGroup',
+    component: CheckboxGroup,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
   },
   {
     name: 'RadioButtonGroup',
