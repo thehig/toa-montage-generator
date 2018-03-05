@@ -20,7 +20,7 @@ export const RadioButtonGroup = ({
 }) => (
   <FormControl component="fieldset" error={Boolean(touched && error)}>
     <FormLabel component="legend">{label}</FormLabel>
-    <RadioGroup value={input.value} onChange={event => input.onChange(event.target.value)}>
+    <RadioGroup value={input.value} onChange={event => input.onChange(event.target.value)} {...rest}>
       {options.map(option => (
         <RadioButton key={option.key || option.name || option.label} {...option} />
       ))}

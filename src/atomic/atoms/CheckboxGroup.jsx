@@ -17,7 +17,7 @@ export const CheckboxGroup = ({
 }) => (
   <FormControl component="fieldset" error={Boolean(touched && error)}>
     <FormLabel component="legend">{label}</FormLabel>
-    <FormGroup>
+    <FormGroup {...rest}>
       {options.map((option, i) => (
         <FormControlLabel
           control={<MUICheckbox />}

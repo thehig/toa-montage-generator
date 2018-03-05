@@ -100,6 +100,28 @@ const reduxFormFieldComponents = [
     ],
   },
   {
+    name: 'CheckboxGroup/Row',
+    component: CheckboxGroup,
+    row: true,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
+  },
+  {
+    name: 'RadioButtonGroup/Row',
+    component: RadioButtonGroup,
+    row: true,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
+  },
+  {
     name: 'RadioButtonGroup',
     component: RadioButtonGroup,
     options: [
