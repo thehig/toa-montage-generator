@@ -9,9 +9,6 @@ import blue from 'material-ui/colors/blue';
 // SelectField Options
 import { MenuItem } from 'material-ui/Menu';
 
-// RadioGroup Options
-import Radio from 'material-ui/Radio';
-import { FormControlLabel } from 'material-ui/Form';
 
 // Storybook Decorators
 import {
@@ -21,7 +18,7 @@ import {
 } from '../../.storybook/decorators';
 
 // Components
-import { SelectField, TextField, Checkbox, RadioGroup } from '../atomic';
+import { SelectField, TextField, CheckboxGroup, RadioButtonGroup } from '../atomic';
 
 /**
  * Test a collection of components that should all take the same props and display them in some way
@@ -93,38 +90,45 @@ const reduxFormFieldComponents = [
     component: TextField,
   },
   {
-    name: 'Checkbox',
-    component: Checkbox,
+    name: 'CheckboxGroup',
+    component: CheckboxGroup,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
   },
   {
-    name: 'RadioGroup',
-    component: RadioGroup,
-    children: [
-      <FormControlLabel
-        key="male"
-        value="male"
-        control={<Radio color="primary" />}
-        label="Male"
-      />,
-      <FormControlLabel
-        key="female"
-        value="female"
-        control={<Radio color="primary" />}
-        label="Female"
-      />,
-      <FormControlLabel
-        key="other"
-        value="other"
-        control={<Radio color="primary" />}
-        label="Other"
-      />,
-      <FormControlLabel
-        key="disabled"
-        value="disabled"
-        disabled
-        control={<Radio />}
-        label="(Disabled option)"
-      />,
+    name: 'CheckboxGroup/Row',
+    component: CheckboxGroup,
+    row: true,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
+  },
+  {
+    name: 'RadioButtonGroup/Row',
+    component: RadioButtonGroup,
+    row: true,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
+    ],
+  },
+  {
+    name: 'RadioButtonGroup',
+    component: RadioButtonGroup,
+    options: [
+      { label: "Male", value: "male" },
+      { label: "Female", value: "female" },
+      { label: "Other", value: "other" },
+      { label: "Disabled", value: "disabled", disabled: true }
     ],
   },
 ];
