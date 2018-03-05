@@ -14,7 +14,7 @@ const handleChange = (event, options) => {
   console.log('value', event.target.value);
   console.log('options', options);
 };
-
+/* 
 export const CheckboxGroup = ({
   input,
   label,
@@ -51,6 +51,34 @@ export const CheckboxGroup = ({
       <FormHelperText>{touched && error && error}</FormHelperText>
     </FormControl>
   );
+};
+ */
+export const CheckboxGroup = ({
+  name,
+  options,
+  input,
+  meta,
+  ...custom
+}) => {
+  let $options = options.map((option, i) => (
+    <FormControlLabel
+      control={<MUICheckbox />}
+      key={i}
+      defaultChecked={input.value.indexOf(option.value) !== -1}
+      label={option.label}
+      onChange={(e) => {
+        let newValue = [...input.value];
+        if (e.target.checked) {
+          newValue.push(option.value);
+        } else {
+          newValue.splice(newValue.indexOf(option.value), 1);
+        }
+        return input.onChange(newValue);
+      }}
+      {...custom}
+    />
+  ));
+  return <div>{$options}</div>;
 };
 
 export default CheckboxGroup;
