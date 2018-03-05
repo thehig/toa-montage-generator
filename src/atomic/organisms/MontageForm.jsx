@@ -8,7 +8,7 @@ import MUIButton from 'material-ui/Button';
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import RefreshIcon from 'material-ui-icons/Refresh';
 
-import { TextField, SelectField, Checkbox } from '../';
+import { TextField, SelectField, CheckboxGroup } from '../';
 
 const validate = values => {
   const errors = {};
@@ -40,10 +40,22 @@ const MontageForm = props => {
     <form onSubmit={handleSubmit}>
       {/* NAVIGATOR */}
       <div>
-        <Field name="advantage" component={Checkbox} label="Advantage" />
-      </div>
-      <div>
-        <Field name="disadvantage" component={Checkbox} label="Disdvantage" />
+        <Field
+          name="nav-advantage"
+          component={CheckboxGroup}
+          label="Navigator Advantage"
+          row
+          options={[
+            {
+              value: 'advantage',
+              label: 'Advantage',
+            },
+            {
+              value: 'disadvantage',
+              label: 'Disadvantage',
+            },
+          ]}
+        />
       </div>
       <div>
         <Field name="modifier" component={TextField} label="Modifier" />
@@ -85,7 +97,17 @@ const MontageForm = props => {
       </div>
 
       <div>
-        <Field name="lost" component={Checkbox} label="Starts lost" />
+        <Field
+          name="starts-lost"
+          component={CheckboxGroup}
+          label="Starts Lost"
+          options={[
+            {
+              value: 'lost',
+              label: 'Lost',
+            },
+          ]}
+        />
       </div>
 
       <div>
@@ -94,10 +116,19 @@ const MontageForm = props => {
       {/* TRAVEL */}
 
       <div>
-        <MUIButton type="submit" variant="fab" color="secondary" aria-label="go" disabled={submitting}>
+        <MUIButton
+          type="submit"
+          variant="fab"
+          color="secondary"
+          aria-label="go"
+          disabled={submitting}>
           <PlayArrowIcon />
         </MUIButton>
-        <MUIButton variant="fab" aria-label="reset" disabled={pristine || submitting} onClick={reset}>
+        <MUIButton
+          variant="fab"
+          aria-label="reset"
+          disabled={pristine || submitting}
+          onClick={reset}>
           <RefreshIcon />
         </MUIButton>
       </div>

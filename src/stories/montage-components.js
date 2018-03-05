@@ -10,13 +10,13 @@ import blue from 'material-ui/colors/blue';
 import { ReduxDecorator, ThemeDecorator } from '../../.storybook/decorators';
 
 // Components
-import { 
-  // Org
-  MontageForm
+import {
+  MontageForm,
   // MontageOutput
   // Eco
-  // MontagePage
+  MontagePage,
 } from '../atomic';
+import { action } from '@storybook/addon-actions';
 
 // eslint-disable-next-line
 storiesOf(`Montage Components`, module)
@@ -24,7 +24,7 @@ storiesOf(`Montage Components`, module)
   .addDecorator(
     ReduxDecorator({
       /* Initial redux state */
-      stories: `redux-form-field-${name}`,
+      stories: `montage-components`,
     })
   )
   // Add <MuiThemeProvider> with theme
@@ -35,10 +35,10 @@ storiesOf(`Montage Components`, module)
         primary: blue,
       },
     })
-  ).add('MontageForm', () => <MontageForm />);
-
-// // Org
-// MontageForm
-// MontageOutput
-// // Eco
-// MontagePage
+  )
+  .add('MontageForm', () => (
+    <MontageForm onSubmit={action('Montage Form Submit')} />
+  ));
+// .add('MontagePage', () => (
+//   <MontagePage />
+// ));
