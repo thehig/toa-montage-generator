@@ -29,8 +29,8 @@ export const montageSubmit = (montage) => ({
 const runMontage = options => montage({
   navigator: {
     modifier: options.modifier,
-    advantage: options.advantage,
-    disadvantage: options.disadvantage,
+    advantage: options['nav-advantage'].indexOf('advantage') > -1,
+    disadvantage: options['nav-advantage'].indexOf('disadvantage') > -1,
   },
   pace: options.pace,
   speed: options.speed,
