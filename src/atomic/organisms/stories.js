@@ -7,7 +7,7 @@ import { storiesOf } from '@storybook/react';
 import blue from 'material-ui/colors/blue';
 
 // Storybook Decorators
-import { ReduxDecorator, ThemeDecorator } from '../../.storybook/decorators';
+import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';
 
 // Components
 import {
@@ -15,7 +15,7 @@ import {
   // MontageOutput
   // Eco
   MontagePage,
-} from '../atomic';
+} from '../';
 import { action } from '@storybook/addon-actions';
 
 // eslint-disable-next-line
