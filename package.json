@@ -27,7 +27,7 @@
     "eject": "react-scripts eject",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public -c .storybook -o docs",
-    "build-cli": "babel src/logic --out-dir build/logic",
+    "build-cli": "babel src/logic --out-dir build/logic --presets=env",
     "montage": "node build/logic/cli"
   },
   "devDependencies": {
