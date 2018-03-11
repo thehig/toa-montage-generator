@@ -54,7 +54,7 @@ const MontageForm = props => {
         <MUIButton
           variant="fab"
           aria-label="reset"
-          disabled={pristine || submitting}
+          disabled={submitting}
           onClick={reset}>
           <RefreshIcon />
         </MUIButton>
@@ -65,5 +65,13 @@ const MontageForm = props => {
 
 export default reduxForm({
   form: 'MontageForm', // a unique identifier for this form
+  initialValues: {
+    modifier: 3,
+    pace: "normal",
+    speed: "walk",
+    navigationDC: 10,
+    encounterDC: 19,
+    numdays: 3
+  },
   validate,
 })(MontageForm);
