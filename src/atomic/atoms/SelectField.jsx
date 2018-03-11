@@ -29,7 +29,7 @@ const SelectField = ({
   ...custom
 }) => (
   <FormControl error={Boolean(touched && error)} fullWidth>
-    <MUIInputLabel>{label}</MUIInputLabel>
+    { label && <MUIInputLabel>{label}</MUIInputLabel> }
     <MUISelect
       {...input}
       onChange={event => input.onChange(event.target.value)}

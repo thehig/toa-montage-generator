@@ -16,7 +16,7 @@ export const CheckboxGroup = ({
   ...rest
 }) => (
   <FormControl component="fieldset" error={Boolean(touched && error)}>
-    <FormLabel component="legend">{label}</FormLabel>
+    { label && <FormLabel component="legend">{label}</FormLabel> }
     <FormGroup {...rest}>
       {options.map((option, i) => (
         <FormControlLabel
@@ -36,7 +36,7 @@ export const CheckboxGroup = ({
         />
       ))}
     </FormGroup>
-    <FormHelperText>{touched && error && error}</FormHelperText>
+    {touched && error && <FormHelperText>{error}</FormHelperText>}
   </FormControl>
 );
 
