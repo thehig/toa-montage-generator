@@ -8,16 +8,33 @@ import {
   FormHelperText,
 } from 'material-ui/Form';
 
+import { withStyles } from 'material-ui/styles';
+
+const styles = theme => ({
+  root: {
+    margin: `${theme.spacing.unit * 2}px 0`,
+  }
+});
+
 export const CheckboxGroup = ({
   input,
   label,
   meta: { touched, error },
   options,
+  classes,
   ...rest
 }) => (
-  <FormControl component="fieldset" error={Boolean(touched && error)}>
-    { label && <FormLabel component="legend">{label}</FormLabel> }
-    <FormGroup {...rest}>
+  <FormControl
+    component="fieldset"
+    error={Boolean(touched && error)}
+    fullWidth
+    className={classes.root}>
+    {label && (
+      <FormLabel component="legend">
+        {label}
+      </FormLabel>
+    )}
+    <FormGroup className={classes.group} {...rest}>
       {options.map((option, i) => (
         <FormControlLabel
           control={<MUICheckbox />}
@@ -40,4 +57,4 @@ export const CheckboxGroup = ({
   </FormControl>
 );
 
-export default CheckboxGroup;
+export default withStyles(styles)(CheckboxGroup);
