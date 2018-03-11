@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { withStyles } from 'material-ui/styles';
 import {
   FormControl,
   FormHelperText,
@@ -9,13 +10,20 @@ import {
 // import { InputLabel as MUIInputLabel } from 'material-ui/Input';
 import MUITextField from 'material-ui/TextField';
 
+const styles = theme => ({
+  root: {
+    paddingBottom: theme.spacing.unit
+  }
+});
+
 export const TextField = ({
   input,
   label,
   meta: { touched, error },
+  classes,
   ...custom
 }) => (
-  <FormControl error={Boolean(touched && error)} fullWidth>
+  <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
     <MUITextField
       error={Boolean(touched && error)}
       label={label}
@@ -26,4 +34,4 @@ export const TextField = ({
   </FormControl>
 );
 
-export default TextField;
+export default withStyles(styles)(TextField);
