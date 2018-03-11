@@ -4,7 +4,13 @@ import { Field } from 'redux-form';
 import { TextField, CheckboxGroup } from '../';
 
 const Travel = props => [
-  <Field name="numdays" key="numdays" component={TextField} label="Num days" />,
+  <Field
+    name="numdays"
+    key="numdays"
+    component={TextField}
+    label="Num days"
+    type="number"
+  />,
   <Field
     name="starts-lost"
     key="starts-lost"
@@ -22,6 +28,7 @@ const Travel = props => [
     key="daysoffset"
     component={TextField}
     label="Days Offset"
+    type="number"
   />,
 ];
 export default Travel;
