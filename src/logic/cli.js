@@ -164,16 +164,16 @@ try {
     lost: options._all.lost,
   });
 
-  console.log(travel);
+  console.log(JSON.stringify(travel, null, 2));
 
-  // Generate more manageable output
+/*   // Generate more manageable output
   const readout = generateReadout(travel);
   console.log(JSON.stringify(readout, null, 2));
   const narration = narrate({
     readout,
     navoptions: { speed: options._all.speed, pace: options._all.pace },
   });
-  console.log(narration);
+  console.log(narration); */
 } catch (exception) {
   console.error(exception);
   exit(1);
