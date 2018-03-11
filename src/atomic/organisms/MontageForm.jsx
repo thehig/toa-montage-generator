@@ -147,6 +147,7 @@ export default reduxForm({
     navigationDC: 10,
     encounterDC: 19,
     numdays: 3,
+    "nav-advantage": ""
   },
   validate,
 })(withStyles(styles)(MontageForm));

@@ -12,3 +12,5 @@ export { default as MontageForm } from './organisms/MontageForm';
 export { default as MontageOutput } from './organisms/MontageOutput';
 
 export { default as MontagePage } from './ecosystems/Montage';
+
+export { default as App } from './environment/App';
