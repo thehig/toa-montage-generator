@@ -6,18 +6,6 @@ export const CONSTS = {
 
 export const initialState = {
   montage: {
-    options: {
-      advantage: false,
-      disadvantage: false,
-      modifier: +6,
-      pace: "normal",
-      speed: "walk",
-      navigationDC: 15,
-      encounterDC: 19,
-      numdays: 1,
-      // lost: false,
-      // daysoffset: 0
-    }    
   }
 };
 
@@ -29,8 +17,8 @@ export const montageSubmit = (montage) => ({
 const runMontage = options => montage({
   navigator: {
     modifier: options.modifier,
-    advantage: options['nav-advantage'].indexOf('advantage') > -1,
-    disadvantage: options['nav-advantage'].indexOf('disadvantage') > -1,
+    advantage: options['nav-advantage'] && options['nav-advantage'].indexOf('advantage') > -1,
+    disadvantage: options['nav-advantage'] && options['nav-advantage'].indexOf('disadvantage') > -1,
   },
   pace: options.pace,
   speed: options.speed,
