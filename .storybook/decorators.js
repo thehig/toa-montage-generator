@@ -72,6 +72,25 @@ export const ReduxFormDecorator = ({
   </Provider>
 );
 
+// Example ReduxFormDecorator usage
+
+// const decorator = ReduxFormDecorator({
+//   initialState: {
+//     _init: "Initialized by Molecules stories"
+//   },
+//   theme: {
+//     palette: {
+//       secondary: blue,
+//     },
+//   },
+//   onSubmit: action('On Molecule Submit')
+// });
+
+// storiesOf(`Molecules`, module)
+//   // Add redux <Provider> with store
+//   .addDecorator(decorator)
+//   .add('DCInput', () => <DCInput />)
+
 /**
  * Take two sets of props to be applied to a Redux Form Field component
  * Returns
@@ -89,3 +108,4 @@ export const ReduxFormWithSingleField = (higherPriorityProps = {}) => (
     </MUIButton>
   </FormWrapper>
 );
+
