@@ -1,5 +1,4 @@
 import { configure, addDecorator } from '@storybook/react';
-import '@storybook/addon-knobs/register';
 import { MuiProvider } from './decorators';
 
 function loadStories() {
