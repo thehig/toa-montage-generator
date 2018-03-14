@@ -4,7 +4,7 @@ export const getRandomInt = (min, max) => name => {
   return result;
 };
 
-export const roll = die => options => {
+export const roll = die => sides => options => {
   // Deconstruct options or configure defaults
   const {
     name = '',
@@ -15,6 +15,7 @@ export const roll = die => options => {
   } = options || {};
   let result = {
     options,
+    sides,
     rolls: [die()],
     roll: -1,
   };
@@ -41,14 +42,14 @@ export const roll = die => options => {
   return result;
 };
 
-export const d = sides => roll(getRandomInt(1, sides));
-export const _d = generator => roll(generator);
+export const d = sides => roll(getRandomInt(1, sides))(sides);
+export const _d = generator => roll(generator)('generator');
 export const _dArray = results => {
   let index = 0;
   return roll(() => {
     let result = results[index++ % results.length];
     return result;
-  });
+  })('fixed dice array');
 };
 
 export const d2 = d(2);
