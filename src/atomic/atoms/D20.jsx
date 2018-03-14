@@ -21,7 +21,7 @@ const Dice = ({ value = 10, color = '#000000', ...svgProps }) => (
       fill={color}
       textAnchor="middle"
       alignmentBaseline="central">
-      {Math.max(1, Math.min(20, value))}
+      {Math.max(1, Math.min(20, Number(value)))}
     </text>
   </svg>
 );
