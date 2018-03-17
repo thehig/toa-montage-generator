@@ -115,7 +115,7 @@ class MontageOutput extends React.Component {
     ];
   };
 
-  navigation = (navigation, index) => {
+  navigation = ({ rolls, startedLost, pace, speed, paceMod, success, lost, distance } = {}, index) => {
     const { classes } = this.props;
     return [
       <ListItem key={`${index}-nav`} className={classes.outerList}>
@@ -124,7 +124,7 @@ class MontageOutput extends React.Component {
         </ListItemIcon>
         <ListItemText
           inset
-          primary={`Navigation (DC${navigation.rolls[0].options.versus})`}
+          primary={`Navigation (DC${rolls[0].options.versus})`}
         />
       </ListItem>,
       <List key={`${index}-nav-list`} component="div" disablePadding>
@@ -135,18 +135,18 @@ class MontageOutput extends React.Component {
           </ListItemIcon>
           <ListItemText
             inset
-            primary={`${navigation.rolls[0].roll}`}
+            primary={`${rolls[0].roll}`}
             secondary={
               <span>
-                {navigation.rolls[0].options.advantage && (
+                {rolls[0].options.advantage && (
                   <Chip label="Advantage" />
                 )}
-                {navigation.rolls[0].options.disadvantage && (
+                {rolls[0].options.disadvantage && (
                   <Chip label="Disadvantage" />
                 )}
-                {navigation.rolls[0].options.modifier && (
+                {rolls[0].options.modifier && (
                   <Chip
-                    label={`Modifier ${navigation.rolls[0].options.modifier}`}
+                    label={`Modifier ${rolls[0].options.modifier}`}
                   />
                 )}
               </span>
