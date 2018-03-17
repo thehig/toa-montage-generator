@@ -24,6 +24,17 @@ class Encounters extends React.Component {
     expanded: false,
   };
 
+  constructor(props) {
+    super(props);
+
+    if (props && props.encounters) {
+      const actualEncounters = props.encounters.filter(any =>
+        any.hasOwnProperty('tableRoll')
+      );
+      this.state.expanded = actualEncounters.length > 0;
+    }
+  }
+
   handleClick = () => {
     this.setState({ expanded: !this.state.expanded });
   };
@@ -76,5 +87,36 @@ class Encounters extends React.Component {
     ];
   }
 }
+
+Encounters.propTypes = {
+  encounters: PropTypes.arrayOf(
+    PropTypes.shape({
+      encounterRoll: PropTypes.shape({
+        rolls: PropTypes.array.isRequired,
+        roll: PropTypes.number.isRequired,
+        success: PropTypes.bool,
+        options: PropTypes.shape({
+          advantage: PropTypes.bool,
+          disadvantage: PropTypes.bool,
+          name: PropTypes.string,
+          versus: PropTypes.number,
+        }),
+      }).isRequired,
+      tableRoll: PropTypes.shape({
+        rolls: PropTypes.array.isRequired,
+        roll: PropTypes.number.isRequired,
+        success: PropTypes.bool,
+        options: PropTypes.shape({
+          advantage: PropTypes.bool,
+          disadvantage: PropTypes.bool,
+          name: PropTypes.string,
+          versus: PropTypes.number,
+        }),
+      }),
+    })
+  ).isRequired,
+  index: PropTypes.number.isRequired,
+};
+
 
 export default withStyles(styles)(Encounters);
