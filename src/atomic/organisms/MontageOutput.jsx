@@ -61,6 +61,8 @@ class MontageOutput extends React.Component {
       montage: { days, completed, reasonsForStopping, distance, lost },
     } = this.props;
 
+    console.log('montage', this.props.montage);
+
     return (
       <List
         component="div"
