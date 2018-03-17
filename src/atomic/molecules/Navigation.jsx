@@ -41,6 +41,9 @@ class Navigation extends React.Component {
       lost,
       distance,
       index,
+      becameLost,
+      stillLost,
+      becameFound
     } = this.props;
     const { expanded } = this.state;
     return [
@@ -55,6 +58,7 @@ class Navigation extends React.Component {
         <ListItemText
           inset
           primary={`Navigation (DC${rolls[0].options.versus})`}
+          secondary={`${becameLost ? "Became Lost" : ""}${stillLost ? "Lost" : ""}${becameFound ? "Became Found" : ""}`}
         />
         {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
@@ -86,5 +90,44 @@ class Navigation extends React.Component {
     ];
   }
 }
+
+Navigation.propTypes = {
+  rolls: PropTypes.arrayOf(
+    PropTypes.shape({
+      rolls: PropTypes.array.isRequired,
+      roll: PropTypes.number.isRequired,
+      success: PropTypes.bool,
+      options: PropTypes.shape({
+        advantage: PropTypes.bool,
+        disadvantage: PropTypes.bool,
+        name: PropTypes.string,
+        versus: PropTypes.number,
+      }),
+    })
+  ),
+  startedLost: PropTypes.bool,
+  pace: PropTypes.string,
+  speed: PropTypes.string,
+  paceMod: PropTypes.number,
+  success: PropTypes.bool,
+  lost: PropTypes.bool,
+  distance: PropTypes.number,
+  becameLost: PropTypes.bool,
+  stillLost: PropTypes.bool,
+  becameFound: PropTypes.bool,
+  index: PropTypes.number.isRequired,
+};
+
+Navigation.defaultProps = {
+  startedLost: false,
+  speed: 'walk',
+  paceMod: 0,
+  success: false,
+  lost: false,
+  distance: 0,
+  becameLost: false,
+  stillLost: false,
+  becameFound: false,
+};
 
 export default withStyles(styles)(Navigation);
