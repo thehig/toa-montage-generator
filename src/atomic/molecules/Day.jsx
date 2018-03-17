@@ -16,7 +16,7 @@ class Day extends React.Component {
     expanded: false
   };
 
-  handleDayClick = () => {
+  handleClick = () => {
     this.setState({ expanded: !this.state.expanded });
   };
 
@@ -28,7 +28,7 @@ class Day extends React.Component {
       <ListItem
         key={`${day.index}-day`}
         button
-        onClick={this.handleDayClick}>
+        onClick={this.handleClick}>
         <ListItemIcon>
           <TodayIcon />
         </ListItemIcon>

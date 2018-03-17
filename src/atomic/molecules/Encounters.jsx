@@ -9,16 +9,8 @@ import EncounterIcon from 'material-ui-icons/Colorize';
 import StarBorder from 'material-ui-icons/StarBorder';
 
 const styles = theme => ({
-  root: {
-    width: '100%',
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper,
-  },
   outerList: {
     paddingLeft: theme.spacing.unit * 4,
-  },
-  innerList: {
-    paddingLeft: theme.spacing.unit * 8,
   },
   innermostList: {
     paddingLeft: theme.spacing.unit * 8,
