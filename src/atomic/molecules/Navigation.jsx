@@ -39,11 +39,12 @@ class Navigation extends React.Component {
       paceMod,
       success,
       lost,
+      direction,
       distance,
       index,
       becameLost,
       stillLost,
-      becameFound
+      becameFound,
     } = this.props;
     const { expanded } = this.state;
     return [
@@ -58,7 +59,9 @@ class Navigation extends React.Component {
         <ListItemText
           inset
           primary={`Navigation (DC${rolls[0].options.versus})`}
-          secondary={`${becameLost ? "Became Lost" : ""}${stillLost ? "Lost" : ""}${becameFound ? "Became Found" : ""}`}
+          secondary={`${becameLost ? 'Became Lost (' + direction + ')' : ''}${
+            stillLost ? 'Lost (' + direction + ')' : ''
+          }${becameFound ? 'Became Found' : ''}`}
         />
         {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
@@ -68,24 +71,34 @@ class Navigation extends React.Component {
         timeout="auto"
         unmountOnExit>
         {/* NAVIGATION */}
-        <ListItem className={classes.innerList}>
-          <ListItemIcon>
-            <StarBorder />
-          </ListItemIcon>
-          <ListItemText
-            inset
-            primary={`${rolls[0].roll}`}
-            secondary={
-              <span>
-                {rolls[0].options.advantage && <Chip label="Advantage" />}
-                {rolls[0].options.disadvantage && <Chip label="Disadvantage" />}
-                {rolls[0].options.modifier && (
-                  <Chip label={`Modifier ${rolls[0].options.modifier}`} />
-                )}
-              </span>
-            }
-          />
-        </ListItem>
+        {rolls.map((roll, mapIndex) => (
+          <ListItem
+            key={`${index}-nav-list-roll-${mapIndex}`}
+            className={classes.innerList}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText
+              inset
+              primary={`${roll.options.name} (d${roll.sides}=${roll.roll})${
+                roll.success ? ': Ok' : ''
+              }`}
+              secondary={
+                <div>
+                  {roll.options.advantage && (
+                    <Chip label={`Advantage [${roll.rolls.join(',')}]`} />
+                  )}
+                  {roll.options.disadvantage && (
+                    <Chip label={`Disadvantage [${roll.rolls.join(',')}]`} />
+                  )}
+                  {roll.options.modifier && (
+                    <Chip label={`Modifier ${roll.options.modifier}`} />
+                  )}
+                </div>
+              }
+            />
+          </ListItem>
+        ))}
       </Collapse>,
     ];
   }
