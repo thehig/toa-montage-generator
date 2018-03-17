@@ -35,12 +35,12 @@ export const weather = {
   },
   heavy: {
     min: 16,
-    max: 18,
+    max: 19,
     name: 'Heavy',
     effects: '',
   },
   torrent: {
-    min: 19,
+    min: 20,
     max: 20,
     name: 'Torrent',
     effects: '',
