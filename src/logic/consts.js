@@ -24,26 +24,26 @@ export const weather = {
   light: {
     min: 6,
     max: 10,
-    name: 'Light',
+    name: 'Light Rain',
     effects: '',
   },
   medium: {
     min: 11,
     max: 15,
-    name: 'Medium',
+    name: 'Normal Rain',
     effects: '',
   },
   heavy: {
     min: 16,
     max: 19,
     name: 'Heavy',
-    effects: '',
+    effects: 'Visibility is limited to 50 yards. Huge or larger objects can still be distinguished. Missile weapon ranges are halved.',
   },
   torrent: {
     min: 20,
     max: 20,
     name: 'Torrent',
-    effects: '',
+    effects: 'Travel by river is impossible.',
   },
 };
 
