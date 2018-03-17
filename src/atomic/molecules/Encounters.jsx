@@ -78,7 +78,7 @@ class Encounters extends React.Component {
               primary={`(${encounter.encounterRoll.roll}): ${encounter.encounter ? "Encounter!" : "None"}`}
               secondary={
                 encounter.encounter !== false &&
-                `Encounter Entry #${encounter.encounter}`
+                `Encounter table #${encounter.encounter}`
               }
             />
           </ListItem>
