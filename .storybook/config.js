@@ -2,10 +2,10 @@ import { configure, addDecorator } from '@storybook/react';
 import { MuiProvider } from './decorators';
 
 function loadStories() {
+  require('../src/atomic/environment/stories');
   require('../src/atomic/atoms/stories');
   require('../src/atomic/molecules/stories');
   require('../src/atomic/organisms/stories');
-  require('../src/atomic/environment/stories');
 }
 
 configure(loadStories, module);
