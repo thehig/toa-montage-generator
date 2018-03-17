@@ -12,7 +12,7 @@ import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';
 // Components
 import {
   MontageForm,
-  MontageOutput
+  MontageOutput,
   // Eco
   // MontagePage,
 } from '../';
@@ -39,9 +39,7 @@ storiesOf(`Montage Components`, module)
   .add('MontageForm', () => (
     <MontageForm onSubmit={action('Montage Form Submit')} />
   ))
-  .add('MontageOutput', () => (
-    <MontageOutput montage={sampleMontage} />
-  ));
+  .add('MontageOutput', () => <MontageOutput montage={sampleMontage} />);
 
 const sampleMontage = {
   days: [
@@ -110,7 +108,7 @@ const sampleMontage = {
       weather: [
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [9],
             roll: 9,
           },
@@ -124,7 +122,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [12],
             roll: 12,
           },
@@ -138,7 +136,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [9],
             roll: 9,
           },
@@ -218,7 +216,7 @@ const sampleMontage = {
       weather: [
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [9],
             roll: 9,
           },
@@ -232,7 +230,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [9],
             roll: 9,
           },
@@ -246,7 +244,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [16],
             roll: 16,
           },
@@ -335,7 +333,7 @@ const sampleMontage = {
       weather: [
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [8],
             roll: 8,
           },
@@ -349,7 +347,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [17],
             roll: 17,
           },
@@ -363,7 +361,7 @@ const sampleMontage = {
         },
         {
           weatherRoll: {
-            options: 'Weather',
+            options: { name: 'Weather' },
             rolls: [4],
             roll: 4,
           },

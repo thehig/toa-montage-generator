@@ -155,7 +155,7 @@ const montage = {
       "weather": [
         {
           "weatherRoll": {
-            "options": "Weather",
+            "options": { name: "Weather"},
             "rolls": [
               20
             ],
@@ -171,7 +171,7 @@ const montage = {
         },
         {
           "weatherRoll": {
-            "options": "Weather",
+            "options": { name: "Weather"},
             "rolls": [
               17
             ],
@@ -187,7 +187,7 @@ const montage = {
         },
         {
           "weatherRoll": {
-            "options": "Weather",
+            "options": { name: "Weather"},
             "rolls": [
               18
             ],
