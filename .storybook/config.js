@@ -1,5 +1,11 @@
 import { configure, addDecorator } from '@storybook/react';
 import { MuiProvider } from './decorators';
+import { setOptions } from '@storybook/addon-options';
+
+// https://www.npmjs.com/package/@storybook/addon-options
+setOptions({
+  goFullScreen: true  
+});
 
 function loadStories() {
   require('../src/atomic/environment/stories');
