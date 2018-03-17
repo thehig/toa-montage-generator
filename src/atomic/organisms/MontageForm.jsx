@@ -144,9 +144,9 @@ export default reduxForm({
     modifier: 3,
     pace: 'normal',
     speed: 'walk',
-    navigationDC: 10,
+    navigationDC: 15,
     encounterDC: 19,
-    numdays: 3,
+    numdays: 10,
     "nav-advantage": ""
   },
   validate,
