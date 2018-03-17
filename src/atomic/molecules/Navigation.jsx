@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
+import Typography from 'material-ui/Typography';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
@@ -80,9 +81,12 @@ class Navigation extends React.Component {
             </ListItemIcon>
             <ListItemText
               inset
-              primary={`${roll.options.name} (d${roll.sides}=${roll.roll})${
-                roll.success ? ': Ok' : ''
-              }`}
+              disableTypography
+              primary={
+                <Typography variant="subheading">{`${roll.options.name} (d${
+                  roll.sides
+                }=${roll.roll})${roll.success ? ': Ok' : ''}`}</Typography>
+              }
               secondary={
                 <div>
                   {roll.options.advantage && (
