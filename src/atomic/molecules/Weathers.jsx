@@ -75,7 +75,7 @@ class Weathers extends React.Component {
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
-            <ListItemText inset primary={`${weather.effect.name}`} />
+            <ListItemText inset primary={`(${weather.weatherRoll.roll}): ${weather.effect.name}`} secondary={`${weather.effect.effects}`} />
           </ListItem>
         ))}
       </Collapse>,
