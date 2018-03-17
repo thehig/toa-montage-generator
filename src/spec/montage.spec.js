@@ -81,7 +81,7 @@ describe('Montage', () => {
           d20: _dArray([
             4, 6, // Navigation with disadvantage
             18, 16, 19, // Encounter rolls
-            18, 19, 19, // Weather rolls
+            18, 20, 20, // Weather rolls
           ]),
           d100: _dArray([
             95, 21, 66, // Encounters
@@ -126,9 +126,9 @@ describe('Montage', () => {
       expect(day.weather.length).toBe(3);
       expect(day.weather[0].weatherRoll.roll).toBe(18);
       expect(day.weather[0].name).toBe('heavy');
-      expect(day.weather[1].weatherRoll.roll).toBe(19);
+      expect(day.weather[1].weatherRoll.roll).toBe(20);
       expect(day.weather[1].name).toBe('torrent');
-      expect(day.weather[2].weatherRoll.roll).toBe(19);
+      expect(day.weather[2].weatherRoll.roll).toBe(20);
       expect(day.weather[2].name).toBe('torrent');
     });
   });
