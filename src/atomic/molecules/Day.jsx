@@ -50,6 +50,6 @@ class Day extends React.Component {
       </Collapse>,
     ];
   }
-};
+}
 
 export default Day;
