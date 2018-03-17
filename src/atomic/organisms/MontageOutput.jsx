@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
+import Chip from 'material-ui/Chip';
+
 import InboxIcon from 'material-ui-icons/MoveToInbox';
 import TodayIcon from 'material-ui-icons/Today';
 import NavigationIcon from 'material-ui-icons/Map';
@@ -29,11 +31,11 @@ const styles = theme => ({
   },
   innermostList: {
     paddingLeft: theme.spacing.unit * 8,
-  }
+  },
 });
 
 class MontageOutput extends React.Component {
-  state = { days: [ ] };
+  state = { days: [] };
 
   handleDayClick = (evt, day) => {
     const { days } = this.state;
@@ -87,9 +89,14 @@ class MontageOutput extends React.Component {
               <ListItemIcon>
                 <NavigationIcon />
               </ListItemIcon>
-              
-              { console.log(day.navigation) }
-              <ListItemText inset primary={`Navigation (DC${day.navigation.rolls[0].options.versus})`} />
+
+              {console.log(day.navigation)}
+              <ListItemText
+                inset
+                primary={`Navigation (DC${
+                  day.navigation.rolls[0].options.versus
+                })`}
+              />
             </ListItem>
             <List key={`${day.index}-nav-list`} component="div" disablePadding>
               {/* NAVIGATION */}
@@ -97,23 +104,51 @@ class MontageOutput extends React.Component {
                 <ListItemIcon>
                   <StarBorder />
                 </ListItemIcon>
-                <ListItemText inset primary={`${day.navigation.rolls[0].roll}`} />
+                <ListItemText
+                  inset
+                  primary={`${day.navigation.rolls[0].roll}`}
+                  secondary={
+                    <span>
+                      {day.navigation.rolls[0].options.advantage && (
+                        <Chip label="Advantage" />
+                      )}{day.navigation.rolls[0].options.disadvantage && (
+                        <Chip label="Disadvantage" />
+                      )}{day.navigation.rolls[0].options.modifier && (
+                        <Chip label={`Modifier ${day.navigation.rolls[0].options.modifier}`} />
+                      )}
+                    </span>
+                  }
+                />
               </ListItem>
             </List>
             <ListItem key={`${day.index}-enc`} className={classes.outerList}>
               <ListItemIcon>
                 <EncounterIcon />
               </ListItemIcon>
-              <ListItemText inset primary={`Encounters (DC${day.encounters[0].encounterRoll.options.versus})`} />
+              <ListItemText
+                inset
+                primary={`Encounters (DC${
+                  day.encounters[0].encounterRoll.options.versus
+                })`}
+              />
             </ListItem>
             <List key={`${day.index}-enc-list`} component="div" disablePadding>
               {/* ENCOUNTERS */}
               {day.encounters.map((encounter, index) => (
-                <ListItem key={`${day.index}-enc-${index}-list`} className={classes.innermostList}>
+                <ListItem
+                  key={`${day.index}-enc-${index}-list`}
+                  className={classes.innermostList}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
-                  <ListItemText inset primary={`${encounter.encounterRoll.roll}`} secondary={encounter.encounter !== false && `Encounter #${encounter.encounter}` }/>
+                  <ListItemText
+                    inset
+                    primary={`${encounter.encounterRoll.roll}`}
+                    secondary={
+                      encounter.encounter !== false &&
+                      `Encounter #${encounter.encounter}`
+                    }
+                  />
                 </ListItem>
               ))}
             </List>
@@ -126,7 +161,9 @@ class MontageOutput extends React.Component {
             <List key={`${day.index}-wea-list`} component="div" disablePadding>
               {/* WEATHER */}
               {day.weather.map((weather, index) => (
-                <ListItem key={`${day.index}-enc-${index}-list`} className={classes.innermostList}>
+                <ListItem
+                  key={`${day.index}-enc-${index}-list`}
+                  className={classes.innermostList}>
                   <ListItemIcon>
                     <StarBorder />
                   </ListItemIcon>
