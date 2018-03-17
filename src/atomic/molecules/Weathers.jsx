@@ -17,8 +17,6 @@ import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 import StarBorder from 'material-ui-icons/StarBorder';
 
-import { Day } from '../';
-
 const styles = theme => ({
   root: {
     width: '100%',
@@ -36,45 +34,32 @@ const styles = theme => ({
   },
 });
 
-class MontageOutput extends React.Component {
-  state = { days: [] };
-
-  handleDayClick = (evt, day) => {
-    const { days } = this.state;
-    const index = days.indexOf(day.index);
-
-    let newValue = [...days];
-    if (index > -1) {
-      newValue.splice(index, 1);
-    } else {
-      newValue.push(day.index);
-    }
-
-    this.setState({ days: newValue });
-  };
-
-
-
+class Weathers extends React.Component {
   render() {
-    const {
-      classes,
-      montage: { days, completed, reasonsForStopping, distance, lost },
-    } = this.props;
+    const { classes, weathers, index } = this.props;
 
-    return (
-      <List
-        component="div"
-        subheader={
-          <ListSubheader component="div">Montage Output</ListSubheader>
-        }>
-        {days.map(day => <Day key={day.index} day={day} />)}
-      </List>
-    );
+    return [
+      <ListItem key={`${index}-wea`} className={classes.outerList}>
+        <ListItemIcon>
+          <WeatherIcon />
+        </ListItemIcon>
+        <ListItemText inset primary="Weather" />
+      </ListItem>,
+      <List key={`${index}-wea-list`} component="div" disablePadding>
+        {/* WEATHER */}
+        {weathers.map((weather, index) => (
+          <ListItem
+            key={`${index}-enc-${index}-list`}
+            className={classes.innermostList}>
+            <ListItemIcon>
+              <StarBorder />
+            </ListItemIcon>
+            <ListItemText inset primary={`${weather.effect.name}`} />
+          </ListItem>
+        ))}
+      </List>,
+    ];
   }
 }
 
-MontageOutput.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
-
-export default withStyles(styles)(MontageOutput);
+export default withStyles(styles)(Weathers);
