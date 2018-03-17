@@ -56,10 +56,10 @@ const stories = storiesOf(`Molecules`, module)
   ));
 });
 
-stories.add('Encounters', () => (<Encounters encounters={montage.days[0].encounters} />));
-stories.add('Weathers', () => (<Weathers weathers={montage.days[0].weathers}/>));
+stories.add('Encounters', () => (<Encounters index={1} encounters={montage.days[0].encounters} />));
+stories.add('Weathers', () => (<Weathers index={1} weathers={montage.days[0].weather}/>));
 
-stories.add('Navigation', () => (<Navigation encounters={montage.days[0].encounters}/>));
+stories.add('Navigation', () => (<Navigation index={1} {...montage.days[0].navigation}/>));
 
 stories.add('Day', () => (<Day day={montage.days[0]}/>));
 
