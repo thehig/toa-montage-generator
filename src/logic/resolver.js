@@ -24,7 +24,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     // Roll the d20 with the navigators adv/disadv and modifier versus the terrain DC
     const navigationCheck = rollA.d20(
       Object.assign({}, navigator, {
-        name: 'navigation check',
+        name: 'Navigation Check',
         versus: Number(DC) + Number(navigationResults.paceMod),
       })
     );
