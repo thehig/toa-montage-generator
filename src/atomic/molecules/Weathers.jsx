@@ -31,6 +31,17 @@ class Weathers extends React.Component {
     expanded: false,
   };
 
+  constructor(props) {
+    super(props);
+
+    if (props && props.weathers) {
+      const torrentialWeather = props.weathers.filter(any =>
+        any.hasOwnProperty('name') && any.name === 'torrent'
+      );
+      this.state.expanded = torrentialWeather.length > 0;
+    }
+  }
+
   handleClick = () => {
     this.setState({ expanded: !this.state.expanded });
   };
@@ -71,5 +82,29 @@ class Weathers extends React.Component {
     ];
   }
 }
+
+Weathers.propTypes = {
+  weathers: PropTypes.arrayOf(
+    PropTypes.shape({
+      weatherRoll: PropTypes.shape({
+        rolls: PropTypes.array.isRequired,
+        roll: PropTypes.number.isRequired,
+        success: PropTypes.bool,
+        options: PropTypes.shape({
+          advantage: PropTypes.bool,
+          disadvantage: PropTypes.bool,
+          name: PropTypes.string,
+          versus: PropTypes.number,
+        }),
+      }).isRequired,
+      name: PropTypes.string,
+      effect: PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        effects: PropTypes.string,
+      }).isRequired,
+    })
+  ).isRequired,
+  index: PropTypes.number.isRequired,
+};
 
 export default withStyles(styles)(Weathers);
