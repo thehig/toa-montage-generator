@@ -27,17 +27,35 @@ const styles = theme => ({
 });
 
 class Weathers extends React.Component {
+  state = {
+    expanded: false,
+  };
+
+  handleClick = () => {
+    this.setState({ expanded: !this.state.expanded });
+  };
+
   render() {
     const { classes, weathers, index } = this.props;
+    const { expanded } = this.state;
 
     return [
-      <ListItem key={`${index}-wea`} className={classes.outerList}>
+      <ListItem
+        key={`${index}-wea`}
+        className={classes.outerList}
+        button
+        onClick={this.handleClick}>
         <ListItemIcon>
           <WeatherIcon />
         </ListItemIcon>
         <ListItemText inset primary="Weather" />
+        {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
-      <List key={`${index}-wea-list`} component="div" disablePadding>
+      <Collapse
+        key={`${index}-wea-list`}
+        in={expanded}
+        timeout="auto"
+        unmountOnExit>
         {/* WEATHER */}
         {weathers.map((weather, index) => (
           <ListItem
@@ -49,7 +67,7 @@ class Weathers extends React.Component {
             <ListItemText inset primary={`${weather.effect.name}`} />
           </ListItem>
         ))}
-      </List>,
+      </Collapse>,
     ];
   }
 }

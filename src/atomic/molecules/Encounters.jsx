@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import EncounterIcon from 'material-ui-icons/Colorize';
 import StarBorder from 'material-ui-icons/StarBorder';
@@ -18,11 +20,24 @@ const styles = theme => ({
 });
 
 class Encounters extends React.Component {
+  state = {
+    expanded: false,
+  };
+
+  handleClick = () => {
+    this.setState({ expanded: !this.state.expanded });
+  };
+
   render() {
     const { classes, encounters, index } = this.props;
+    const { expanded } = this.state;
 
     return [
-      <ListItem key={`${index}-enc`} className={classes.outerList}>
+      <ListItem
+        key={`${index}-enc`}
+        className={classes.outerList}
+        button
+        onClick={this.handleClick}>
         <ListItemIcon>
           <EncounterIcon />
         </ListItemIcon>
@@ -32,8 +47,13 @@ class Encounters extends React.Component {
             encounters[0].encounterRoll.options.versus
           })`}
         />
+        {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
-      <List key={`${index}-enc-list`} component="div" disablePadding>
+      <Collapse
+        key={`${index}-enc-list`}
+        in={expanded}
+        timeout="auto"
+        unmountOnExit>
         {/* ENCOUNTERS */}
         {encounters.map((encounter, index) => (
           <ListItem
@@ -52,7 +72,7 @@ class Encounters extends React.Component {
             />
           </ListItem>
         ))}
-      </List>,
+      </Collapse>,
     ];
   }
 }

@@ -4,6 +4,8 @@ import { withStyles } from 'material-ui/styles';
 import ListSubheader from 'material-ui/List/ListSubheader';
 import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
 import Collapse from 'material-ui/transitions/Collapse';
+import ExpandLess from 'material-ui-icons/ExpandLess';
+import ExpandMore from 'material-ui-icons/ExpandMore';
 
 import Chip from 'material-ui/Chip';
 import NavigationIcon from 'material-ui-icons/Map';
@@ -19,6 +21,14 @@ const styles = theme => ({
 });
 
 class Navigation extends React.Component {
+  state = {
+    expanded: false,
+  };
+
+  handleClick = () => {
+    this.setState({ expanded: !this.state.expanded });
+  };
+
   render() {
     const {
       classes,
@@ -32,8 +42,13 @@ class Navigation extends React.Component {
       distance,
       index,
     } = this.props;
+    const { expanded } = this.state;
     return [
-      <ListItem key={`${index}-nav`} className={classes.outerList}>
+      <ListItem
+        key={`${index}-nav`}
+        className={classes.outerList}
+        button
+        onClick={this.handleClick}>
         <ListItemIcon>
           <NavigationIcon />
         </ListItemIcon>
@@ -41,8 +56,13 @@ class Navigation extends React.Component {
           inset
           primary={`Navigation (DC${rolls[0].options.versus})`}
         />
+        {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
-      <List key={`${index}-nav-list`} component="div" disablePadding>
+      <Collapse
+        key={`${index}-nav-list`}
+        in={expanded}
+        timeout="auto"
+        unmountOnExit>
         {/* NAVIGATION */}
         <ListItem className={classes.innerList}>
           <ListItemIcon>
@@ -62,7 +82,7 @@ class Navigation extends React.Component {
             }
           />
         </ListItem>
-      </List>,
+      </Collapse>,
     ];
   }
 }
