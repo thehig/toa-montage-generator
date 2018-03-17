@@ -16,17 +16,17 @@ export const montageSubmit = (montage) => ({
 
 const runMontage = options => montage({
   navigator: {
-    modifier: options.modifier,
-    advantage: options['nav-advantage'] && options['nav-advantage'].indexOf('advantage') > -1,
-    disadvantage: options['nav-advantage'] && options['nav-advantage'].indexOf('disadvantage') > -1,
+    modifier: Number(options.modifier || 0),
+    advantage: Boolean(options['nav-advantage'] && options['nav-advantage'].indexOf('advantage') > -1),
+    disadvantage: Boolean(options['nav-advantage'] && options['nav-advantage'].indexOf('disadvantage') > -1),
   },
   pace: options.pace,
   speed: options.speed,
-  encounterDC: options.encounterDC,
-  navigationDC: options.navigationDC,
-}).travel(options.numdays, {
-  daysOffset: options.daysoffset,
-  lost: options.lost,
+  encounterDC: Number(options.encounterDC || 0),
+  navigationDC: Number(options.navigationDC || 0),
+}).travel(Number(options.numdays || 0), {
+  daysOffset: Number(options.daysoffset || 0),
+  lost: Boolean(options.lost),
 });
 
 
