@@ -75,10 +75,10 @@ class Encounters extends React.Component {
             </ListItemIcon>
             <ListItemText
               inset
-              primary={`${encounter.encounterRoll.roll}`}
+              primary={`(${encounter.encounterRoll.roll}): ${encounter.encounter ? "Encounter!" : "None"}`}
               secondary={
                 encounter.encounter !== false &&
-                `Encounter #${encounter.encounter}`
+                `Encounter Entry #${encounter.encounter}`
               }
             />
           </ListItem>
