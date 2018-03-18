@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 // Storybook
 import { storiesOf } from '@storybook/react';
@@ -13,9 +14,11 @@ import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';
 import {
   MontageForm,
   MontageOutput,
-  // Eco
-  // MontagePage,
+  TerrainForm,
 } from '../';
+
+import { selector as TerrainFormSelector } from './TerrainForm';
+
 import { action } from '@storybook/addon-actions';
 
 // eslint-disable-next-line
@@ -39,6 +42,14 @@ storiesOf(`Montage Components`, module)
   .add('MontageForm', () => (
     <MontageForm onSubmit={action('Montage Form Submit')} />
   ))
+  .add('TerrainForm', () => {
+    // The TerrainForm needs to have the selected 'id' passed back into itself
+    const ConnectedTerrainForm = connect(state => ({
+      terrain: TerrainFormSelector(state, 'terrain'),
+    }))(TerrainForm);
+
+    return <ConnectedTerrainForm onSubmit={action('Terrain Form Submit')} />;
+  })
   .add('MontageOutput', () => <MontageOutput montage={sampleMontage} />);
 
 const sampleMontage = {

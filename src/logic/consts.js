@@ -37,7 +37,8 @@ export const weather = {
     min: 16,
     max: 19,
     name: 'Heavy',
-    effects: 'Visibility is limited to 50 yards. Huge or larger objects can still be distinguished. Missile weapon ranges are halved.',
+    effects:
+      'Visibility is limited to 50 yards. Huge or larger objects can still be distinguished. Missile weapon ranges are halved.',
   },
   torrent: {
     min: 20,
@@ -51,57 +52,39 @@ export const weather = {
 // encChances describes what number you must roll equal to or higher for an encounter to occur
 export const terrain = [
   {
-    id: 0,
-    name: 'Beach',
-    navDC: 10,
-    encChance: 20,
-  },
-  {
     id: 1,
-    name: 'Jungle No Undead',
+    name: 'Easy Navigation, 5% encounter chance',
     navDC: 10,
     encChance: 20,
   },
   {
     id: 2,
-    name: 'Jungle Lesser Undead',
+    name: 'Easy Navigation, 15% encounter chance',
     navDC: 10,
-    encChance: 20,
+    encChance: 18,
   },
   {
     id: 3,
-    name: 'Jungle Greater Undead',
+    name: 'Easy Navigation, 25% encounter chance',
     navDC: 10,
-    encChance: 20,
+    encChance: 16,
   },
   {
     id: 4,
-    name: 'Mountain',
-    navDC: 10,
+    name: 'Hard Navigation, 5% encounter chance',
+    navDC: 15,
     encChance: 20,
   },
   {
     id: 5,
-    name: 'River',
-    navDC: 10,
-    encChance: 20,
+    name: 'Hard Navigation, 15% encounter chance',
+    navDC: 15,
+    encChance: 18,
   },
   {
     id: 6,
-    name: 'Ruins',
-    navDC: 10,
-    encChance: 20,
-  },
-  {
-    id: 7,
-    name: 'Swamp',
-    navDC: 10,
-    encChance: 20,
-  },
-  {
-    id: 8,
-    name: 'Wasteland',
-    navDC: 10,
-    encChance: 20,
+    name: 'Hard Navigation, 25% encounter chance',
+    navDC: 15,
+    encChance: 16,
   },
 ];
