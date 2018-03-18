@@ -75,7 +75,7 @@ class Encounters extends React.Component {
             </ListItemIcon>
             <ListItemText
               inset
-              primary={`(${encounter.encounterRoll.roll}): ${encounter.encounter ? "Encounter!" : "None"}`}
+              primary={`(d${encounter.encounterRoll.sides}=${encounter.encounterRoll.roll}): ${encounter.encounter ? "Encounter!" : "None"}`}
               secondary={
                 encounter.encounter !== false &&
                 `Encounter table #${encounter.encounter}`
