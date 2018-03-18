@@ -58,16 +58,18 @@ class MontageOutput extends React.Component {
   render() {
     const {
       classes,
-      montage: { days, completed, reasonsForStopping, distance, lost },
+      montage: { days, completed, reasonsForStopping, lost },
     } = this.props;
 
     console.log('montage', this.props.montage);
+
+    const distance = days.reduce((prev, next) => prev + next.navigation.distance, 0);
 
     return (
       <List
         component="div"
         subheader={
-          <ListSubheader component="div">Montage Output</ListSubheader>
+          <ListSubheader component="div">{`${days.length} days, ${distance} hexes. ${!completed && " Stopped: [" + reasonsForStopping.join(', ') + "]"}`}</ListSubheader>
         }>
         {days.map(day => <Day key={day.index} day={day} />)}
       </List>
