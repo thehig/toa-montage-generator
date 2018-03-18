@@ -13,7 +13,17 @@ import { TextField, SelectField, CheckboxGroup } from '../';
 
 import { terrain as Terrains } from '../../logic/consts';
 
-const styles = theme => ({});
+const styles = theme => ({
+  card: {
+    padding: theme.spacing.unit,
+  },
+  title: {
+    padding: theme.spacing.unit,
+  },
+  terrainDC: {
+    padding: theme.spacing.unit,
+  },
+});
 
 const TerrainForm = props => {
   const {
@@ -22,34 +32,13 @@ const TerrainForm = props => {
     reset,
     submitting,
     classes,
-    terrain,
-    ...other
   } = props;
-  console.log('terrain', terrain);
-
-  const selectedTerrain =
-    terrain
-      ? Terrains.filter(t => t.id === terrain)[0]
-      : null;
-
-  console.log(selectedTerrain);
-  let terrainView = null;
-  if (selectedTerrain) {
-    terrainView = (
-      <div>
-        <span>name: {selectedTerrain.name}</span>
-        <span>navDC: {selectedTerrain.navDC}</span>
-        <span>encChance: {selectedTerrain.encChance}</span>
-      </div>
-    );
-  }
 
   return (
     <form onSubmit={handleSubmit}>
       <MUICard className={classes.card}>
         <CardContent>
-          <MUITypography className={classes.title}>Terrain</MUITypography>
-
+          <MUITypography variant='title' className={classes.title}>Navigation</MUITypography>
           <Field
             name="terrain"
             key="terrain"
@@ -61,11 +50,68 @@ const TerrainForm = props => {
               </MenuItem>
             ))}
           </Field>
-
-          { terrainView && terrainView }
+          <Field
+            name="speed"
+            key="speed"
+            component={SelectField}
+            label="Speed (affects hexes travelled)">
+            <MenuItem value="walk">Walking</MenuItem>
+            <MenuItem value="boat">Boating</MenuItem>
+          </Field>
+          <Field
+            name="pace"
+            key="pace"
+            component={SelectField}
+            label="Pace (affects navigation DC & hexes travelled) ">
+            <MenuItem value="slow">Slow</MenuItem>
+            <MenuItem value="normal">Normal</MenuItem>
+            <MenuItem value="fast">Fast</MenuItem>
+          </Field>
+          <Field
+            name="modifier"
+            key="nav-modifier"
+            component={TextField}
+            label="Navigators total modifier"
+            type="number"
+          />
+          <Field
+            name="nav-advantage"
+            key="nav-advantage"
+            row
+            component={CheckboxGroup}
+            options={[
+              { value: 'advantage', label: 'Advantage' },
+              { value: 'disadvantage', label: 'Disadvantage' },
+            ]}
+          />
         </CardContent>
       </MUICard>
 
+      <MUICard className={classes.card}>
+        <CardContent>
+          <MUITypography variant='title' className={classes.title}>Travel</MUITypography>
+          <Field
+            name="numdays"
+            key="numdays"
+            component={TextField}
+            label="Number of days to travel for"
+            type="number"
+          />
+          <Field
+            name="daysoffset"
+            key="daysoffset"
+            component={TextField}
+            label="Offset for number of days past"
+            type="number"
+          />
+          <Field
+            name="starts-lost"
+            key="starts-lost"
+            component={CheckboxGroup}
+            options={[{ value: 'lost', label: 'Lost' }]}
+          />
+        </CardContent>
+      </MUICard>
       <MUIButton
         aria-label="reset"
         disabled={submitting}
@@ -87,36 +133,33 @@ const TerrainForm = props => {
   );
 };
 
-// const validate = values => {
-//   const errors = {};
-//   const requiredFields = [
-//     'modifier',
-//     'pace',
-//     'speed',
-//     'navigationDC',
-//     'encounterDC',
-//     'numdays',
-//   ];
-//   requiredFields.forEach(field => {
-//     if (!values[field]) {
-//       errors[field] = 'Required';
-//     }
-//   });
-//   return errors;
-// };
+const validate = values => {
+  const errors = {};
+  const requiredFields = [
+    'terrain',
+    'speed',
+    'pace',
+    'modifier',
+    'numdays',
+  ];
+  requiredFields.forEach(field => {
+    if (!values[field]) {
+      errors[field] = 'Required';
+    }
+  });
+  return errors;
+};
 
 export const selector = formValueSelector('TerrainForm');
 
 export default reduxForm({
   form: 'TerrainForm', // a unique identifier for this form
-  // initialValues: {
-  //   modifier: 3,
-  //   pace: 'normal',
-  //   speed: 'walk',
-  //   navigationDC: 15,
-  //   encounterDC: 19,
-  //   numdays: 10,
-  //   "nav-advantage": ""
-  // },
-  // validate,
+  initialValues: {
+    terrain: 1,
+    speed: 'walk',
+    pace: 'normal',
+    modifier: 3,
+    numdays: 10,
+  },
+  validate,
 })(withStyles(styles)(TerrainForm));
