@@ -43,6 +43,7 @@ export const montage = resolver => (
       }
       if (daysTravel.navigation.becameFound) {
         result.completed = false;
+        result.lost = false;
         result.reasonsForStopping.push('Became Found');
       }
       if (
