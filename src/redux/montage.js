@@ -1,49 +1,59 @@
-import { montage } from '../logic/wrapper';
-
+// Consts
 export const CONSTS = {
-  MONTAGE_SUBMIT: "MONTAGE_SUBMIT"
+  MONTAGE_SUBMIT: "MONTAGE_SUBMIT",
+  MONTAGE_SUCCESS: "MONTAGE_SUCCESS",
+  MONTAGE_ERROR: "MONTAGE_ERROR",
+  MONTAGE_RESET: "MONTAGE_RESET",
 };
 
+// Action Creators
+export const montageSubmit = (formValues) => ({
+  type: CONSTS.MONTAGE_SUBMIT,
+  payload: formValues
+});
+
+// Initial State
 export const initialState = {
   montage: {
+    montageRunning: false,
+    content: null,
+    error: null
   }
 };
 
-export const montageSubmit = (montage) => ({
-  type: CONSTS.MONTAGE_SUBMIT,
-  payload: montage
-});
+// Selectors
+export const getOptions = (state) => state.montage.options || {};
+export const getDays = (state) => (state.montage.content && state.montage.content.days) || [];
 
-const runMontage = options => montage({
-  navigator: {
-    modifier: Number(options.modifier || 0),
-    advantage: Boolean(options['nav-advantage'] && options['nav-advantage'].indexOf('advantage') > -1),
-    disadvantage: Boolean(options['nav-advantage'] && options['nav-advantage'].indexOf('disadvantage') > -1),
-  },
-  pace: options.pace,
-  speed: options.speed,
-  encounterDC: Number(options.encounterDC || 0),
-  navigationDC: Number(options.navigationDC || 0),
-}).travel(Number(options.numdays || 0), {
-  daysOffset: Number(options.daysoffset || 0),
-  lost: Boolean(options.lost),
-});
-
-
+// Reducer
 export const reducer = (state = initialState.montage, action) => {
   switch (action.type) {
     case CONSTS.MONTAGE_SUBMIT: {
-      const options = {
-        ...state.options,
-        ...action.payload
-      };
-
-      const content = runMontage(options);
-
       return {
         ...state,
-        options,
-        content
+        montageRunning: true
+      };
+    }
+    case CONSTS.MONTAGE_SUCCESS: {
+      return {
+        ...state,
+        montageRunning: false,
+        content: action.payload
+      };
+    }
+    case CONSTS.MONTAGE_ERROR: {
+      return {
+        ...state,
+        montageRunning: false,
+        error: action.message
+      };
+    }
+    case CONSTS.MONTAGE_RESET: {
+      return {
+        ...state,
+        montageRunning: false,
+        error: null,
+        content: null
       };
     }
     default: return state;
