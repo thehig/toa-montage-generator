@@ -2,9 +2,14 @@ import { call, put, all, select, takeLatest } from 'redux-saga/effects';
 import { change, actionTypes as reduxActionTypes } from 'redux-form';
 import { CONSTS, getOptions, getDays } from './montage';
 import { montage } from '../logic/wrapper';
+import { terrain } from '../logic/consts';
+
+//TODO: Import terrain, make runMontage capable of taking terrain: id instead of encounterDC and navigationDC
 
 // Actions will be listened for and dispatched using this form name
-const form = 'MontageForm';
+const form = 'TerrainForm';
+
+const Terrain = id => terrain.filter(t => t.id === id)[0] || {};
 
 // Convert the redux form { values } into typesafe parameters and run
 const runMontage = options => montage({
@@ -15,9 +20,9 @@ const runMontage = options => montage({
   },
   pace: options.pace,
   speed: options.speed,
-  encounterDC: Number(options.encounterDC || 0),
-  navigationDC: Number(options.navigationDC || 0),
-}).travel(Number(options.numdays || 0), {
+  encounterDC: Number(options.encounterDC || Terrain(options.terrain).encChance),
+  navigationDC: Number(options.navigationDC || Terrain(options.terrain).navDC),
+}).travel(Number(options.numdays), {
   daysOffset: Number(options.daysoffset || 0),
   lost: Boolean(options.lost),
 });

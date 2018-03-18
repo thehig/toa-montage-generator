@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { MontageForm, MontageOutput } from '../';
+import { TerrainForm, MontageOutput } from '../';
 import { montageSubmit } from '../../redux/montage';
 
 class MontagePage extends Component {
@@ -14,7 +14,7 @@ class MontagePage extends Component {
     const { options, content } = this.props;
     return (
       <div>
-        <MontageForm onSubmit={this.onMontageSubmit} initialValues={options} />
+        <TerrainForm onSubmit={this.onMontageSubmit} initialValues={options} />
         {content && <MontageOutput montage={content} />}
       </div>
     );
