@@ -41,14 +41,14 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
 
     if (pace === 'slow') {
       // Roll d4. On a low roll, players move -1 speed
-      const distanceResult = rollA.d4({ name: `pace: ${pace}` });
+      const distanceResult = rollA.d4({ name: `Pace: ${pace} [<= 2 gets -1 distance]` });
       navigationResults.rolls.push(distanceResult);
       navigationResults.distance = distanceResult.roll < 3
         ? speedVal - 1
         : speedVal;
     } else if (pace === 'fast') {
       // Roll a d4. On a high roll, players move +1 speed
-      const distanceResult = rollA.d4({ name: `pace: ${pace}` });
+      const distanceResult = rollA.d4({ name: `Pace ${pace} [> 2 gets +1 distance]` });
       navigationResults.rolls.push(distanceResult);
       navigationResults.distance = distanceResult.roll > 2
         ? speedVal + 1
