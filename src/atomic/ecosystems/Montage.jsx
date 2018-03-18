@@ -5,14 +5,17 @@ import { MontageForm, MontageOutput } from '../';
 import { montageSubmit } from '../../redux/montage';
 
 class MontagePage extends Component {
-  onMontageSubmit = evt => this.props.montageSubmit(evt);
+  onMontageSubmit = evt => {
+    this.props.montageSubmit(evt);
+    setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
+  };
 
   render() {
     const { options, content } = this.props;
     return (
       <div>
         <MontageForm onSubmit={this.onMontageSubmit} initialValues={options} />
-        { content && <MontageOutput montage={content} /> }
+        {content && <MontageOutput montage={content} />}
       </div>
     );
   }
