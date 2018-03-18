@@ -1,7 +1,10 @@
-import { call, put, select, takeEvery, takeLatest } from 'redux-saga/effects';
-import { change } from 'redux-form';
-import { CONSTS, getOptions } from './montage';
+import { call, put, all, select, takeLatest } from 'redux-saga/effects';
+import { change, actionTypes as reduxActionTypes } from 'redux-form';
+import { CONSTS, getOptions, getDays } from './montage';
 import { montage } from '../logic/wrapper';
+
+// Actions will be listened for and dispatched using this form name
+const form = 'MontageForm';
 
 // Convert the redux form { values } into typesafe parameters and run
 const runMontage = options => montage({
@@ -19,27 +22,41 @@ const runMontage = options => montage({
   lost: Boolean(options.lost),
 });
 
+// When the specific redux-form is reset, dispatch our own reset as well
+function* resetMontageSaga(action) {
+  if(action && action.meta && action.meta.form && action.meta.form === form) {
+    yield put({ type: CONSTS.MONTAGE_RESET });
+  }
+}
+
+// Take action props, run saga, and dispatch error, or success and redux-form changes
 function* montageSaga(action) {
   try {
     // Grab default options from state
     const options = yield select(getOptions);
     // Call the runMontage function with the options from state and the action
     const montageResult = yield call(runMontage, { ...options, ...action.payload});
+    
+    // Retreive previous days
+    const days = yield select(getDays);
+    // Retain previous days travel
+    montageResult.days = [...days, ...montageResult.days];
 
     // Dispatch the montage result 
     yield put({ type: CONSTS.MONTAGE_SUCCESS, payload: montageResult });
     
-    // Dispatch an event to redux form updating the 'lost' state based on this run
-    yield put(change('MontageForm', 'lost', montageResult.lost));
-    yield put(change('MontageForm', 'daysoffset', montageResult.days[montageResult.days.length - 1].index));
+    // Dispatch events to redux-form updating the 'lost' and 'daysoffset' state based on this run
+    yield put(change(form, 'lost', montageResult.lost));
+    yield put(change(form, 'daysoffset', montageResult.days[montageResult.days.length - 1].index));
 
   } catch (e) {
-    yield put({ type: CONSTS.MONTAGE_ERROR, message: e.message });
+    yield put({ type: CONSTS.MONTAGE_ERROR, message: e.message, cause: action });
   }
 }
 
-function* mySaga() {
-  yield takeLatest(CONSTS.MONTAGE_SUBMIT, montageSaga);
+export default function* rootSaga() {
+  yield all([
+    takeLatest(CONSTS.MONTAGE_SUBMIT, montageSaga),
+    takeLatest(reduxActionTypes.RESET, resetMontageSaga)
+  ]);
 }
-
-export default mySaga;
