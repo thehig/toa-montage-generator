@@ -51,7 +51,7 @@ function* montageSaga(action) {
     yield put({ type: CONSTS.MONTAGE_SUCCESS, payload: montageResult });
     
     // Dispatch events to redux-form updating the 'lost' and 'daysoffset' state based on this run
-    yield put(change(form, 'lost', montageResult.lost));
+    yield put(change(form, 'starts-lost', montageResult.lost ? "lost" : ""));
     yield put(change(form, 'daysoffset', montageResult.days[montageResult.days.length - 1].index));
 
   } catch (e) {

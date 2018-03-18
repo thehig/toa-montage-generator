@@ -39,7 +39,8 @@ export const CheckboxGroup = ({
         <FormControlLabel
           control={<MUICheckbox />}
           key={i}
-          defaultChecked={input.value.indexOf(option.value) !== -1}
+          {...option}
+          checked={input.value.indexOf(option.value) >= 0}
           onChange={e => {
             let newValue = [...input.value];
             if (e.target.checked) {
@@ -49,7 +50,6 @@ export const CheckboxGroup = ({
             }
             return input.onChange(newValue);
           }}
-          {...option}
         />
       ))}
     </FormGroup>
