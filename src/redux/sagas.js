@@ -38,22 +38,24 @@ function* resetMontageSaga(action) {
 function* montageSaga(action) {
   try {
     // Grab default options from state
-    const options = yield select(getOptions);
+    const stateOptions = yield select(getOptions);
+    const options = { ...stateOptions, ...action.payload};
     // Call the runMontage function with the options from state and the action
-    const montageResult = yield call(runMontage, { ...options, ...action.payload});
+    const montageResult = yield call(runMontage, options);
     
     // Retreive previous days
     const days = yield select(getDays);
+    const daysRemaining =  Math.max(options.numdays - montageResult.days.length, 0);
     // Retain previous days travel
     montageResult.days = [...days, ...montageResult.days];
 
     // Dispatch the montage result 
     yield put({ type: CONSTS.MONTAGE_SUCCESS, payload: montageResult });
     
-    // Dispatch events to redux-form updating the 'lost' and 'daysoffset' state based on this run
+    // Dispatch events to redux-form updating the input state based on this run
     yield put(change(form, 'starts-lost', montageResult.lost ? "lost" : ""));
     yield put(change(form, 'daysoffset', montageResult.days[montageResult.days.length - 1].index));
-
+    yield put(change(form, 'numdays', daysRemaining));
   } catch (e) {
     yield put({ type: CONSTS.MONTAGE_ERROR, message: e.message, cause: action });
   }
