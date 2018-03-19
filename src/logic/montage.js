@@ -23,27 +23,29 @@ export const montage = resolver => (
 
   const travel = (numDays, { lost = false, daysOffset = 0 } = {}) => {
     const result = {
+      startedLost: lost,
       days: [],
       completed: true,
       reasonsForStopping: [],
       distance: 0,
-      lost
+      lost: lost
     };
     for (let i = 0; i < numDays; i++) {
       if (result.completed === false) break;
 
+      // Feed the previous days lost result in to start this days
       const daysTravel = day(result.lost);
+      result.lost = daysTravel.navigation.lost;
+
       daysTravel.index = i + 1 + daysOffset;
 
       result.days.push(daysTravel);
       result.distance = result.distance + Number(daysTravel.navigation.distance);
+      result.lost = daysTravel.navigation.lost;
+
       // Trigger stop events
-      if(daysTravel.navigation.becameLost) {
-        result.lost = true;
-      }
       if (daysTravel.navigation.becameFound) {
         result.completed = false;
-        result.lost = false;
         result.reasonsForStopping.push('Became Found');
       }
       if (
