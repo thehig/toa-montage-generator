@@ -60,7 +60,6 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
 
     // If navigation failed, we get lost
     if (!navigationCheck.success) {
-      navigationResults.lost = true;
       // Roll a d6 to determine what direction is travelled
       const lostDirection = rollA.d6({ name: 'Lost Direction' });
       navigationResults.rolls.push(lostDirection);
@@ -69,11 +68,11 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     }
 
     // Determine the status of the party after this navigation check
-    if (!navigationCheck.success && !lost) {
+    if (!navigationCheck.success && !navigationResults.startedLost) {
       navigationResults.becameLost = true;
-    } else if (!navigationCheck.success && lost) {
+    } else if (!navigationCheck.success && navigationResults.startedLost) {
       navigationResults.stillLost = true;
-    } else if (navigationCheck.success && lost) {
+    } else if (navigationCheck.success && navigationResults.startedLost) {
       navigationResults.becameFound = true;
     }
 

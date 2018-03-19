@@ -7,7 +7,7 @@ import { montageSubmit } from '../../redux/montage';
 class MontagePage extends Component {
   onMontageSubmit = evt => {
     this.props.montageSubmit(evt);
-    setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
+    // setTimeout(() => window.scrollTo(0, document.body.scrollHeight), 300);
   };
 
   render() {
