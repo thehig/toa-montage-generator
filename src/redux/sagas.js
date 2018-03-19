@@ -24,7 +24,7 @@ const runMontage = options => montage({
   navigationDC: Number(options.navigationDC || Terrain(options.terrain).navDC),
 }).travel(Number(options.numdays), {
   daysOffset: Number(options.daysoffset || 0),
-  lost: Boolean(options.lost),
+  lost: Boolean(options['starts-lost'] && options['starts-lost'].indexOf('lost') > -1),
 });
 
 // When the specific redux-form is reset, dispatch our own reset as well
