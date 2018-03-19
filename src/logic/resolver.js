@@ -68,11 +68,11 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     }
 
     // Determine the status of the party after this navigation check
-    if (!navigationCheck.success && !lost) {
+    if (!navigationCheck.success && !navigationResults.startedLost) {
       navigationResults.becameLost = true;
-    } else if (!navigationCheck.success && lost) {
+    } else if (!navigationCheck.success && navigationResults.startedLost) {
       navigationResults.stillLost = true;
-    } else if (navigationCheck.success && lost) {
+    } else if (navigationCheck.success && navigationResults.startedLost) {
       navigationResults.becameFound = true;
     }
 
