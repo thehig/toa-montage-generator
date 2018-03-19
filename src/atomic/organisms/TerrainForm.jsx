@@ -155,7 +155,7 @@ export const selector = formValueSelector('TerrainForm');
 export default reduxForm({
   form: 'TerrainForm', // a unique identifier for this form
   initialValues: {
-    terrain: 1,
+    terrain: 2,
     speed: 'walk',
     pace: 'normal',
     modifier: 3,
