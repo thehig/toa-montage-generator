@@ -32,7 +32,7 @@ export const generateReadout = travel => {
       weather => weather.weatherRoll.roll
     ),
   };
-}
+};
 
 export const narrate = ({ readout, navoptions: { speed="walk", pace="normal" } = {} }) => `
 After ${readout.days} day(s) ${speed}ing at a

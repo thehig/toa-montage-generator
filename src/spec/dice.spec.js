@@ -18,27 +18,27 @@ describe ('fake dice', () => {
       expect(d20().roll).toBe(12);
       expect(d20().roll).toBe(15);
     }
-  })
+  });
 });
 
 describe('advantage', () => {
   const d20 = _dArray([12, 15]);
   it("should return 15 if rolled with advantage", () => {
     const result = d20({advantage: true});
-    expect(result.roll).toBe(15)
+    expect(result.roll).toBe(15);
     expect(result.rolls.length).toBe(2);
   });
 
   it("should return 12 if rolled with disadvantage", () => {
     const result = d20({disadvantage: true});
-    expect(result.roll).toBe(12)
+    expect(result.roll).toBe(12);
     expect(result.rolls.length).toBe(2);
   });
 
   it("should return only one roll if both adv and disadv", () => {
     const result = d20({advantage: true, disadvantage: true});
     expect(result.rolls.length).toBe(1);
-  })
+  });
 });
 
 describe('versus', () => {

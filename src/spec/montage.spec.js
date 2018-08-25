@@ -247,7 +247,7 @@ describe('Montage', () => {
       expect(travel.reasonsForStopping.length).toBe(0);
 
       expect(travel.days[2].index).toBe(20);
-    })
+    });
   });
 
   describe('Multi-day travel', () => {

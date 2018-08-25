@@ -32,6 +32,7 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public -c .storybook -o docs",
     "build-cli": "babel src/logic --out-dir build/logic --presets=env",
+    "lint": "eslint --ext .jsx,.js src/",
     "montage": "node build/logic/cli"
   },
   "devDependencies": {
