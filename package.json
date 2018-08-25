@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "repository": "git@github.com:thehig/toa-montage-generator.git",
+  "homepage" : "https://toa-montage.herokuapp.com/",
   "author": "David Higgins <thehig@gmail.com>",
   "license": "MIT",
   "dependencies": {
