@@ -28,188 +28,165 @@ const stories = storiesOf(`Molecules`, module)
       advantage: false,
       disadvantage: false,
       name: 'Navigation Check',
-      versus: 10,
+      versus: 10
     },
     rolls: [12],
     roll: 12,
-    success: true,
+    success: true
   },
   {
     options: {
       versus: 19,
-      name: 'Encounter Chance',
+      name: 'Encounter Chance'
     },
     rolls: [4],
     roll: 4,
-    success: false,
+    success: false
   },
   {
     options: {
-      name: 'Weather',
+      name: 'Weather'
     },
     rolls: [9],
-    roll: 9,
-  },
+    roll: 9
+  }
 ].map((roll, index) => {
-  stories.add(`Dice (${index}): ${roll.options.name}`, () => (
-    <Dice {...roll} />
-  ));
+  stories.add(`Dice (${index}): ${roll.options.name}`, () => <Dice {...roll} />);
 });
 
-stories.add('Encounters', () => (<Encounters index={1} encounters={montage.days[0].encounters} />));
-stories.add('Weathers', () => (<Weathers index={1} weathers={montage.days[0].weather}/>));
+stories.add('Encounters', () => <Encounters index={1} encounters={montage.days[0].encounters} />);
+stories.add('Weathers', () => <Weathers index={1} weathers={montage.days[0].weather} />);
 
-stories.add('Navigation', () => (<Navigation index={1} {...montage.days[0].navigation}/>));
+stories.add('Navigation', () => <Navigation index={1} {...montage.days[0].navigation} />);
 
-stories.add('Day', () => (<Day day={montage.days[0]}/>));
+stories.add('Day', () => <Day day={montage.days[0]} />);
 
 const montage = {
-  "days": [
+  days: [
     {
-      "navigation": {
-        "rolls": [
+      navigation: {
+        rolls: [
           {
-            "options": {
-              "advantage": false,
-              "disadvantage": false,
-              "name": "navigation check",
-              "versus": 10
+            options: {
+              advantage: false,
+              disadvantage: false,
+              name: 'navigation check',
+              versus: 10
             },
-            "rolls": [
-              15
-            ],
-            "roll": 15,
-            "success": true
+            rolls: [15],
+            roll: 15,
+            success: true
           }
         ],
-        "startedLost": false,
-        "pace": "normal",
-        "speed": "walk",
-        "paceMod": 0,
-        "success": true,
-        "lost": false,
-        "distance": 1
+        startedLost: false,
+        pace: 'normal',
+        speed: 'walk',
+        paceMod: 0,
+        success: true,
+        lost: false,
+        distance: 1
       },
-      "encounters": [
+      encounters: [
         {
-          "encounterRoll": {
-            "options": {
-              "versus": 10,
-              "name": "Encounter Chance"
+          encounterRoll: {
+            options: {
+              versus: 10,
+              name: 'Encounter Chance'
             },
-            "rolls": [
-              20
-            ],
-            "roll": 20,
-            "success": true
+            rolls: [20],
+            roll: 20,
+            success: true
           },
-          "tableRoll": {
-            "options": {
-              "name": "Encounter Table"
+          tableRoll: {
+            options: {
+              name: 'Encounter Table'
             },
-            "rolls": [
-              40
-            ],
-            "roll": 40
+            rolls: [40],
+            roll: 40
           },
-          "encounter": 40
+          encounter: 40
         },
         {
-          "encounterRoll": {
-            "options": {
-              "versus": 10,
-              "name": "Encounter Chance"
+          encounterRoll: {
+            options: {
+              versus: 10,
+              name: 'Encounter Chance'
             },
-            "rolls": [
-              1
-            ],
-            "roll": 1,
-            "success": false
+            rolls: [1],
+            roll: 1,
+            success: false
           },
-          "encounter": false
+          encounter: false
         },
         {
-          "encounterRoll": {
-            "options": {
-              "versus": 10,
-              "name": "Encounter Chance"
+          encounterRoll: {
+            options: {
+              versus: 10,
+              name: 'Encounter Chance'
             },
-            "rolls": [
-              16
-            ],
-            "roll": 16,
-            "success": true
+            rolls: [16],
+            roll: 16,
+            success: true
           },
-          "tableRoll": {
-            "options": {
-              "name": "Encounter Table"
+          tableRoll: {
+            options: {
+              name: 'Encounter Table'
             },
-            "rolls": [
-              19
-            ],
-            "roll": 19
+            rolls: [19],
+            roll: 19
           },
-          "encounter": 19
+          encounter: 19
         }
       ],
-      "weather": [
+      weather: [
         {
-          "weatherRoll": {
-            "options": { name: "Weather"},
-            "rolls": [
-              20
-            ],
-            "roll": 20
+          weatherRoll: {
+            options: { name: 'Weather' },
+            rolls: [20],
+            roll: 20
           },
-          "name": "torrent",
-          "effect": {
-            "min": 19,
-            "max": 20,
-            "name": "Torrent",
-            "effects": ""
+          name: 'torrent',
+          effect: {
+            min: 19,
+            max: 20,
+            name: 'Torrent',
+            effects: ''
           }
         },
         {
-          "weatherRoll": {
-            "options": { name: "Weather"},
-            "rolls": [
-              17
-            ],
-            "roll": 17
+          weatherRoll: {
+            options: { name: 'Weather' },
+            rolls: [17],
+            roll: 17
           },
-          "name": "heavy",
-          "effect": {
-            "min": 16,
-            "max": 18,
-            "name": "Heavy",
-            "effects": ""
+          name: 'heavy',
+          effect: {
+            min: 16,
+            max: 18,
+            name: 'Heavy',
+            effects: ''
           }
         },
         {
-          "weatherRoll": {
-            "options": { name: "Weather"},
-            "rolls": [
-              18
-            ],
-            "roll": 18
+          weatherRoll: {
+            options: { name: 'Weather' },
+            rolls: [18],
+            roll: 18
           },
-          "name": "heavy",
-          "effect": {
-            "min": 16,
-            "max": 18,
-            "name": "Heavy",
-            "effects": ""
+          name: 'heavy',
+          effect: {
+            min: 16,
+            max: 18,
+            name: 'Heavy',
+            effects: ''
           }
         }
       ],
-      "index": 1
+      index: 1
     }
   ],
-  "completed": false,
-  "reasonsForStopping": [
-    "Encounter(s)",
-    "Weather"
-  ],
-  "distance": 1,
-  "lost": false
+  completed: false,
+  reasonsForStopping: ['Encounter(s)', 'Weather'],
+  distance: 1,
+  lost: false
 };

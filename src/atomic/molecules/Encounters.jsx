@@ -1,17 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import EncounterIcon from "@material-ui/icons/Colorize";
-import StarBorder from "@material-ui/icons/StarBorder";
+import EncounterIcon from '@material-ui/icons/Colorize';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 const styles = theme => ({
   outerList: {
@@ -31,9 +31,7 @@ class Encounters extends React.Component {
     super(props);
 
     if (props && props.encounters) {
-      const actualEncounters = props.encounters.filter(any =>
-        any.hasOwnProperty("tableRoll")
-      );
+      const actualEncounters = props.encounters.filter(any => any.hasOwnProperty('tableRoll'));
       this.state.expanded = actualEncounters.length > 0;
     }
   }
@@ -58,36 +56,23 @@ class Encounters extends React.Component {
         </ListItemIcon>
         <ListItemText
           inset
-          primary={`Encounters (DC${
-            encounters[0].encounterRoll.options.versus
-          })`}
+          primary={`Encounters (DC${encounters[0].encounterRoll.options.versus})`}
         />
         {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
-      <Collapse
-        key={`${index}-enc-list`}
-        in={expanded}
-        timeout="auto"
-        unmountOnExit
-      >
+      <Collapse key={`${index}-enc-list`} in={expanded} timeout="auto" unmountOnExit>
         {/* ENCOUNTERS */}
         {encounters.map((encounter, index) => (
-          <ListItem
-            key={`${index}-enc-${index}-list`}
-            className={classes.innermostList}
-          >
+          <ListItem key={`${index}-enc-${index}-list`} className={classes.innermostList}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText
               inset
-              primary={`(d${encounter.encounterRoll.sides}=${
-                encounter.encounterRoll.roll
-              }): ${encounter.encounter ? "Encounter!" : "None"}`}
-              secondary={
-                encounter.encounter !== false &&
-                `Encounter table #${encounter.encounter}`
-              }
+              primary={`(d${encounter.encounterRoll.sides}=${encounter.encounterRoll.roll}): ${
+                encounter.encounter ? 'Encounter!' : 'None'
+              }`}
+              secondary={encounter.encounter !== false && `Encounter table #${encounter.encounter}`}
             />
           </ListItem>
         ))}

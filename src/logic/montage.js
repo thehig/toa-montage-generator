@@ -1,24 +1,18 @@
-export const montage = resolver => (
-  { navigator, pace, speed, navigationDC, encounterDC } = {}
-) => {
+export const montage = resolver => ({ navigator, pace, speed, navigationDC, encounterDC } = {}) => {
   const day = (lost = false) => ({
     navigation: resolver.navigationCheck({
       navigator,
       lost,
       pace,
       speed,
-      DC: navigationDC,
+      DC: navigationDC
     }),
     encounters: [
       resolver.encounterCheck({ DC: encounterDC }),
       resolver.encounterCheck({ DC: encounterDC }),
-      resolver.encounterCheck({ DC: encounterDC }),
+      resolver.encounterCheck({ DC: encounterDC })
     ],
-    weather: [
-      resolver.weatherCheck(),
-      resolver.weatherCheck(),
-      resolver.weatherCheck(),
-    ],
+    weather: [resolver.weatherCheck(), resolver.weatherCheck(), resolver.weatherCheck()]
   });
 
   const travel = (numDays, { lost = false, daysOffset = 0 } = {}) => {
@@ -48,15 +42,11 @@ export const montage = resolver => (
         result.completed = false;
         result.reasonsForStopping.push('Became Found');
       }
-      if (
-        daysTravel.encounters.filter(enc => enc.encounter !== false).length > 0
-      ) {
+      if (daysTravel.encounters.filter(enc => enc.encounter !== false).length > 0) {
         result.completed = false;
         result.reasonsForStopping.push('Encounter(s)');
       }
-      if (
-        daysTravel.weather.filter(weat => weat.name === 'torrent').length > 0
-      ) {
+      if (daysTravel.weather.filter(weat => weat.name === 'torrent').length > 0) {
         result.completed = false;
         result.reasonsForStopping.push('Weather');
       }
@@ -66,6 +56,6 @@ export const montage = resolver => (
 
   return {
     day,
-    travel,
+    travel
   };
 };

@@ -1,19 +1,19 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
+import Typography from '@material-ui/core/Typography';
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemIcon from "@material-ui/core/ListItemIcon";
-import ListItemText from "@material-ui/core/ListItemText";
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
-import Collapse from "@material-ui/core/Collapse";
-import ExpandLess from "@material-ui/icons/ExpandLess";
-import ExpandMore from "@material-ui/icons/ExpandMore";
+import Collapse from '@material-ui/core/Collapse';
+import ExpandLess from '@material-ui/icons/ExpandLess';
+import ExpandMore from '@material-ui/icons/ExpandMore';
 
-import Chip from "@material-ui/core/Chip";
-import NavigationIcon from "@material-ui/icons/Map";
-import StarBorder from "@material-ui/icons/StarBorder";
+import Chip from '@material-ui/core/Chip';
+import NavigationIcon from '@material-ui/icons/Map';
+import StarBorder from '@material-ui/icons/StarBorder';
 
 const styles = theme => ({
   outerList: {
@@ -64,24 +64,16 @@ class Navigation extends React.Component {
         <ListItemText
           inset
           primary={`Navigation (DC${rolls[0].options.versus})`}
-          secondary={`${becameLost ? "Became Lost (" + direction + ")" : ""}${
-            stillLost ? "Lost (" + direction + ")" : ""
-          }${becameFound ? "Became Found" : ""}`}
+          secondary={`${becameLost ? 'Became Lost (' + direction + ')' : ''}${
+            stillLost ? 'Lost (' + direction + ')' : ''
+          }${becameFound ? 'Became Found' : ''}`}
         />
         {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
-      <Collapse
-        key={`${index}-nav-list`}
-        in={expanded}
-        timeout="auto"
-        unmountOnExit
-      >
+      <Collapse key={`${index}-nav-list`} in={expanded} timeout="auto" unmountOnExit>
         {/* NAVIGATION */}
         {rolls.map((roll, mapIndex) => (
-          <ListItem
-            key={`${index}-nav-list-roll-${mapIndex}`}
-            className={classes.innerList}
-          >
+          <ListItem key={`${index}-nav-list-roll-${mapIndex}`} className={classes.innerList}>
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
@@ -89,21 +81,17 @@ class Navigation extends React.Component {
               inset
               disableTypography
               primary={
-                <Typography variant="subheading">{`${roll.options.name} (d${
-                  roll.sides
-                }=${roll.roll})${roll.success ? ": Ok" : ""}`}</Typography>
+                <Typography variant="subheading">{`${roll.options.name} (d${roll.sides}=${
+                  roll.roll
+                })${roll.success ? ': Ok' : ''}`}</Typography>
               }
               secondary={
                 <div>
-                  {roll.options.advantage && (
-                    <Chip label={`Advantage [${roll.rolls.join(",")}]`} />
-                  )}
+                  {roll.options.advantage && <Chip label={`Advantage [${roll.rolls.join(',')}]`} />}
                   {roll.options.disadvantage && (
-                    <Chip label={`Disadvantage [${roll.rolls.join(",")}]`} />
+                    <Chip label={`Disadvantage [${roll.rolls.join(',')}]`} />
                   )}
-                  {roll.options.modifier && (
-                    <Chip label={`Modifier ${roll.options.modifier}`} />
-                  )}
+                  {roll.options.modifier && <Chip label={`Modifier ${roll.options.modifier}`} />}
                 </div>
               }
             />
@@ -143,7 +131,7 @@ Navigation.propTypes = {
 
 Navigation.defaultProps = {
   startedLost: false,
-  speed: "walk",
+  speed: 'walk',
   paceMod: 0,
   success: false,
   lost: false,

@@ -1,15 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import PropTypes from 'prop-types';
+import { withStyles } from '@material-ui/core/styles';
 
-import List from "@material-ui/core/List";
-import ListSubheader from "@material-ui/core/ListSubheader";
+import List from '@material-ui/core/List';
+import ListSubheader from '@material-ui/core/ListSubheader';
 
-import { Day } from "../";
+import { Day } from '../';
 
 const styles = theme => ({
   root: {
-    width: "100%",
+    width: '100%',
     maxWidth: 360,
     backgroundColor: theme.palette.background.paper
   },
@@ -49,21 +49,14 @@ class MontageOutput extends React.Component {
 
     // console.log("montage", this.props.montage);
 
-    const distance = days.reduce(
-      (prev, next) => prev + next.navigation.distance,
-      0
-    );
+    const distance = days.reduce((prev, next) => prev + next.navigation.distance, 0);
 
     return (
       <List
         component="div"
         subheader={
-          <ListSubheader component="div">{`${
-            days.length
-          } days, ${distance} hexes. ${!completed &&
-            " Stopped: [" +
-              reasonsForStopping.join(", ") +
-              "]"}`}</ListSubheader>
+          <ListSubheader component="div">{`${days.length} days, ${distance} hexes. ${!completed &&
+            ' Stopped: [' + reasonsForStopping.join(', ') + ']'}`}</ListSubheader>
         }
       >
         {days.map(day => (

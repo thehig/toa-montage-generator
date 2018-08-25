@@ -19,10 +19,7 @@ const rootReducer = combineReducers({
 });
 
 // Load middlewares
-const enhancer = composeEnhancers(applyMiddleware(
-  thunk,
-  sagaMiddleware
-));
+const enhancer = composeEnhancers(applyMiddleware(thunk, sagaMiddleware));
 
 // Create store with reducer and middleware
 const store = createStore(rootReducer, enhancer);

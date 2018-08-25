@@ -1,13 +1,13 @@
 // Consts
 export const CONSTS = {
-  MONTAGE_SUBMIT: "MONTAGE_SUBMIT",
-  MONTAGE_SUCCESS: "MONTAGE_SUCCESS",
-  MONTAGE_ERROR: "MONTAGE_ERROR",
-  MONTAGE_RESET: "MONTAGE_RESET",
+  MONTAGE_SUBMIT: 'MONTAGE_SUBMIT',
+  MONTAGE_SUCCESS: 'MONTAGE_SUCCESS',
+  MONTAGE_ERROR: 'MONTAGE_ERROR',
+  MONTAGE_RESET: 'MONTAGE_RESET'
 };
 
 // Action Creators
-export const montageSubmit = (formValues) => ({
+export const montageSubmit = formValues => ({
   type: CONSTS.MONTAGE_SUBMIT,
   payload: formValues
 });
@@ -22,8 +22,8 @@ export const initialState = {
 };
 
 // Selectors
-export const getOptions = (state) => state.montage.options || {};
-export const getDays = (state) => (state.montage.content && state.montage.content.days) || [];
+export const getOptions = state => state.montage.options || {};
+export const getDays = state => (state.montage.content && state.montage.content.days) || [];
 
 // Reducer
 export const reducer = (state = initialState.montage, action) => {
@@ -56,6 +56,7 @@ export const reducer = (state = initialState.montage, action) => {
         content: null
       };
     }
-    default: return state;
+    default:
+      return state;
   }
 };

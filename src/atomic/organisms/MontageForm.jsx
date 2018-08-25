@@ -1,16 +1,16 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import { withStyles } from "@material-ui/core/styles";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import { withStyles } from '@material-ui/core/styles';
 
-import MUICard from "@material-ui/core/Card";
-import CardContent from "@material-ui/core/CardContent";
-import MenuItem from "@material-ui/core/MenuItem";
-import MUIButton from "@material-ui/core/Button";
-import MUITypography from "@material-ui/core/Typography";
+import MUICard from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import MenuItem from '@material-ui/core/MenuItem';
+import MUIButton from '@material-ui/core/Button';
+import MUITypography from '@material-ui/core/Typography';
 
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import RefreshIcon from "@material-ui/icons/Refresh";
-import { TextField, SelectField, CheckboxGroup } from "../";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import RefreshIcon from '@material-ui/icons/Refresh';
+import { TextField, SelectField, CheckboxGroup } from '../';
 
 const styles = theme => ({});
 
@@ -20,9 +20,7 @@ const MontageForm = props => {
     <form onSubmit={handleSubmit}>
       <MUICard className={classes.card}>
         <CardContent>
-          <MUITypography className={classes.title}>
-            Montage settings
-          </MUITypography>
+          <MUITypography className={classes.title}>Montage settings</MUITypography>
           <Field
             name="numdays"
             key="numdays"
@@ -50,7 +48,7 @@ const MontageForm = props => {
             name="starts-lost"
             key="starts-lost"
             component={CheckboxGroup}
-            options={[{ value: "lost", label: "Montage starts Lost" }]}
+            options={[{ value: 'lost', label: 'Montage starts Lost' }]}
           />
           <Field
             name="daysoffset"
@@ -63,9 +61,7 @@ const MontageForm = props => {
       </MUICard>
       <MUICard className={classes.card}>
         <CardContent>
-          <MUITypography className={classes.title}>
-            Navigation Check
-          </MUITypography>
+          <MUITypography className={classes.title}>Navigation Check</MUITypography>
           <Field
             name="navigationDC"
             key="navigationDC"
@@ -95,8 +91,8 @@ const MontageForm = props => {
             key="nav-advantage"
             component={CheckboxGroup}
             options={[
-              { value: "advantage", label: "Advantage" },
-              { value: "disadvantage", label: "Disadvantage" }
+              { value: 'advantage', label: 'Advantage' },
+              { value: 'disadvantage', label: 'Disadvantage' }
             ]}
           />
         </CardContent>
@@ -127,32 +123,25 @@ const MontageForm = props => {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [
-    "modifier",
-    "pace",
-    "speed",
-    "navigationDC",
-    "encounterDC",
-    "numdays"
-  ];
+  const requiredFields = ['modifier', 'pace', 'speed', 'navigationDC', 'encounterDC', 'numdays'];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = "Required";
+      errors[field] = 'Required';
     }
   });
   return errors;
 };
 
 export default reduxForm({
-  form: "MontageForm", // a unique identifier for this form
+  form: 'MontageForm', // a unique identifier for this form
   initialValues: {
     modifier: 3,
-    pace: "normal",
-    speed: "walk",
+    pace: 'normal',
+    speed: 'walk',
     navigationDC: 15,
     encounterDC: 19,
     numdays: 10,
-    "nav-advantage": ""
+    'nav-advantage': ''
   },
   validate
 })(withStyles(styles)(MontageForm));

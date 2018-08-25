@@ -24,15 +24,18 @@ class MontagePage extends Component {
 function mapStateToProps(state) {
   return {
     options: state.montage.options,
-    content: state.montage.content,
+    content: state.montage.content
   };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    montageSubmit: montageOptions => dispatch(montageSubmit(montageOptions)),
+    montageSubmit: montageOptions => dispatch(montageSubmit(montageOptions))
   };
 }
 
 export { MontagePage as TestableMontagePage };
-export default connect(mapStateToProps, mapDispatchToProps)(MontagePage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MontagePage);

@@ -11,13 +11,13 @@ export const roll = die => sides => options => {
     advantage = false,
     disadvantage = false,
     modifier = 0,
-    versus = undefined,
+    versus = undefined
   } = options || {};
   let result = {
     options,
     sides,
     rolls: [die()],
-    roll: -1,
+    roll: -1
   };
 
   // console.log("name", name, "advantage", advantage, "disadvantage", disadvantage, "modifier", modifier, "versus", versus);

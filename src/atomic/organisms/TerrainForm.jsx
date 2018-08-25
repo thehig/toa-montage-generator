@@ -17,14 +17,14 @@ import { terrain as Terrains } from '../../logic/consts';
 
 const styles = theme => ({
   card: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit
   },
   title: {
-    padding: theme.spacing.unit,
+    padding: theme.spacing.unit
   },
   terrainDC: {
-    padding: theme.spacing.unit,
-  },
+    padding: theme.spacing.unit
+  }
 });
 
 const TerrainForm = props => {
@@ -33,19 +33,17 @@ const TerrainForm = props => {
     // pristine,
     reset,
     submitting,
-    classes,
+    classes
   } = props;
 
   return (
     <form onSubmit={handleSubmit}>
       <MUICard className={classes.card}>
         <CardContent>
-          <MUITypography variant='title' className={classes.title}>Navigation</MUITypography>
-          <Field
-            name="terrain"
-            key="terrain"
-            component={SelectField}
-            label="Terrain">
+          <MUITypography variant="title" className={classes.title}>
+            Navigation
+          </MUITypography>
+          <Field name="terrain" key="terrain" component={SelectField} label="Terrain">
             {Terrains.map(t => (
               <MenuItem key={`terrain-${t.id}`} value={t.id}>
                 {t.name}
@@ -56,7 +54,8 @@ const TerrainForm = props => {
             name="speed"
             key="speed"
             component={SelectField}
-            label="Speed (affects hexes travelled)">
+            label="Speed (affects hexes travelled)"
+          >
             <MenuItem value="walk">Walking</MenuItem>
             <MenuItem value="boat">Boating</MenuItem>
           </Field>
@@ -64,7 +63,8 @@ const TerrainForm = props => {
             name="pace"
             key="pace"
             component={SelectField}
-            label="Pace (affects navigation DC & hexes travelled) ">
+            label="Pace (affects navigation DC & hexes travelled) "
+          >
             <MenuItem value="slow">Slow</MenuItem>
             <MenuItem value="normal">Normal</MenuItem>
             <MenuItem value="fast">Fast</MenuItem>
@@ -83,7 +83,7 @@ const TerrainForm = props => {
             component={CheckboxGroup}
             options={[
               { value: 'advantage', label: 'Advantage' },
-              { value: 'disadvantage', label: 'Disadvantage' },
+              { value: 'disadvantage', label: 'Disadvantage' }
             ]}
           />
         </CardContent>
@@ -91,7 +91,9 @@ const TerrainForm = props => {
 
       <MUICard className={classes.card}>
         <CardContent>
-          <MUITypography variant='title' className={classes.title}>Travel</MUITypography>
+          <MUITypography variant="title" className={classes.title}>
+            Travel
+          </MUITypography>
           <Field
             name="numdays"
             key="numdays"
@@ -119,7 +121,8 @@ const TerrainForm = props => {
         disabled={submitting}
         fullWidth
         variant="raised"
-        onClick={reset}>
+        onClick={reset}
+      >
         <RefreshIcon />
       </MUIButton>
       <MUIButton
@@ -128,7 +131,8 @@ const TerrainForm = props => {
         aria-label="go"
         fullWidth
         variant="raised"
-        disabled={submitting}>
+        disabled={submitting}
+      >
         <PlayArrowIcon />
       </MUIButton>
     </form>
@@ -137,13 +141,7 @@ const TerrainForm = props => {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = [
-    'terrain',
-    'speed',
-    'pace',
-    'modifier',
-    'numdays',
-  ];
+  const requiredFields = ['terrain', 'speed', 'pace', 'modifier', 'numdays'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
@@ -161,7 +159,7 @@ export default reduxForm({
     speed: 'walk',
     pace: 'normal',
     modifier: 3,
-    numdays: 10,
+    numdays: 10
   },
-  validate,
+  validate
 })(withStyles(styles)(TerrainForm));

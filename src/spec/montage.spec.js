@@ -7,13 +7,7 @@ import { paceModifiers, speeds, directions, weather } from '../logic/consts';
 // Take some override props and create a resolver with the default values and overrides
 const buildMontage = overrides =>
   montage(
-    resolver(
-      Object.assign(
-        {},
-        { paces: paceModifiers, speeds, directions, weather },
-        overrides
-      )
-    )
+    resolver(Object.assign({}, { paces: paceModifiers, speeds, directions, weather }, overrides))
   );
 
 /*
@@ -32,19 +26,24 @@ describe('Montage', () => {
       const day = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage
-            15, 4, 12, // Encounters
-            3, 6, 12, // Weather
-          ]),
+            16,
+            12, // Navigation with advantage
+            15,
+            4,
+            12, // Encounters
+            3,
+            6,
+            12 // Weather
+          ])
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
-        },
+        }
       })({
         navigator: {
-          advantage: true,
+          advantage: true
         },
-        encounterDC: 16,
+        encounterDC: 16
       }).day();
 
       // Navigation
@@ -61,9 +60,7 @@ describe('Montage', () => {
       expect(day.encounters[0].encounterRoll.roll).toBe(15);
       expect(day.encounters[1].encounterRoll.roll).toBe(4);
       expect(day.encounters[2].encounterRoll.roll).toBe(12);
-      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(
-        0
-      );
+      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(0);
 
       // Weather
       expect(day.weather.length).toBe(3);
@@ -79,16 +76,23 @@ describe('Montage', () => {
       const day = buildMontage({
         dice: {
           d20: _dArray([
-            4, 6, // Navigation with disadvantage
-            18, 16, 19, // Encounter rolls
-            18, 20, 20, // Weather rolls
+            4,
+            6, // Navigation with disadvantage
+            18,
+            16,
+            19, // Encounter rolls
+            18,
+            20,
+            20 // Weather rolls
           ]),
           d100: _dArray([
-            95, 21, 66, // Encounters
+            95,
+            21,
+            66 // Encounters
           ]),
           d6: _dArray([4]), // Lost direction
-          d4: _dArray([1]), // Pace
-        },
+          d4: _dArray([1]) // Pace
+        }
       })({
         navigator: {
           disadvantage: true
@@ -118,9 +122,7 @@ describe('Montage', () => {
       expect(day.encounters[1].encounter).toBe(21);
       expect(day.encounters[2].encounterRoll.roll).toBe(19);
       expect(day.encounters[2].encounter).toBe(66);
-      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(
-        3
-      );
+      expect(day.encounters.filter(enc => enc.encounter !== false).length).toBe(3);
 
       // Weather
       expect(day.weather.length).toBe(3);
@@ -138,21 +140,26 @@ describe('Montage', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage
-            15, 4, 12, // Encounters
-            3, 6, 12, // Weather
-          ]),
+            16,
+            12, // Navigation with advantage
+            15,
+            4,
+            12, // Encounters
+            3,
+            6,
+            12 // Weather
+          ])
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
-        },
+        }
       })({
         navigator: {
-          advantage: true,
+          advantage: true
         },
-        encounterDC: 16,
+        encounterDC: 16
       }).travel(200);
-      
+
       expect(travel.completed).toBe(true);
       expect(travel.days.length).toBe(200);
     });
@@ -160,86 +167,109 @@ describe('Montage', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage
-            15, 4, 12, // Encounters
-            3, 6, 20, // Weather
-          ]),
+            16,
+            12, // Navigation with advantage
+            15,
+            4,
+            12, // Encounters
+            3,
+            6,
+            20 // Weather
+          ])
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
-        },
+        }
       })({
         navigator: {
-          advantage: true,
+          advantage: true
         },
-        encounterDC: 16,
+        encounterDC: 16
       }).travel(200);
-      
+
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Weather");
+      expect(travel.reasonsForStopping[0]).toBe('Weather');
     });
     it('stops on encounter', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
-            16, 12, // Navigation with advantage
-            15, 4, 20, // Encounters
-            3, 6, 4, // Weather
-          ]),
+            16,
+            12, // Navigation with advantage
+            15,
+            4,
+            20, // Encounters
+            3,
+            6,
+            4 // Weather
+          ])
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
-        },
+        }
       })({
         navigator: {
-          advantage: true,
+          advantage: true
         },
-        encounterDC: 16,
+        encounterDC: 16
       }).travel(200);
-      
+
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Encounter(s)");
-
+      expect(travel.reasonsForStopping[0]).toBe('Encounter(s)');
     });
     it('stops on becameFound', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
             // Day 1
-            1, 1,       // Navigation with advantage
-            1, 1, 1,  // Encounters
-            1, 1, 1,   // Weather
+            1,
+            1, // Navigation with advantage
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
             // Day 2
-            20, 1,       // Navigation with advantage
-            1, 1, 1,  // Encounters
-            1, 1, 1,   // Weather
-          ]),
+            20,
+            1, // Navigation with advantage
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
+          ])
           // No d100 override because no Encounter triggers
           // No d6 override because no Navigation fails
           // No d4 override because pace is normal
-        },
+        }
       })({
         navigator: {
           advantage: true
         },
-        encounterDC: 16,
+        encounterDC: 16
       }).travel(200);
 
       expect(travel.days.length).toBe(2);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Became Found");
+      expect(travel.reasonsForStopping[0]).toBe('Became Found');
     });
     it('can offset the days index', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
             20, // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-          ]),
-        },
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
+          ])
+        }
       })().travel(3, { daysOffset: 17 });
 
       expect(travel.completed).toBe(true);
@@ -256,29 +286,41 @@ describe('Montage', () => {
         dice: {
           d20: _dArray([
             // Day 1
-            1,      // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-            
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
             // Day 2
-            1,       // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-  
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
             // Day 3
-            20,      // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-          ]),
-        },
+            20, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
+          ])
+        }
       })({
         /* navigator */
       }).travel(5);
-  
+
       expect(travel.completed).toBe(false);
       expect(travel.days.length).toBe(3);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Became Found");
+      expect(travel.reasonsForStopping[0]).toBe('Became Found');
     });
 
     it('Encounter on day 2', () => {
@@ -286,24 +328,32 @@ describe('Montage', () => {
         dice: {
           d20: _dArray([
             // Day 1
-            1,      // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-            
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
             // Day 2
-            1,        // Navigation
-            1, 20, 1, // Encounters
-            1, 1, 1,  // Weather
-          ]),
-        },
+            1, // Navigation
+            1,
+            20,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
+          ])
+        }
       })({
         /* navigator */
       }).travel(5);
-  
+
       expect(travel.completed).toBe(false);
       expect(travel.days.length).toBe(2);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Encounter(s)");
+      expect(travel.reasonsForStopping[0]).toBe('Encounter(s)');
     });
 
     it('Torrent on day 5', () => {
@@ -311,59 +361,81 @@ describe('Montage', () => {
         dice: {
           d20: _dArray([
             // Day 1
-            1,      // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
-            
-            // Day 2
-            1,        // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1,  // Weather
-            
-            // Day 3
-            1,        // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1,  // Weather
-            
-            // Day 4
-            1,        // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1,  // Weather
-            
-            // Day 5
-            1,        // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 20,  // Weather
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
 
-          ]),
-        },
+            // Day 2
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
+            // Day 3
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
+            // Day 4
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1, // Weather
+
+            // Day 5
+            1, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            20 // Weather
+          ])
+        }
       })({
         /* navigator */
       }).travel(5);
-  
+
       expect(travel.completed).toBe(false);
       expect(travel.days.length).toBe(5);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Weather");
+      expect(travel.reasonsForStopping[0]).toBe('Weather');
     });
 
-    
     it('5 days fast pace boating distance is 15 hexes', () => {
       const travel = buildMontage({
         dice: {
           d20: _dArray([
-            20,         // Navigation
-            1, 1, 1,    // Encounters
-            1, 1, 1,    // Weather
+            20, // Navigation
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
           ]),
           d4: _dArray([4]) // Roll high on pace
-        },
+        }
       })({
         /* navigator */
         pace: 'fast',
         speed: 'boat'
       }).travel(5);
-  
+
       expect(travel.completed).toBe(true);
       expect(travel.days.length).toBe(5);
       expect(travel.reasonsForStopping.length).toBe(0);
@@ -376,17 +448,23 @@ describe('Montage', () => {
           d20: _dArray([
             // Day 1
             20, // Navigation
-            1, 1, 1, // Encounters
-            1, 1, 1, // Weather
+            1,
+            1,
+            1, // Encounters
+            1,
+            1,
+            1 // Weather
           ]),
           d4: _dArray([4])
         }
-      })({ /* navigator */}).travel(5, { lost: true });
+      })({
+        /* navigator */
+      }).travel(5, { lost: true });
 
       expect(travel.completed).toBe(false);
       expect(travel.days.length).toBe(1);
       expect(travel.reasonsForStopping.length).toBe(1);
-      expect(travel.reasonsForStopping[0]).toBe("Became Found");
+      expect(travel.reasonsForStopping[0]).toBe('Became Found');
       expect(travel.distance).toBe(1);
     });
   });

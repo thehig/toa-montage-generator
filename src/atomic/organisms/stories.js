@@ -11,11 +11,7 @@ import blue from '@material-ui/core/colors/blue';
 import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';
 
 // Components
-import {
-  MontageForm,
-  MontageOutput,
-  TerrainForm,
-} from '../';
+import { MontageForm, MontageOutput, TerrainForm } from '../';
 
 import { selector as TerrainFormSelector } from './TerrainForm';
 
@@ -27,7 +23,7 @@ storiesOf(`Montage Components`, module)
   .addDecorator(
     ReduxDecorator({
       /* Initial redux state */
-      stories: `montage-components`,
+      stories: `montage-components`
     })
   )
   // Add <MuiThemeProvider> with theme
@@ -35,17 +31,15 @@ storiesOf(`Montage Components`, module)
     ThemeDecorator({
       /* Base theme overrides */
       palette: {
-        primary: blue,
-      },
+        primary: blue
+      }
     })
   )
-  .add('MontageForm', () => (
-    <MontageForm onSubmit={action('Montage Form Submit')} />
-  ))
+  .add('MontageForm', () => <MontageForm onSubmit={action('Montage Form Submit')} />)
   .add('TerrainForm', () => {
     // The TerrainForm needs to have the selected 'id' passed back into itself
     const ConnectedTerrainForm = connect(state => ({
-      terrain: TerrainFormSelector(state, 'terrain'),
+      terrain: TerrainFormSelector(state, 'terrain')
     }))(TerrainForm);
 
     return <ConnectedTerrainForm onSubmit={action('Terrain Form Submit')} />;
@@ -63,12 +57,12 @@ const sampleMontage = {
               advantage: false,
               disadvantage: false,
               name: 'navigation check',
-              versus: 10,
+              versus: 10
             },
             rolls: [12],
             roll: 12,
-            success: true,
-          },
+            success: true
+          }
         ],
         startedLost: false,
         pace: 'normal',
@@ -76,91 +70,91 @@ const sampleMontage = {
         paceMod: 0,
         success: true,
         lost: false,
-        distance: 1,
+        distance: 1
       },
       encounters: [
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [4],
             roll: 4,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [9],
             roll: 9,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [16],
             roll: 16,
-            success: false,
+            success: false
           },
-          encounter: false,
-        },
+          encounter: false
+        }
       ],
       weather: [
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [9],
-            roll: 9,
+            roll: 9
           },
           name: 'light',
           effect: {
             min: 6,
             max: 10,
             name: 'Light',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [12],
-            roll: 12,
+            roll: 12
           },
           name: 'medium',
           effect: {
             min: 11,
             max: 15,
             name: 'Medium',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [9],
-            roll: 9,
+            roll: 9
           },
           name: 'light',
           effect: {
             min: 6,
             max: 10,
             name: 'Light',
-            effects: '',
-          },
-        },
+            effects: ''
+          }
+        }
       ],
-      index: 1,
+      index: 1
     },
     {
       navigation: {
@@ -171,12 +165,12 @@ const sampleMontage = {
               advantage: false,
               disadvantage: false,
               name: 'navigation check',
-              versus: 10,
+              versus: 10
             },
             rolls: [12],
             roll: 12,
-            success: true,
-          },
+            success: true
+          }
         ],
         startedLost: false,
         pace: 'normal',
@@ -184,91 +178,91 @@ const sampleMontage = {
         paceMod: 0,
         success: true,
         lost: false,
-        distance: 1,
+        distance: 1
       },
       encounters: [
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [10],
             roll: 10,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [11],
             roll: 11,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [3],
             roll: 3,
-            success: false,
+            success: false
           },
-          encounter: false,
-        },
+          encounter: false
+        }
       ],
       weather: [
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [9],
-            roll: 9,
+            roll: 9
           },
           name: 'light',
           effect: {
             min: 6,
             max: 10,
             name: 'Light',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [9],
-            roll: 9,
+            roll: 9
           },
           name: 'light',
           effect: {
             min: 6,
             max: 10,
             name: 'Light',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [16],
-            roll: 16,
+            roll: 16
           },
           name: 'heavy',
           effect: {
             min: 16,
             max: 18,
             name: 'Heavy',
-            effects: '',
-          },
-        },
+            effects: ''
+          }
+        }
       ],
-      index: 2,
+      index: 2
     },
     {
       navigation: {
@@ -279,19 +273,19 @@ const sampleMontage = {
               advantage: false,
               disadvantage: false,
               name: 'navigation check',
-              versus: 10,
+              versus: 10
             },
             rolls: [2],
             roll: 2,
-            success: false,
+            success: false
           },
           {
             options: {
-              name: 'Lost Direction',
+              name: 'Lost Direction'
             },
             rolls: [4],
-            roll: 4,
-          },
+            roll: 4
+          }
         ],
         startedLost: false,
         pace: 'normal',
@@ -301,95 +295,95 @@ const sampleMontage = {
         lost: true,
         distance: 1,
         direction: 'S',
-        becameLost: true,
+        becameLost: true
       },
       encounters: [
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [11],
             roll: 11,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [16],
             roll: 16,
-            success: false,
+            success: false
           },
-          encounter: false,
+          encounter: false
         },
         {
           encounterRoll: {
             options: {
               versus: 19,
-              name: 'Encounter Chance',
+              name: 'Encounter Chance'
             },
             rolls: [4],
             roll: 4,
-            success: false,
+            success: false
           },
-          encounter: false,
-        },
+          encounter: false
+        }
       ],
       weather: [
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [8],
-            roll: 8,
+            roll: 8
           },
           name: 'light',
           effect: {
             min: 6,
             max: 10,
             name: 'Light',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [17],
-            roll: 17,
+            roll: 17
           },
           name: 'heavy',
           effect: {
             min: 16,
             max: 18,
             name: 'Heavy',
-            effects: '',
-          },
+            effects: ''
+          }
         },
         {
           weatherRoll: {
             options: { name: 'Weather' },
             rolls: [4],
-            roll: 4,
+            roll: 4
           },
           name: 'none',
           effect: {
             min: 1,
             max: 5,
             name: 'None',
-            effects: '',
-          },
-        },
+            effects: ''
+          }
+        }
       ],
-      index: 3,
-    },
+      index: 3
+    }
   ],
   completed: true,
   reasonsForStopping: [],
   distance: 3,
-  lost: true,
+  lost: true
 };

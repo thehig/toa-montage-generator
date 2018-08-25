@@ -1,17 +1,17 @@
 import React from 'react';
 import MUICheckbox from '@material-ui/core/Checkbox';
 
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormGroup from "@material-ui/core/FormGroup";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import FormHelperText from "@material-ui/core/FormHelperText";
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {
-    margin: `${theme.spacing.unit * 2}px 0`,
+    margin: `${theme.spacing.unit * 2}px 0`
   }
 });
 
@@ -27,12 +27,9 @@ export const CheckboxGroup = ({
     component="fieldset"
     error={Boolean(touched && error)}
     fullWidth
-    className={classes.root}>
-    {label && (
-      <FormLabel component="legend">
-        {label}
-      </FormLabel>
-    )}
+    className={classes.root}
+  >
+    {label && <FormLabel component="legend">{label}</FormLabel>}
     <FormGroup className={classes.group} {...rest}>
       {options.map((option, i) => (
         <FormControlLabel

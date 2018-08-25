@@ -15,17 +15,17 @@ const red = MUIred[200];
 
 const styles = theme => ({
   root: {
-    width: "30%",
-    height: theme.spacing.unit * 12,
+    width: '30%',
+    height: theme.spacing.unit * 12
   },
   dice: {
-    height: "100%"
+    height: '100%'
   },
   container: {
-    height: "100%"
+    height: '100%'
   },
   gridItem: {
-    height: "100%"
+    height: '100%'
   }
 });
 
@@ -48,11 +48,13 @@ const Dice = ({
         />
       </Grid>
       <Grid item xs={3} className={classes.gridItem}>
-        { name && <Typography variant="body1">{name}</Typography> }
-        { modifier && <Typography variant="body1">Modifier {`${modifier > 0 && "+"}${modifier}`}</Typography> }
-        { versus && <Typography variant="body1">Versus {versus}</Typography> }
-        { advantage && <Typography variant="body1">Advantage</Typography> }
-        { disadvantage && <Typography variant="body1">Disadvantage</Typography> }
+        {name && <Typography variant="body1">{name}</Typography>}
+        {modifier && (
+          <Typography variant="body1">Modifier {`${modifier > 0 && '+'}${modifier}`}</Typography>
+        )}
+        {versus && <Typography variant="body1">Versus {versus}</Typography>}
+        {advantage && <Typography variant="body1">Advantage</Typography>}
+        {disadvantage && <Typography variant="body1">Disadvantage</Typography>}
       </Grid>
     </Grid>
   </Paper>

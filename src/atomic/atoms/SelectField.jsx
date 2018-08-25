@@ -18,22 +18,17 @@ const noop = () => {};
 </div>
  */
 
-const SelectField = ({
-  input,
-  label,
-  meta: { touched, error },
-  children,
-  ...custom
-}) => (
+const SelectField = ({ input, label, meta: { touched, error }, children, ...custom }) => (
   <FormControl error={Boolean(touched && error)} fullWidth>
-    { label && <MUIInputLabel>{label}</MUIInputLabel> }
+    {label && <MUIInputLabel>{label}</MUIInputLabel>}
     <MUISelect
       {...input}
       onChange={event => input.onChange(event.target.value)}
       // https://github.com/erikras/redux-form/issues/2768
       onBlur={noop}
       value={input.value}
-      {...custom}>
+      {...custom}
+    >
       {children}
     </MUISelect>
     {touched && error && <FormHelperText>{error}</FormHelperText>}

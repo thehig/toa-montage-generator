@@ -8,14 +8,14 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     DC = 10,
     pace = 'normal',
     speed = 'walk',
-    lost = false,
+    lost = false
   }) => {
     // Start with our default results object
     const navigationResults = {
       rolls: [],
       startedLost: lost,
       pace,
-      speed,
+      speed
     };
 
     // Figure out what the DC modifier is for the selected pace ('slow', 'normal', 'fast')
@@ -25,7 +25,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     const navigationCheck = rollA.d20(
       Object.assign({}, navigator, {
         name: 'Navigation Check',
-        versus: Number(DC) + Number(navigationResults.paceMod),
+        versus: Number(DC) + Number(navigationResults.paceMod)
       })
     );
 
@@ -43,16 +43,12 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
       // Roll d4. On a low roll, players move -1 speed
       const distanceResult = rollA.d4({ name: `Pace: ${pace} [<= 2 gets -1 distance]` });
       navigationResults.rolls.push(distanceResult);
-      navigationResults.distance = distanceResult.roll < 3
-        ? speedVal - 1
-        : speedVal;
+      navigationResults.distance = distanceResult.roll < 3 ? speedVal - 1 : speedVal;
     } else if (pace === 'fast') {
       // Roll a d4. On a high roll, players move +1 speed
       const distanceResult = rollA.d4({ name: `Pace ${pace} [> 2 gets +1 distance]` });
       navigationResults.rolls.push(distanceResult);
-      navigationResults.distance = distanceResult.roll > 2
-        ? speedVal + 1
-        : speedVal;
+      navigationResults.distance = distanceResult.roll > 2 ? speedVal + 1 : speedVal;
     } else {
       // Normal pace for the mode of travel
       navigationResults.distance = speedVal;
@@ -84,7 +80,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
 
     encounterResult.encounterRoll = rollA.d20({
       versus: DC,
-      name: 'Encounter Chance',
+      name: 'Encounter Chance'
     });
     if (encounterResult.encounterRoll.success) {
       encounterResult.tableRoll = rollA.d100({ name: 'Encounter Table' });
@@ -97,7 +93,7 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
   };
 
   const weatherCheck = () => {
-    const weatherRoll = rollA.d20({name: 'Weather'});
+    const weatherRoll = rollA.d20({ name: 'Weather' });
 
     // Find the weather value that matches this roll
     const weatherResult = Object.keys(weather).filter(key => {
@@ -108,14 +104,13 @@ export const resolver = ({ dice, paces, speeds, directions, weather }) => {
     return {
       weatherRoll,
       name: weatherResult,
-      effect: weather[weatherResult],
+      effect: weather[weatherResult]
     };
   };
 
   return {
     navigationCheck,
     encounterCheck,
-    weatherCheck,
+    weatherCheck
   };
 };
-

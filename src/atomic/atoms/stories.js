@@ -7,14 +7,13 @@ import { storiesOf } from '@storybook/react';
 import blue from '@material-ui/core/colors/blue';
 
 // SelectField Options
-import MenuItem from "@material-ui/core/MenuItem";
-
+import MenuItem from '@material-ui/core/MenuItem';
 
 // Storybook Decorators
 import {
   ReduxDecorator,
   ThemeDecorator,
-  ReduxFormWithSingleField,
+  ReduxFormWithSingleField
 } from '../../../.storybook/decorators';
 
 // Components
@@ -41,7 +40,7 @@ const makeStories = component => {
     .addDecorator(
       ReduxDecorator({
         /* Initial redux state */
-        stories: `redux-form-field-${name}`,
+        stories: `redux-form-field-${name}`
       })
     )
     // Add <MuiThemeProvider> with theme
@@ -49,8 +48,8 @@ const makeStories = component => {
       ThemeDecorator({
         /* Base theme overrides */
         palette: {
-          primary: blue,
-        },
+          primary: blue
+        }
       })
     )
     .add(`minimal props`, () => render())
@@ -82,54 +81,54 @@ const reduxFormFieldComponents = [
       </MenuItem>,
       <MenuItem key="fast" value="fast">
         Fast
-      </MenuItem>,
-    ],
+      </MenuItem>
+    ]
   },
   {
     name: 'TextField',
-    component: TextField,
+    component: TextField
   },
   {
     name: 'CheckboxGroup',
     component: CheckboxGroup,
     options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Other", value: "other" },
-      { label: "Disabled", value: "disabled", disabled: true }
-    ],
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+      { label: 'Other', value: 'other' },
+      { label: 'Disabled', value: 'disabled', disabled: true }
+    ]
   },
   {
     name: 'CheckboxGroup/Row',
     component: CheckboxGroup,
     row: true,
     options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Other", value: "other" },
-      { label: "Disabled", value: "disabled", disabled: true }
-    ],
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+      { label: 'Other', value: 'other' },
+      { label: 'Disabled', value: 'disabled', disabled: true }
+    ]
   },
   {
     name: 'RadioButtonGroup/Row',
     component: RadioButtonGroup,
     row: true,
     options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Other", value: "other" },
-      { label: "Disabled", value: "disabled", disabled: true }
-    ],
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+      { label: 'Other', value: 'other' },
+      { label: 'Disabled', value: 'disabled', disabled: true }
+    ]
   },
   {
     name: 'RadioButtonGroup',
     component: RadioButtonGroup,
     options: [
-      { label: "Male", value: "male" },
-      { label: "Female", value: "female" },
-      { label: "Other", value: "other" },
-      { label: "Disabled", value: "disabled", disabled: true }
-    ],
-  },
+      { label: 'Male', value: 'male' },
+      { label: 'Female', value: 'female' },
+      { label: 'Other', value: 'other' },
+      { label: 'Disabled', value: 'disabled', disabled: true }
+    ]
+  }
 ];
 reduxFormFieldComponents.map(makeStories);
