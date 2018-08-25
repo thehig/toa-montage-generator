@@ -7,7 +7,7 @@ import { storiesOf } from '@storybook/react';
 import blue from '@material-ui/core/colors/blue';
 
 // SelectField Options
-import { MenuItem } from '@material-ui/core/Menu';
+import MenuItem from "@material-ui/core/MenuItem";
 
 
 // Storybook Decorators
