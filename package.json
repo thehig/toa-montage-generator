@@ -33,6 +33,7 @@
     "build-storybook": "build-storybook -s public -c .storybook -o docs",
     "build-cli": "babel src/logic --out-dir build/logic --presets=env",
     "lint": "eslint --ext .jsx,.js src/",
+    "eslint-check": "eslint --print-config . | eslint-config-prettier-check",
     "montage": "node build/logic/cli"
   },
   "devDependencies": {
@@ -45,7 +46,10 @@
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
+    "eslint-config-prettier": "^3.0.1",
     "eslint-plugin-jest": "^21.22.0",
+    "eslint-plugin-prettier": "^2.6.2",
+    "prettier": "^1.14.2",
     "react-test-renderer": "^16.4.2"
   },
   "quokka": {

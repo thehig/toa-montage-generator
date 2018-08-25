@@ -1,11 +1,17 @@
 module.exports = {
-  parser: "babel-eslint",
+  parser: 'babel-eslint',
   env: {
     browser: true,
     es6: true,
-    "jest/globals": true
+    'jest/globals': true
   },
-  extends: ["eslint:recommended", "plugin:react/recommended"],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+    'prettier',
+    'prettier/react',
+    'prettier/standard'
+  ],
   parserOptions: {
     ecmaVersion: 6,
     ecmaFeatures: {
@@ -13,16 +19,15 @@ module.exports = {
       experimentalObjectRestSpread: true,
       arrowFunctions: true
     },
-    sourceType: "module"
+    sourceType: 'module'
   },
-  plugins: ["react", "jsx-a11y", "jest"],
+  plugins: ['react', 'jsx-a11y', 'jest', 'prettier'],
   rules: {
-    "no-console": "warn",
-    "react/display-name": "off", // Causes annoyances with JSX inside higher order components
-    indent: ["error", 2, { "SwitchCase": 1 }],
-    "linebreak-style": 0,
-    semi: ["error", "always"],
-    "react/no-unescaped-entities": 0,
-    "react/prop-types": "warn"
+    'prettier/prettier': 'error',
+    'no-console': 'warn',
+    'react/display-name': 'off', // Causes annoyances with JSX inside higher order components
+    'linebreak-style': 0,
+    'react/no-unescaped-entities': 0,
+    'react/prop-types': 'warn'
   }
 };
