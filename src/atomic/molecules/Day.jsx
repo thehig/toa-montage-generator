@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Collapse from 'material-ui/transitions/Collapse';
+import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/List';
+import Collapse from '@material-ui/core/transitions/Collapse';
 
 import TodayIcon from 'material-ui-icons/Today';
 import ExpandLess from 'material-ui-icons/ExpandLess';

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { storiesOf } from '@storybook/react';
 
 // Theme
-import blue from 'material-ui/colors/blue';
+import blue from '@material-ui/core/colors/blue';
 
 // Storybook Decorators
 import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';

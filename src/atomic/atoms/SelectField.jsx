@@ -1,12 +1,9 @@
 import React from 'react';
 
-import {
-  FormControl,
-  FormHelperText
-} from 'material-ui/Form';
-
-import { InputLabel as MUIInputLabel } from 'material-ui/Input';
-import MUISelect from 'material-ui/Select';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import MUIInputLabel from '@material-ui/core/InputLabel';
+import MUISelect from '@material-ui/core/Select';
 
 const noop = () => {};
 

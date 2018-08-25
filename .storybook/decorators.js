@@ -1,10 +1,10 @@
 import React from 'react';
 
 import 'typeface-roboto';
-import { MuiThemeProvider, createMuiTheme } from 'material-ui/styles';
-import purple from 'material-ui/colors/purple';
-import green from 'material-ui/colors/green';
-import MUIButton from 'material-ui/Button';
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import purple from '@material-ui/core/colors/purple';
+import green from '@material-ui/core/colors/green';
+import MUIButton from '@material-ui/core/Button';
 
 import { createStore, combineReducers } from 'redux';
 import { Provider, connect } from 'react-redux';

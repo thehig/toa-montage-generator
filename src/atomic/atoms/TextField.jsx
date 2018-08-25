@@ -1,14 +1,12 @@
 import React from 'react';
 
-import { withStyles } from 'material-ui/styles';
-import {
-  FormControl,
-  FormHelperText,
-  // FormControlLabel,
-} from 'material-ui/Form';
+import { withStyles } from '@material-ui/core/styles';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
 
-// import { InputLabel as MUIInputLabel } from 'material-ui/Input';
-import MUITextField from 'material-ui/TextField';
+
+// import { InputLabel as MUIInputLabel } from '@material-ui/core/Input';
+import MUITextField from '@material-ui/core/TextField';
 
 const styles = theme => ({
   root: {

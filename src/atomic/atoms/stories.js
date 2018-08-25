@@ -4,10 +4,10 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 
 // Theme
-import blue from 'material-ui/colors/blue';
+import blue from '@material-ui/core/colors/blue';
 
 // SelectField Options
-import { MenuItem } from 'material-ui/Menu';
+import { MenuItem } from '@material-ui/core/Menu';
 
 
 // Storybook Decorators

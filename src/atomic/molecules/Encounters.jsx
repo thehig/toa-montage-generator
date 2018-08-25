@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles } from 'material-ui/styles';
-import ListSubheader from 'material-ui/List/ListSubheader';
-import List, { ListItem, ListItemIcon, ListItemText } from 'material-ui/List';
-import Collapse from 'material-ui/transitions/Collapse';
+import { withStyles } from '@material-ui/core/styles';
+import ListSubheader from '@material-ui/core/List/ListSubheader';
+import List, { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/List';
+import Collapse from '@material-ui/core/transitions/Collapse';
 import ExpandLess from 'material-ui-icons/ExpandLess';
 import ExpandMore from 'material-ui-icons/ExpandMore';
 

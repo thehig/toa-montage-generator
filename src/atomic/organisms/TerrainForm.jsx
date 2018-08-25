@@ -1,11 +1,11 @@
 import React from 'react';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
-import { withStyles } from 'material-ui/styles';
+import { withStyles } from '@material-ui/core/styles';
 
-import MUICard, { CardActions, CardContent } from 'material-ui/Card';
-import { MenuItem } from 'material-ui/Menu';
-import MUIButton from 'material-ui/Button';
-import MUITypography from 'material-ui/Typography';
+import MUICard, { CardActions, CardContent } from '@material-ui/core/Card';
+import { MenuItem } from '@material-ui/core/Menu';
+import MUIButton from '@material-ui/core/Button';
+import MUITypography from '@material-ui/core/Typography';
 
 import PlayArrowIcon from 'material-ui-icons/PlayArrow';
 import RefreshIcon from 'material-ui-icons/Refresh';

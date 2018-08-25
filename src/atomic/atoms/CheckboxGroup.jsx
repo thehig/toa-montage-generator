@@ -1,14 +1,13 @@
 import React from 'react';
-import MUICheckbox from 'material-ui/Checkbox';
-import {
-  FormLabel,
-  FormControl,
-  FormGroup,
-  FormControlLabel,
-  FormHelperText,
-} from 'material-ui/Form';
+import MUICheckbox from '@material-ui/core/Checkbox';
 
-import { withStyles } from 'material-ui/styles';
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormGroup from "@material-ui/core/FormGroup";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
+
+import { withStyles } from '@material-ui/core/styles';
 
 const styles = theme => ({
   root: {

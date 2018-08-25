@@ -1,11 +1,12 @@
-import React from 'react';
-import Radio, { RadioGroup } from 'material-ui/Radio';
-import {
-  FormLabel,
-  FormControl,
-  FormControlLabel,
-  FormHelperText,
-} from 'material-ui/Form';
+import React from "react";
+
+import Radio from "@material-ui/core/Radio";
+import RadioGroup from "@material-ui/core/RadioGroup";
+
+import FormLabel from "@material-ui/core/FormLabel";
+import FormControl from "@material-ui/core/FormControl";
+import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 export const RadioButton = props => (
   <FormControlLabel control={<Radio />} {...props} />
@@ -20,9 +21,16 @@ export const RadioButtonGroup = ({
 }) => (
   <FormControl component="fieldset" error={Boolean(touched && error)}>
     <FormLabel component="legend">{label}</FormLabel>
-    <RadioGroup value={input.value} onChange={event => input.onChange(event.target.value)} {...rest}>
+    <RadioGroup
+      value={input.value}
+      onChange={event => input.onChange(event.target.value)}
+      {...rest}
+    >
       {options.map(option => (
-        <RadioButton key={option.key || option.name || option.label} {...option} />
+        <RadioButton
+          key={option.key || option.name || option.label}
+          {...option}
+        />
       ))}
     </RadioGroup>
     <FormHelperText>{touched && error && error}</FormHelperText>
