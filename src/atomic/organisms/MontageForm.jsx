@@ -1,15 +1,17 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import { withStyles } from "@material-ui/core/styles";
 
-import MUICard, { CardActions, CardContent } from '@material-ui/core/Card';
-import { MenuItem } from '@material-ui/core/Menu';
-import MUIButton from '@material-ui/core/Button';
-import MUITypography from '@material-ui/core/Typography';
+import MUICard from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import MenuItem from "@material-ui/core/MenuItem";
+import MUIButton from "@material-ui/core/Button";
+import MUITypography from "@material-ui/core/Typography";
 
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import RefreshIcon from '@material-ui/icons/Refresh';
-import { TextField, SelectField, CheckboxGroup } from '../';
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import RefreshIcon from "@material-ui/icons/Refresh";
+import { TextField, SelectField, CheckboxGroup } from "../";
 
 const styles = theme => ({});
 
@@ -40,7 +42,8 @@ const MontageForm = props => {
             name="speed"
             key="speed"
             component={SelectField}
-            label="Speed (affects hexes travelled)">
+            label="Speed (affects hexes travelled)"
+          >
             <MenuItem value="walk">Walking</MenuItem>
             <MenuItem value="boat">Boating</MenuItem>
           </Field>
@@ -48,7 +51,7 @@ const MontageForm = props => {
             name="starts-lost"
             key="starts-lost"
             component={CheckboxGroup}
-            options={[{ value: 'lost', label: 'Montage starts Lost' }]}
+            options={[{ value: "lost", label: "Montage starts Lost" }]}
           />
           <Field
             name="daysoffset"
@@ -75,7 +78,8 @@ const MontageForm = props => {
             name="pace"
             key="pace"
             component={SelectField}
-            label="Pace (affects navigation DC & hexes travelled) ">
+            label="Pace (affects navigation DC & hexes travelled) "
+          >
             <MenuItem value="slow">Slow</MenuItem>
             <MenuItem value="normal">Normal</MenuItem>
             <MenuItem value="fast">Fast</MenuItem>
@@ -92,8 +96,8 @@ const MontageForm = props => {
             key="nav-advantage"
             component={CheckboxGroup}
             options={[
-              { value: 'advantage', label: 'Advantage' },
-              { value: 'disadvantage', label: 'Disadvantage' },
+              { value: "advantage", label: "Advantage" },
+              { value: "disadvantage", label: "Disadvantage" }
             ]}
           />
         </CardContent>
@@ -104,7 +108,8 @@ const MontageForm = props => {
         disabled={submitting}
         fullWidth
         variant="raised"
-        onClick={reset}>
+        onClick={reset}
+      >
         <RefreshIcon />
       </MUIButton>
       <MUIButton
@@ -113,7 +118,8 @@ const MontageForm = props => {
         aria-label="go"
         fullWidth
         variant="raised"
-        disabled={submitting}>
+        disabled={submitting}
+      >
         <PlayArrowIcon />
       </MUIButton>
     </form>
@@ -123,31 +129,31 @@ const MontageForm = props => {
 const validate = values => {
   const errors = {};
   const requiredFields = [
-    'modifier',
-    'pace',
-    'speed',
-    'navigationDC',
-    'encounterDC',
-    'numdays',
+    "modifier",
+    "pace",
+    "speed",
+    "navigationDC",
+    "encounterDC",
+    "numdays"
   ];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required';
+      errors[field] = "Required";
     }
   });
   return errors;
 };
 
 export default reduxForm({
-  form: 'MontageForm', // a unique identifier for this form
+  form: "MontageForm", // a unique identifier for this form
   initialValues: {
     modifier: 3,
-    pace: 'normal',
-    speed: 'walk',
+    pace: "normal",
+    speed: "walk",
     navigationDC: 15,
     encounterDC: 19,
     numdays: 10,
     "nav-advantage": ""
   },
-  validate,
+  validate
 })(withStyles(styles)(MontageForm));
