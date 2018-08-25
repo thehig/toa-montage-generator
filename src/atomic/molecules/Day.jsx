@@ -1,19 +1,19 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 
-import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/List';
-import Collapse from '@material-ui/core/transitions/Collapse';
+import { ListItem, ListItemIcon, ListItemText } from "@material-ui/core/List";
+import Collapse from "@material-ui/core/Collapse";
 
-import TodayIcon from 'material-ui-icons/Today';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
+import TodayIcon from "@material-ui/icons/Today";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
 
-import { Navigation, Encounters, Weathers } from '../';
+import { Navigation, Encounters, Weathers } from "../";
 
 class Day extends React.Component {
   state = {
-    expanded: false,
+    expanded: false
   };
 
   handleClick = () => {
@@ -26,15 +26,15 @@ class Day extends React.Component {
     const encounter = day.encounters
       .filter(e => e.encounter)
       .map(e => e.tableRoll.roll);
-    const weather = day.weather.filter(w => w.name === 'torrent').length > 0;
+    const weather = day.weather.filter(w => w.name === "torrent").length > 0;
 
     const summary = [
       lost && `Lost (${lost})`,
-      encounter.length && `Encounter(s) [${encounter.join(', ')}]`,
-      weather && 'Weather',
+      encounter.length && `Encounter(s) [${encounter.join(", ")}]`,
+      weather && "Weather"
     ]
       .filter(e => e)
-      .join(', ');
+      .join(", ");
 
     return summary;
   };
@@ -49,18 +49,23 @@ class Day extends React.Component {
         <ListItemIcon>
           <TodayIcon />
         </ListItemIcon>
-        <ListItemText inset primary={`Day ${day.index}`} secondary={this.createSummary()} />
+        <ListItemText
+          inset
+          primary={`Day ${day.index}`}
+          secondary={this.createSummary()}
+        />
         {expanded ? <ExpandLess /> : <ExpandMore />}
       </ListItem>,
       <Collapse
         key={`${day.index}-day-list`}
         in={expanded}
         timeout="auto"
-        unmountOnExit>
+        unmountOnExit
+      >
         <Navigation {...day.navigation} index={day.index} />
         <Encounters encounters={day.encounters} index={day.index} />
         <Weathers weathers={day.weather} index={day.index} />
-      </Collapse>,
+      </Collapse>
     ];
   }
 }

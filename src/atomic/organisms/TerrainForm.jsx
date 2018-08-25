@@ -7,8 +7,8 @@ import { MenuItem } from '@material-ui/core/Menu';
 import MUIButton from '@material-ui/core/Button';
 import MUITypography from '@material-ui/core/Typography';
 
-import PlayArrowIcon from 'material-ui-icons/PlayArrow';
-import RefreshIcon from 'material-ui-icons/Refresh';
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import RefreshIcon from '@material-ui/icons/Refresh';
 import { TextField, SelectField, CheckboxGroup } from '../';
 
 import { terrain as Terrains } from '../../logic/consts';

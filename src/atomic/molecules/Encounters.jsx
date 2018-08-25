@@ -1,27 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import ListSubheader from '@material-ui/core/List/ListSubheader';
-import List, { ListItem, ListItemIcon, ListItemText } from '@material-ui/core/List';
-import Collapse from '@material-ui/core/transitions/Collapse';
-import ExpandLess from 'material-ui-icons/ExpandLess';
-import ExpandMore from 'material-ui-icons/ExpandMore';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
 
-import EncounterIcon from 'material-ui-icons/Colorize';
-import StarBorder from 'material-ui-icons/StarBorder';
+import ListItem from "@material-ui/core/ListItem";
+import ListItemIcon from "@material-ui/core/ListItemIcon";
+import ListItemText from "@material-ui/core/ListItemText";
+import ListSubheader from "@material-ui/core/ListSubheader";
+
+import Collapse from "@material-ui/core/Collapse";
+import ExpandLess from "@material-ui/icons/ExpandLess";
+import ExpandMore from "@material-ui/icons/ExpandMore";
+
+import EncounterIcon from "@material-ui/icons/Colorize";
+import StarBorder from "@material-ui/icons/StarBorder";
 
 const styles = theme => ({
   outerList: {
-    paddingLeft: theme.spacing.unit * 4,
+    paddingLeft: theme.spacing.unit * 4
   },
   innermostList: {
-    paddingLeft: theme.spacing.unit * 8,
-  },
+    paddingLeft: theme.spacing.unit * 8
+  }
 });
 
 class Encounters extends React.Component {
   state = {
-    expanded: false,
+    expanded: false
   };
 
   constructor(props) {
@@ -29,7 +33,7 @@ class Encounters extends React.Component {
 
     if (props && props.encounters) {
       const actualEncounters = props.encounters.filter(any =>
-        any.hasOwnProperty('tableRoll')
+        any.hasOwnProperty("tableRoll")
       );
       this.state.expanded = actualEncounters.length > 0;
     }
@@ -48,7 +52,8 @@ class Encounters extends React.Component {
         key={`${index}-enc`}
         className={classes.outerList}
         button
-        onClick={this.handleClick}>
+        onClick={this.handleClick}
+      >
         <ListItemIcon>
           <EncounterIcon />
         </ListItemIcon>
@@ -64,18 +69,22 @@ class Encounters extends React.Component {
         key={`${index}-enc-list`}
         in={expanded}
         timeout="auto"
-        unmountOnExit>
+        unmountOnExit
+      >
         {/* ENCOUNTERS */}
         {encounters.map((encounter, index) => (
           <ListItem
             key={`${index}-enc-${index}-list`}
-            className={classes.innermostList}>
+            className={classes.innermostList}
+          >
             <ListItemIcon>
               <StarBorder />
             </ListItemIcon>
             <ListItemText
               inset
-              primary={`(d${encounter.encounterRoll.sides}=${encounter.encounterRoll.roll}): ${encounter.encounter ? "Encounter!" : "None"}`}
+              primary={`(d${encounter.encounterRoll.sides}=${
+                encounter.encounterRoll.roll
+              }): ${encounter.encounter ? "Encounter!" : "None"}`}
               secondary={
                 encounter.encounter !== false &&
                 `Encounter table #${encounter.encounter}`
@@ -83,7 +92,7 @@ class Encounters extends React.Component {
             />
           </ListItem>
         ))}
-      </Collapse>,
+      </Collapse>
     ];
   }
 }
@@ -99,8 +108,8 @@ Encounters.propTypes = {
           advantage: PropTypes.bool,
           disadvantage: PropTypes.bool,
           name: PropTypes.string,
-          versus: PropTypes.number,
-        }),
+          versus: PropTypes.number
+        })
       }).isRequired,
       tableRoll: PropTypes.shape({
         rolls: PropTypes.array.isRequired,
@@ -110,13 +119,12 @@ Encounters.propTypes = {
           advantage: PropTypes.bool,
           disadvantage: PropTypes.bool,
           name: PropTypes.string,
-          versus: PropTypes.number,
-        }),
-      }),
+          versus: PropTypes.number
+        })
+      })
     })
   ).isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.number.isRequired
 };
-
 
 export default withStyles(styles)(Encounters);
