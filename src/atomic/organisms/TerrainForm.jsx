@@ -124,7 +124,7 @@ const TerrainForm = props => {
       </MUIButton>
       <MUIButton
         type="submit"
-        color="secondary"
+        color="primary"
         aria-label="go"
         fullWidth
         variant="raised"
