@@ -1,5 +1,4 @@
-import { configure, addDecorator } from '@storybook/react';
-import { MuiProvider } from './decorators';
+import { configure } from '@storybook/react';
 import { setOptions } from '@storybook/addon-options';
 
 // https://www.npmjs.com/package/@storybook/addon-options
@@ -8,10 +7,10 @@ setOptions({
 });
 
 function loadStories() {
-  require('../src/atomic/environment/stories');
   require('../src/atomic/atoms/stories');
   require('../src/atomic/molecules/stories');
   require('../src/atomic/organisms/stories');
+  require('../src/atomic/environment/stories');
 }
 
 configure(loadStories, module);

@@ -47,7 +47,7 @@ class MontageOutput extends React.Component {
       montage: { days, completed, reasonsForStopping /* , lost */ }
     } = this.props;
 
-    console.log("montage", this.props.montage);
+    // console.log("montage", this.props.montage);
 
     const distance = days.reduce(
       (prev, next) => prev + next.navigation.distance,
