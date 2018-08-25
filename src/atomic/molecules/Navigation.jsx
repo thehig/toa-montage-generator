@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 
 import Collapse from "@material-ui/core/Collapse";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -38,14 +37,14 @@ class Navigation extends React.Component {
     const {
       classes,
       rolls,
-      startedLost,
-      pace,
-      speed,
-      paceMod,
-      success,
-      lost,
+      // startedLost,
+      // pace,
+      // speed,
+      // paceMod,
+      // success,
+      // lost,
       direction,
-      distance,
+      // distance,
       index,
       becameLost,
       stillLost,

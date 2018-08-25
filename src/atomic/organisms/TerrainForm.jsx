@@ -3,7 +3,6 @@ import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
 import MUICard from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 
 import MenuItem from '@material-ui/core/MenuItem';
@@ -31,7 +30,7 @@ const styles = theme => ({
 const TerrainForm = props => {
   const {
     handleSubmit,
-    pristine,
+    // pristine,
     reset,
     submitting,
     classes,

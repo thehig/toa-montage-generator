@@ -3,7 +3,6 @@ import { Field, reduxForm } from "redux-form";
 import { withStyles } from "@material-ui/core/styles";
 
 import MUICard from "@material-ui/core/Card";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import MenuItem from "@material-ui/core/MenuItem";
 import MUIButton from "@material-ui/core/Button";
@@ -16,7 +15,7 @@ import { TextField, SelectField, CheckboxGroup } from "../";
 const styles = theme => ({});
 
 const MontageForm = props => {
-  const { handleSubmit, pristine, reset, submitting, classes } = props;
+  const { handleSubmit, /* pristine, */ reset, submitting, classes } = props;
   return (
     <form onSubmit={handleSubmit}>
       <MUICard className={classes.card}>

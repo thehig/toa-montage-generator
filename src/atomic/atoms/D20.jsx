@@ -1,5 +1,4 @@
 import React from 'react';
-import Paper from '@material-ui/core/Paper';
 
 const Dice = ({ value = 10, color = '#000000', ...svgProps }) => (
   <svg

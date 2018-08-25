@@ -7,7 +7,7 @@ export const getRandomInt = (min, max) => name => {
 export const roll = die => sides => options => {
   // Deconstruct options or configure defaults
   const {
-    name = '',
+    // name = '',
     advantage = false,
     disadvantage = false,
     modifier = 0,

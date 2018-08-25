@@ -1,12 +1,11 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
+// import PropTypes from "prop-types";
+// import { withStyles } from "@material-ui/core/styles";
 
-import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";import Collapse from "@material-ui/core/Collapse";
+import Collapse from "@material-ui/core/Collapse";
 
 import TodayIcon from "@material-ui/icons/Today";
 import ExpandLess from "@material-ui/icons/ExpandLess";
@@ -43,7 +42,7 @@ class Day extends React.Component {
   };
 
   render() {
-    const { classes, day } = this.props;
+    const { /*classes,*/ day } = this.props;
 
     const { expanded } = this.state;
 
