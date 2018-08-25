@@ -8,10 +8,10 @@ import { withStyles } from 'material-ui/styles';
 import MUIgreen from 'material-ui/colors/green';
 import MUIred from 'material-ui/colors/red';
 
+import { D20 } from '../';
+
 const green = MUIgreen[200];
 const red = MUIred[200];
-
-import { D20 } from '../';
 
 const styles = theme => ({
   root: {
