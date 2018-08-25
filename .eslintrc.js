@@ -22,6 +22,9 @@ module.exports = {
     sourceType: 'module'
   },
   plugins: ['react', 'jsx-a11y', 'jest', 'prettier'],
+  globals: {
+    process: true
+  },
   rules: {
     'prettier/prettier': 'error',
     'no-console': 'warn',
