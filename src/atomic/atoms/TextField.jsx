@@ -22,10 +22,10 @@ export const TextField = ({ input, label, meta: { touched, error }, classes, ...
 );
 
 TextField.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.shape({
-    touched: PropTypes.string,
+    touched: PropTypes.bool,
     error: PropTypes.any
   }),
   classes: PropTypes.object.isRequired

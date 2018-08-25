@@ -30,7 +30,7 @@ const Dice = ({ value = 10, color = '#000000', ...svgProps }) => (
 
 Dice.propTypes = {
   value: PropTypes.number,
-  color: PropTypes.number
+  color: PropTypes.string
 };
 
 export default Dice;

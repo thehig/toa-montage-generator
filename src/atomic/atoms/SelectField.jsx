@@ -37,10 +37,10 @@ const SelectField = ({ input, label, meta: { touched, error }, children, ...cust
 );
 
 SelectField.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.shape({
-    touched: PropTypes.string,
+    touched: PropTypes.bool,
     error: PropTypes.any
   }),
   children: PropTypes.node,

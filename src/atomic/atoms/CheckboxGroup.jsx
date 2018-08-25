@@ -56,10 +56,10 @@ export const CheckboxGroup = ({
 );
 
 CheckboxGroup.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.shape({
-    touched: PropTypes.string,
+    touched: PropTypes.bool,
     error: PropTypes.any
   }),
   options: PropTypes.array,

@@ -64,8 +64,8 @@ class Day extends React.Component {
 Day.propTypes = {
   day: PropTypes.shape({
     navigation: PropTypes.object,
-    encounters: PropTypes.object,
-    weather: PropTypes.object,
+    encounters: PropTypes.array,
+    weather: PropTypes.array,
     index: PropTypes.number
   })
 };

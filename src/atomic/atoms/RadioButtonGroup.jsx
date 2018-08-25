@@ -28,10 +28,10 @@ export const RadioButtonGroup = ({ input, label, meta: { touched, error }, optio
 );
 
 RadioButtonGroup.propTypes = {
-  input: PropTypes.element,
+  input: PropTypes.object,
   label: PropTypes.string,
   meta: PropTypes.shape({
-    touched: PropTypes.string,
+    touched: PropTypes.bool,
     error: PropTypes.any
   }),
   options: PropTypes.array
