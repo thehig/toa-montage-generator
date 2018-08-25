@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import amber from '@material-ui/core/colors/amber';
-import lightGreen from '@material-ui/core/colors/lightGreen';
 import red from '@material-ui/core/colors/red';
 import 'typeface-roboto';
 
@@ -12,8 +10,12 @@ import store from '../../redux/store';
 
 const theme = createMuiTheme({
   palette: {
-    primary: amber,
-    secondary: lightGreen,
+    primary: {
+      main: '#8d6e63'
+    },
+    secondary: {
+      main: '#757575'
+    },
     error: red
   }
 });
