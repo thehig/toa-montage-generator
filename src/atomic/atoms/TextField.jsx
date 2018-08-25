@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { withStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -19,5 +20,15 @@ export const TextField = ({ input, label, meta: { touched, error }, classes, ...
     {touched && error && <FormHelperText>{error}</FormHelperText>}
   </FormControl>
 );
+
+TextField.propTypes = {
+  input: PropTypes.element,
+  label: PropTypes.string,
+  meta: PropTypes.shape({
+    touched: PropTypes.string,
+    error: PropTypes.any
+  }),
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(TextField);

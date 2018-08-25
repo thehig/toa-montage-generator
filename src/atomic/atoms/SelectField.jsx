@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
@@ -34,5 +35,16 @@ const SelectField = ({ input, label, meta: { touched, error }, children, ...cust
     {touched && error && <FormHelperText>{error}</FormHelperText>}
   </FormControl>
 );
+
+SelectField.propTypes = {
+  input: PropTypes.element,
+  label: PropTypes.string,
+  meta: PropTypes.shape({
+    touched: PropTypes.string,
+    error: PropTypes.any
+  }),
+  children: PropTypes.node,
+  options: PropTypes.array
+};
 
 export default SelectField;

@@ -1,6 +1,8 @@
 import React from 'react';
-import MUICheckbox from '@material-ui/core/Checkbox';
 
+import PropTypes from 'prop-types';
+
+import MUICheckbox from '@material-ui/core/Checkbox';
 import FormLabel from '@material-ui/core/FormLabel';
 import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
@@ -52,5 +54,16 @@ export const CheckboxGroup = ({
     {touched && error && <FormHelperText>{error}</FormHelperText>}
   </FormControl>
 );
+
+CheckboxGroup.propTypes = {
+  input: PropTypes.element,
+  label: PropTypes.string,
+  meta: PropTypes.shape({
+    touched: PropTypes.string,
+    error: PropTypes.any
+  }),
+  options: PropTypes.array,
+  classes: PropTypes.object.isRequired
+};
 
 export default withStyles(styles)(CheckboxGroup);

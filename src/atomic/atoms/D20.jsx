@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Dice = ({ value = 10, color = '#000000', ...svgProps }) => (
   <svg
@@ -26,5 +27,10 @@ const Dice = ({ value = 10, color = '#000000', ...svgProps }) => (
     </text>
   </svg>
 );
+
+Dice.propTypes = {
+  value: PropTypes.number,
+  color: PropTypes.number
+};
 
 export default Dice;

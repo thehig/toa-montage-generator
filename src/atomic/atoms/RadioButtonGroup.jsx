@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -25,5 +26,15 @@ export const RadioButtonGroup = ({ input, label, meta: { touched, error }, optio
     <FormHelperText>{touched && error && error}</FormHelperText>
   </FormControl>
 );
+
+RadioButtonGroup.propTypes = {
+  input: PropTypes.element,
+  label: PropTypes.string,
+  meta: PropTypes.shape({
+    touched: PropTypes.string,
+    error: PropTypes.any
+  }),
+  options: PropTypes.array
+};
 
 export default RadioButtonGroup;
