@@ -32,7 +32,7 @@ const styles = theme => ({
 const Dice = ({
   classes,
   roll,
-  rolls,
+  // rolls,
   success,
   options: { modifier, advantage, disadvantage, name, versus } = {},
   ...diceProps

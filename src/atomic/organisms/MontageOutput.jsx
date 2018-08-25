@@ -68,7 +68,12 @@ class MontageOutput extends React.Component {
 }
 
 MontageOutput.propTypes = {
-  classes: PropTypes.object.isRequired
+  classes: PropTypes.object.isRequired,
+  montage: PropTypes.shape({
+    days: PropTypes.array,
+    completed: PropTypes.bool,
+    reasonsForStopping: PropTypes.array
+  })
 };
 
 export default withStyles(styles)(MontageOutput);

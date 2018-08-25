@@ -1,6 +1,8 @@
 import commandLineArgs from 'command-line-args';
 import getUsage from 'command-line-usage';
-import { montage, generateReadout, narrate } from './wrapper';
+import { montage /* , generateReadout, narrate */ } from './wrapper';
+
+/* eslint-disable no-console */
 
 // Configure command-line-args
 const optionDefinitions = [
@@ -177,3 +179,4 @@ try {
   console.error(exception);
   exit(1);
 }
+/* eslint-enable no-console */

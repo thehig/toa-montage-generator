@@ -1,4 +1,4 @@
-export const getRandomInt = (min, max) => name => {
+export const getRandomInt = (min, max) => (/* name */) => {
   const result = Math.floor(Math.random() * (max - min + 1)) + min;
   // console.log(`d${max}=${result}${name ? name : ''}`);
   return result;

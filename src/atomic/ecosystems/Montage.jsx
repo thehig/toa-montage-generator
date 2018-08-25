@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { TerrainForm, MontageOutput } from '../';
@@ -33,6 +34,12 @@ function mapDispatchToProps(dispatch) {
     montageSubmit: montageOptions => dispatch(montageSubmit(montageOptions))
   };
 }
+
+MontagePage.propTypes = {
+  montageSubmit: PropTypes.func,
+  options: PropTypes.object,
+  content: PropTypes.object
+};
 
 export { MontagePage as TestableMontagePage };
 export default connect(

@@ -1,4 +1,6 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { Field, reduxForm } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -12,6 +14,7 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { TextField, SelectField, CheckboxGroup } from '../';
 
+// eslint-disable-next-line no-unused-vars
 const styles = theme => ({});
 
 const MontageForm = props => {
@@ -130,6 +133,13 @@ const validate = values => {
     }
   });
   return errors;
+};
+
+MontageForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  reset: PropTypes.func,
+  submitting: PropTypes.bool,
+  classes: PropTypes.object
 };
 
 export default reduxForm({

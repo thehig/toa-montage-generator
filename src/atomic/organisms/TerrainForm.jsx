@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
@@ -151,6 +152,13 @@ const validate = values => {
 };
 
 export const selector = formValueSelector('TerrainForm');
+
+TerrainForm.propTypes = {
+  handleSubmit: PropTypes.func,
+  reset: PropTypes.func,
+  submitting: PropTypes.bool,
+  classes: PropTypes.object
+};
 
 export default reduxForm({
   form: 'TerrainForm', // a unique identifier for this form

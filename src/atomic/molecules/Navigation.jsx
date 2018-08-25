@@ -126,7 +126,9 @@ Navigation.propTypes = {
   becameLost: PropTypes.bool,
   stillLost: PropTypes.bool,
   becameFound: PropTypes.bool,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  direction: PropTypes.string,
+  classes: PropTypes.object.isRequired
 };
 
 Navigation.defaultProps = {

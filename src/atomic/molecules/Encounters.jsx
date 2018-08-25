@@ -108,7 +108,8 @@ Encounters.propTypes = {
       })
     })
   ).isRequired,
-  index: PropTypes.number.isRequired
+  index: PropTypes.number.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Encounters);
