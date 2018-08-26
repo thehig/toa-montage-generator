@@ -1,6 +1,8 @@
 import { resolver as _resolver } from './resolver';
 import { montage as _montage } from './montage';
-import { paceModifiers, speeds, directions, weather } from './consts';
+
+import config from '../config';
+const { paceModifiers, speeds, directions, weather } = config.get('consts');
 
 export const resolver = _resolver({
   paces: paceModifiers,
