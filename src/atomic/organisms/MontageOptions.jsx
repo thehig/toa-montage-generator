@@ -38,6 +38,102 @@ const styles = theme => ({
   }
 });
 
+const navigation = ({ classes }) => (
+  <MUICard className={classes.card}>
+    <MUICardContent>
+      <MUITypography variant="body2" className={cn(classes.title, classes.navigation)}>
+        Navigation
+      </MUITypography>
+      <Field
+        name="navDC"
+        key="navDC"
+        component={Slider}
+        label="Nav DC [$value$]"
+        sublabel="(higher is harder)"
+        min={1}
+        max={30}
+        step={1}
+      />
+      <Field
+        name="encChance"
+        key="encChance"
+        component={Slider}
+        label="Encounter DC [$value$]"
+        sublabel="(higher is less common)"
+        min={1}
+        max={20}
+        step={1}
+      />
+      <Field
+        name="speed"
+        key="speed"
+        component={SelectField}
+        label="Speed (affects hexes travelled)"
+      >
+        <MUIMenuItem value="walk">Walking</MUIMenuItem>
+        <MUIMenuItem value="boat">Boating</MUIMenuItem>
+      </Field>
+      <Field
+        name="pace"
+        key="pace"
+        component={SelectField}
+        label="Pace (affects navigation DC & hexes travelled) "
+      >
+        <MUIMenuItem value="slow">Slow</MUIMenuItem>
+        <MUIMenuItem value="normal">Normal</MUIMenuItem>
+        <MUIMenuItem value="fast">Fast</MUIMenuItem>
+      </Field>
+      <Field
+        name="modifier"
+        key="nav-modifier"
+        component={TextField}
+        label="Navigators total modifier"
+        type="number"
+      />
+      <Field
+        name="nav-advantage"
+        key="nav-advantage"
+        row
+        component={CheckboxGroup}
+        options={[
+          { value: 'advantage', label: 'Advantage' },
+          { value: 'disadvantage', label: 'Disadvantage' }
+        ]}
+      />
+    </MUICardContent>
+  </MUICard>
+);
+
+const travel = ({ classes }) => (
+  <MUICard className={classes.card}>
+    <MUICardContent>
+      <MUITypography variant="body2" className={cn(classes.title, classes.travel)}>
+        Travel
+      </MUITypography>
+      <Field
+        name="numdays"
+        key="numdays"
+        component={TextField}
+        label="Number of days to travel for"
+        type="number"
+      />
+      <Field
+        name="daysoffset"
+        key="daysoffset"
+        component={TextField}
+        label="Offset for number of days past"
+        type="number"
+      />
+      <Field
+        name="starts-lost"
+        key="starts-lost"
+        component={CheckboxGroup}
+        options={[{ value: 'lost', label: 'Lost' }]}
+      />
+    </MUICardContent>
+  </MUICard>
+);
+
 const MontageOptions = props => {
   const {
     handleSubmit,
@@ -49,97 +145,9 @@ const MontageOptions = props => {
 
   return (
     <form onSubmit={handleSubmit} className={classes.root}>
-      <MUICard className={classes.card}>
-        <MUICardContent>
-          <MUITypography variant="title" className={cn(classes.title, classes.navigation)}>
-            Navigation
-          </MUITypography>
-          <Field
-            name="navDC"
-            key="navDC"
-            component={Slider}
-            label="Nav DC [$value$]"
-            sublabel="(higher is harder)"
-            min={1}
-            max={30}
-            step={1}
-          />
-          <Field
-            name="encChance"
-            key="encChance"
-            component={Slider}
-            label="Encounter DC [$value$]"
-            sublabel="(higher is less common)"
-            min={1}
-            max={20}
-            step={1}
-          />
-          <Field
-            name="speed"
-            key="speed"
-            component={SelectField}
-            label="Speed (affects hexes travelled)"
-          >
-            <MUIMenuItem value="walk">Walking</MUIMenuItem>
-            <MUIMenuItem value="boat">Boating</MUIMenuItem>
-          </Field>
-          <Field
-            name="pace"
-            key="pace"
-            component={SelectField}
-            label="Pace (affects navigation DC & hexes travelled) "
-          >
-            <MUIMenuItem value="slow">Slow</MUIMenuItem>
-            <MUIMenuItem value="normal">Normal</MUIMenuItem>
-            <MUIMenuItem value="fast">Fast</MUIMenuItem>
-          </Field>
-          <Field
-            name="modifier"
-            key="nav-modifier"
-            component={TextField}
-            label="Navigators total modifier"
-            type="number"
-          />
-          <Field
-            name="nav-advantage"
-            key="nav-advantage"
-            row
-            component={CheckboxGroup}
-            options={[
-              { value: 'advantage', label: 'Advantage' },
-              { value: 'disadvantage', label: 'Disadvantage' }
-            ]}
-          />
-        </MUICardContent>
-      </MUICard>
+      {navigation(props)}
 
-      <MUICard className={classes.card}>
-        <MUICardContent>
-          <MUITypography variant="title" className={cn(classes.title, classes.travel)}>
-            Travel
-          </MUITypography>
-          <Field
-            name="numdays"
-            key="numdays"
-            component={TextField}
-            label="Number of days to travel for"
-            type="number"
-          />
-          <Field
-            name="daysoffset"
-            key="daysoffset"
-            component={TextField}
-            label="Offset for number of days past"
-            type="number"
-          />
-          <Field
-            name="starts-lost"
-            key="starts-lost"
-            component={CheckboxGroup}
-            options={[{ value: 'lost', label: 'Lost' }]}
-          />
-        </MUICardContent>
-      </MUICard>
+      {travel(props)}
 
       <MUIButton
         aria-label="reset"
