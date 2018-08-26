@@ -37,7 +37,7 @@ const navigation = ({ classes }) => (
         name="navDC"
         key="navDC"
         component={Slider}
-        label="Nav DC [$value$]"
+        label={v => `Nav DC: [${v}]`}
         tooltip="(higher is harder)"
         min={1}
         max={30}
@@ -47,7 +47,7 @@ const navigation = ({ classes }) => (
         name="encChance"
         key="encChance"
         component={Slider}
-        label="Encounter DC [$value$]"
+        label={v => `Encounter Chance: [${Math.floor(((21 - v) / 20) * 100)}%]`}
         tooltip="(higher is less common)"
         min={1}
         max={20}
@@ -84,7 +84,7 @@ const navigation = ({ classes }) => (
         name="modifier"
         key="nav-modifier"
         component={Slider}
-        label="Navigators total modifier [$value$]"
+        label={v => `Navigators total modifier: [${v > 0 ? '+' : ''}${v}]`}
         min={-20}
         max={20}
         step={1}
@@ -113,7 +113,7 @@ const travel = ({ classes }) => (
       <Field
         name="numdays"
         key="numdays"
-        label="Number of days to travel for [$value$]"
+        label={v => `Travel for [${v}] days`}
         component={Slider}
         min={0}
         max={30}
@@ -123,8 +123,9 @@ const travel = ({ classes }) => (
         name="daysoffset"
         key="daysoffset"
         component={TextField}
-        label="Offset for number of days past"
+        label="Starting on day #"
         type="number"
+        min="0"
       />
       <Field
         name="starts-lost"
@@ -203,7 +204,7 @@ export default reduxForm({
     speed: 'walk',
     pace: 'normal',
     modifier: 3,
-    numdays: 10
+    numdays: 21
   },
   validate
 })(withStyles(styles)(MontageOptions));

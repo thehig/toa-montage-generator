@@ -36,7 +36,7 @@ const Slider = ({ classes, input, label, tooltip, meta: { touched, error } = {},
     <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
       {label && (
         <FormLabel id="slider-label" component="legend">
-          {label.replace(/\$value\$/g, input.value)}
+          {typeof label === 'function' ? label(input.value) : label}
         </FormLabel>
       )}
       {wrapper(
@@ -58,7 +58,7 @@ const Slider = ({ classes, input, label, tooltip, meta: { touched, error } = {},
 Slider.propTypes = {
   classes: PropTypes.object.isRequired,
   input: PropTypes.object,
-  label: PropTypes.string,
+  label: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   tooltip: PropTypes.string,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
