@@ -27,6 +27,19 @@ module.exports = function(wallaby) {
       '.storybook/**/*.js?(x)': babelCompiler
     },
 
+    filesWithNoCoverageCalculated: [
+      'node_modules/**/*.*',
+      '.storybook/**/*.js',
+      'src/**/*.stories*.js',
+      'src/**/stories.js',
+
+      'src/**/*.spec*.js',
+      'src/spec/**/*.*',
+
+      'src/registerServiceWorker.js',
+      'src/logic/cli.js'
+    ],
+
     tests: ['src/**/*.spec.js?(x)'],
 
     env: {
