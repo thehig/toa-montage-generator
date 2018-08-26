@@ -1,6 +1,6 @@
 import React from 'react';
-
 import PropTypes from 'prop-types';
+import cn from 'classnames';
 
 import MUICheckbox from '@material-ui/core/Checkbox';
 import FormLabel from '@material-ui/core/FormLabel';
@@ -14,11 +14,19 @@ import { withStyles } from '@material-ui/core/styles';
 const styles = theme => ({
   root: {
     margin: `${theme.spacing.unit * 2}px 0`
+  },
+  fullWidth: {
+    width: '100%'
+  },
+  group: {
+    display: 'flex',
+    justifyContent: 'space-evenly'
   }
 });
 
 export const CheckboxGroup = ({
   input,
+  fullWidth,
   label,
   meta: { touched, error },
   options,
@@ -29,7 +37,7 @@ export const CheckboxGroup = ({
     component="fieldset"
     error={Boolean(touched && error)}
     fullWidth
-    className={classes.root}
+    className={cn(classes.root, fullWidth && classes.fullWidth)}
   >
     {label && <FormLabel component="legend">{label}</FormLabel>}
     <FormGroup className={classes.group} {...rest}>
@@ -57,6 +65,7 @@ export const CheckboxGroup = ({
 
 CheckboxGroup.propTypes = {
   input: PropTypes.object,
+  fullWidth: PropTypes.bool,
   label: PropTypes.string,
   meta: PropTypes.shape({
     touched: PropTypes.bool,

@@ -25,12 +25,9 @@ const styles = (/*theme*/) => ({
   fullWidth: {
     width: '100%'
   },
-  radioGroup: {
+  group: {
     display: 'flex',
     justifyContent: 'space-evenly'
-  },
-  radioButton: {
-    // flexGrow: 1
   }
 });
 
@@ -54,7 +51,7 @@ export const RadioButtonGroup = ({
     </Tooltip>
 
     <RadioGroup
-      className={classes.radioGroup}
+      className={classes.group}
       value={input.value}
       onChange={event => input.onChange(event.target.value)}
       {...rest}
