@@ -6,21 +6,21 @@ App: # environment
   - MUI Provider
   - Montage Page: # ecosystem
     - Terrain Form: # organism
-        - Terrain # atom
-        - Speed # atom
-        - Pace # atom
-        - Modifier # atom
-        - Advantage & Disadvantage # atom
-        - Days # atom
-        - Offset # atom
-        - Lost # atom
+        - Terrain # atom SelectField
+        - Speed # atom SelectField
+        - Pace # atom SelectField
+        - Modifier # atom TextField
+        - Advantage & Disadvantage # atom CheckboxGroup
+        - Days # atom TextField
+        - Offset # atom TextField
+        - Lost # atom CheckboxGroup
       - Reset
       - Go
 
     - Montage Output: # organism
-      - Day[]: # molecule
-        - Navigation # molecule
-        - Encounters # molecule
-        - Weather # molecule
+      - Day[]: # molecule ListItem
+        - Navigation # molecule ListItem
+        - Encounters # molecule ListItem
+        - Weather # molecule ListItem
 
 ```
