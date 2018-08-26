@@ -63,7 +63,7 @@ export const CheckboxGroup = ({
         );
 
         return option.tooltip ? (
-          <Tooltip title={option.tooltip} placement="top-end">
+          <Tooltip title={option.tooltip} key={i} placement="top-end">
             {content}
           </Tooltip>
         ) : (
