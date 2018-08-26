@@ -5,7 +5,7 @@ import { withStyles } from '@material-ui/core/styles';
 
 import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import MUITypography from '@material-ui/core/Typography';
+import FormLabel from '@material-ui/core/FormLabel';
 import MUISlider from '@material-ui/lab/Slider';
 
 const noop = () => {};
@@ -22,10 +22,10 @@ const styles = theme => ({
 const Slider = ({ classes, input, label, sublabel, meta: { touched, error } = {}, ...custom }) => (
   <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
     {label && (
-      <MUITypography id="slider-label">
+      <FormLabel id="slider-label" component="legend">
         {label.replace(/\$value\$/g, input.value)}
         {sublabel && <small> {sublabel} </small>}
-      </MUITypography>
+      </FormLabel>
     )}
     <MUISlider
       {...input}
