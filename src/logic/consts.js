@@ -38,12 +38,13 @@ export const weather = {
     max: 19,
     name: 'Heavy',
     effects:
-      'Visibility is limited to 50 yards. Huge or larger objects can still be distinguished. Missile weapon ranges are halved.'
+      'Visibility is limited to 150 feet. Huge or larger objects can still be distinguished. Missile weapon ranges are halved.'
   },
   torrent: {
     min: 20,
     max: 20,
     name: 'Torrent',
-    effects: 'Travel by river is impossible.'
+    effects:
+      'Travel by canoe impossible. Travel on foot gains 1 level of exhaustion, immediate DC 10 Constitution save for another. Disadvantage on checks to avoid becoming lost.'
   }
 };
