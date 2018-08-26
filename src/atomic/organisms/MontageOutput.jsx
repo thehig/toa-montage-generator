@@ -6,11 +6,15 @@ import List from '@material-ui/core/List';
 import ListSubheader from '@material-ui/core/ListSubheader';
 
 import { Day } from '../';
+import Paper from '@material-ui/core/Paper';
 
 const styles = theme => ({
   root: {
     width: '100%',
     maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  },
+  topline: {
     backgroundColor: theme.palette.background.paper
   },
   outerList: {
@@ -43,7 +47,7 @@ class MontageOutput extends React.Component {
 
   render() {
     const {
-      // classes,
+      classes,
       montage: { days, completed, reasonsForStopping /* , lost */ }
     } = this.props;
 
@@ -55,7 +59,9 @@ class MontageOutput extends React.Component {
       <List
         component="div"
         subheader={
-          <ListSubheader component="div">{`${days.length} days, ${distance} hexes. ${!completed &&
+          <ListSubheader component={Paper} className={classes.topline}>{`${
+            days.length
+          } days, ${distance} hexes. ${!completed &&
             ' Stopped: [' + reasonsForStopping.join(', ') + ']'}`}</ListSubheader>
         }
       >
