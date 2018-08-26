@@ -2,7 +2,8 @@ import { _dArray } from './dice';
 import { resolver } from './resolver';
 import { montage } from './montage';
 
-import { paceModifiers, speeds, directions, weather } from './consts';
+import config from '../config';
+const { paceModifiers, speeds, directions, weather } = config.get('consts');
 
 // Take some override props and create a resolver with the default values and overrides
 const buildMontage = overrides =>

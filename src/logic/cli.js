@@ -2,6 +2,9 @@ import commandLineArgs from 'command-line-args';
 import getUsage from 'command-line-usage';
 import { montage /* , generateReadout, narrate */ } from './wrapper';
 
+import config from '../config';
+const { modifier } = config.get('defaults');
+
 /* eslint-disable no-console */
 
 // Configure command-line-args
@@ -10,7 +13,7 @@ const optionDefinitions = [
   {
     group: 'navigator',
     name: 'modifier',
-    defaultOption: +3,
+    defaultOption: modifier,
     type: Number,
     typeLabel: '[underline]{ (-20=>+20) }',
     description: 'Number to add to navigation checks'

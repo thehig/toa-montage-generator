@@ -15,6 +15,9 @@ import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
 import { TextField, CheckboxGroup, Slider, RadioButtonGroup } from '..';
 
+import config from '../../config';
+const defaults = config.get('defaults');
+
 const styles = theme => ({
   root: {},
   card: {
@@ -198,13 +201,6 @@ MontageOptions.propTypes = {
 
 export default reduxForm({
   form: 'MontageOptions', // a unique identifier for this form
-  initialValues: {
-    navDC: 15,
-    encChance: 20,
-    speed: 'walk',
-    pace: 'normal',
-    modifier: 3,
-    numdays: 21
-  },
+  initialValues: defaults,
   validate
 })(withStyles(styles)(MontageOptions));
