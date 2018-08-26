@@ -15,7 +15,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core/styles';
 
 export const RadioButton = ({ tooltip, ...props }) => (
-  <Tooltip title={tooltip || ''}>
+  <Tooltip title={tooltip || ''} placement="top-end">
     <FormControlLabel control={<Radio />} {...props} />
   </Tooltip>
 );
@@ -48,7 +48,7 @@ export const RadioButtonGroup = ({
     component="fieldset"
     error={Boolean(touched && error)}
   >
-    <Tooltip title={tooltip}>
+    <Tooltip title={tooltip} placement="top-end">
       <FormLabel component="legend">{label}</FormLabel>
     </Tooltip>
 

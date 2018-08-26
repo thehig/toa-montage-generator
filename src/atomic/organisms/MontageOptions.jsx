@@ -96,8 +96,8 @@ const navigation = ({ classes }) => (
         fullWidth
         component={CheckboxGroup}
         options={[
-          { value: 'advantage', label: 'Advantage' },
-          { value: 'disadvantage', label: 'Disadvantage' }
+          { value: 'advantage', label: 'Advantage', tooltip: 'Roll twice and take the higher' },
+          { value: 'disadvantage', label: 'Disadvantage', tooltip: 'Roll twice and take the lower' }
         ]}
       />
     </MUICardContent>
