@@ -85,8 +85,8 @@ const navigation = ({ classes }) => (
         key="nav-modifier"
         component={Slider}
         label="Navigators total modifier [$value$]"
-        min={-10}
-        max={10}
+        min={-20}
+        max={20}
         step={1}
       />
       <Field
