@@ -13,7 +13,9 @@ const noop = () => {};
 const styles = theme => ({
   root: {},
   slider: {
-    width: `calc(100% - ${theme.spacing.unit * 2}px)`
+    width: `calc(100% - ${theme.spacing.unit * 2}px)`,
+    paddingTop: theme.spacing.unit * 3,
+    paddingBottom: theme.spacing.unit * 4
   }
 });
 
