@@ -8,34 +8,23 @@ import { withStyles } from '@material-ui/core/styles';
 import MUICard from '@material-ui/core/Card';
 import MUICardContent from '@material-ui/core/CardContent';
 
-import MUIMenuItem from '@material-ui/core/MenuItem';
 import MUIButton from '@material-ui/core/Button';
 import MUITypography from '@material-ui/core/Typography';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { TextField, SelectField, CheckboxGroup, Slider, RadioButtonGroup } from '..';
+import { TextField, CheckboxGroup, Slider, RadioButtonGroup } from '..';
 
 const styles = theme => ({
-  root: {
-    // background: 'red'
-  },
+  root: {},
   card: {
-    padding: theme.spacing.unit
-    // backgroundColor: 'red'
+    margin: theme.spacing.unit
   },
   title: {
-    // padding: theme.spacing.unit
+    paddingBottom: theme.spacing.unit * 2
   },
-  navigation: {
-    color: 'orange'
-  },
-  travel: {
-    color: 'blue'
-  },
-  terrainDC: {
-    padding: theme.spacing.unit
-  }
+  navigation: {},
+  travel: {}
 });
 
 const navigation = ({ classes }) => (
@@ -66,40 +55,45 @@ const navigation = ({ classes }) => (
       />
       <Field
         fullWidth
+        row
         name="speed"
         key="speed"
         component={RadioButtonGroup}
         label="Speed"
         tooltip="affects hexes travelled"
         options={[
-          { label: 'Walking (base speed 1 hex per day)', value: 'walk' },
-          { label: 'Boating (base speed 2 hex per day)', value: 'boat' }
+          { label: 'Walking', tooltip: 'base speed 1 hex per day', value: 'walk' },
+          { label: 'Boating', tooltip: 'base speed 2 hex per day', value: 'boat' }
         ]}
       />
       <Field
         fullWidth
+        row
         name="pace"
         key="pace"
         component={RadioButtonGroup}
         label="Pace"
         tooltip="affects navigation DC & hexes travelled"
         options={[
-          { label: 'Slow (50/50 chance of -1 hex, Navigation DC -5)', value: 'slow' },
+          { label: 'Slow', tooltip: ' Nav DC -5, Speed -1 (50% chance)', value: 'slow' },
           { label: 'Normal', value: 'normal' },
-          { label: 'Fast (50/50 chance of +1 hex, Navigation DC +5)', value: 'fast' }
+          { label: 'Fast', tooltip: ' Nav DC +5, Speed +1 (50% chance)', value: 'fast' }
         ]}
       />
       <Field
         name="modifier"
         key="nav-modifier"
-        component={TextField}
-        label="Navigators total modifier"
-        type="number"
+        component={Slider}
+        label="Navigators total modifier [$value$]"
+        min={-10}
+        max={10}
+        step={1}
       />
       <Field
         name="nav-advantage"
         key="nav-advantage"
         row
+        fullWidth
         component={CheckboxGroup}
         options={[
           { value: 'advantage', label: 'Advantage' },
