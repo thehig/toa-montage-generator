@@ -9,7 +9,9 @@
   "dependencies": {
     "@material-ui/core": "^1.5.1",
     "@material-ui/icons": "^2.0.3",
+    "@material-ui/lab": "^1.0.0-alpha.11",
     "@storybook/addon-options": "^3.4.10",
+    "classnames": "^2.2.6",
     "command-line-args": "^5.0.2",
     "command-line-usage": "^5.0.5",
     "cross-env": "^5.2.0",
