@@ -30,7 +30,7 @@ const styles = theme => ({
 const navigation = ({ classes }) => (
   <MUICard className={classes.card}>
     <MUICardContent>
-      <MUITypography variant="body2" className={cn(classes.title, classes.navigation)}>
+      <MUITypography variant="title" className={cn(classes.title, classes.navigation)}>
         Navigation
       </MUITypography>
       <Field
@@ -107,7 +107,7 @@ const navigation = ({ classes }) => (
 const travel = ({ classes }) => (
   <MUICard className={classes.card}>
     <MUICardContent>
-      <MUITypography variant="body2" className={cn(classes.title, classes.travel)}>
+      <MUITypography variant="title" className={cn(classes.title, classes.travel)}>
         Travel
       </MUITypography>
       <Field
