@@ -2,9 +2,6 @@ import { call, put, all, select, takeLatest } from 'redux-saga/effects';
 import { change, actionTypes as reduxActionTypes } from 'redux-form';
 import { CONSTS, getOptions, getDays } from './montage';
 import { montage } from '../logic/wrapper';
-import { terrain } from '../logic/consts';
-
-//TODO: Import terrain, make runMontage capable of taking terrain: id instead of encounterDC and navigationDC
 
 // Actions will be listened for and dispatched using this form name
 const form = 'MontageOptions';
