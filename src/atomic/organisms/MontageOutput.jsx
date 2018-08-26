@@ -61,8 +61,9 @@ class MontageOutput extends React.Component {
         subheader={
           <ListSubheader component={Paper} className={classes.topline}>{`${
             days.length
-          } days, ${distance} hexes. ${!completed &&
-            ' Stopped: [' + reasonsForStopping.join(', ') + ']'}`}</ListSubheader>
+          } days, ${distance} hexes. ${
+            !completed ? ' Stopped: [' + reasonsForStopping.join(', ') + ']' : ''
+          }`}</ListSubheader>
         }
       >
         {days.map(day => (
