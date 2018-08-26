@@ -14,7 +14,7 @@ import MUITypography from '@material-ui/core/Typography';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { TextField, SelectField, CheckboxGroup, Slider } from '..';
+import { TextField, SelectField, CheckboxGroup, Slider, RadioButtonGroup } from '..';
 
 const styles = theme => ({
   root: {
@@ -65,24 +65,30 @@ const navigation = ({ classes }) => (
         step={1}
       />
       <Field
+        fullWidth
         name="speed"
         key="speed"
-        component={SelectField}
-        label="Speed (affects hexes travelled)"
-      >
-        <MUIMenuItem value="walk">Walking</MUIMenuItem>
-        <MUIMenuItem value="boat">Boating</MUIMenuItem>
-      </Field>
+        component={RadioButtonGroup}
+        label="Speed"
+        tooltip="affects hexes travelled"
+        options={[
+          { label: 'Walking (base speed 1 hex per day)', value: 'walk' },
+          { label: 'Boating (base speed 2 hex per day)', value: 'boat' }
+        ]}
+      />
       <Field
+        fullWidth
         name="pace"
         key="pace"
-        component={SelectField}
-        label="Pace (affects navigation DC & hexes travelled) "
-      >
-        <MUIMenuItem value="slow">Slow</MUIMenuItem>
-        <MUIMenuItem value="normal">Normal</MUIMenuItem>
-        <MUIMenuItem value="fast">Fast</MUIMenuItem>
-      </Field>
+        component={RadioButtonGroup}
+        label="Pace"
+        tooltip="affects navigation DC & hexes travelled"
+        options={[
+          { label: 'Slow (50/50 chance of -1 hex, Navigation DC -5)', value: 'slow' },
+          { label: 'Normal', value: 'normal' },
+          { label: 'Fast (50/50 chance of +1 hex, Navigation DC +5)', value: 'fast' }
+        ]}
+      />
       <Field
         name="modifier"
         key="nav-modifier"
