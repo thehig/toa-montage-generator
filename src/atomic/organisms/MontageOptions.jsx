@@ -38,7 +38,7 @@ const navigation = ({ classes }) => (
         key="navDC"
         component={Slider}
         label="Nav DC [$value$]"
-        sublabel="(higher is harder)"
+        tooltip="(higher is harder)"
         min={1}
         max={30}
         step={1}
@@ -48,7 +48,7 @@ const navigation = ({ classes }) => (
         key="encChance"
         component={Slider}
         label="Encounter DC [$value$]"
-        sublabel="(higher is less common)"
+        tooltip="(higher is less common)"
         min={1}
         max={20}
         step={1}

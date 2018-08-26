@@ -7,6 +7,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 import MUISlider from '@material-ui/lab/Slider';
+import { Tooltip } from '@material-ui/core';
 
 const noop = () => {};
 
@@ -19,32 +20,44 @@ const styles = theme => ({
   }
 });
 
-const Slider = ({ classes, input, label, sublabel, meta: { touched, error } = {}, ...custom }) => (
-  <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
-    {label && (
-      <FormLabel id="slider-label" component="legend">
-        {label.replace(/\$value\$/g, input.value)}
-        {sublabel && <small> {sublabel} </small>}
-      </FormLabel>
-    )}
-    <MUISlider
-      {...input}
-      aria-labelledby="slider-label"
-      onChange={(evt, value) => input.onChange(value)}
-      onBlur={noop}
-      value={input.value || 0}
-      {...custom}
-      className={classes.slider}
-    />
-    {touched && error && <FormHelperText>{error}</FormHelperText>}
-  </FormControl>
-);
+const Slider = ({ classes, input, label, tooltip, meta: { touched, error } = {}, ...custom }) => {
+  const wrapper = children =>
+    tooltip ? (
+      <Tooltip title={tooltip} placement="top-end">
+        {children}
+      </Tooltip>
+    ) : (
+      children
+    );
+
+  return (
+    <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
+      {label && (
+        <FormLabel id="slider-label" component="legend">
+          {label.replace(/\$value\$/g, input.value)}
+        </FormLabel>
+      )}
+      {wrapper(
+        <MUISlider
+          {...input}
+          aria-labelledby="slider-label"
+          onChange={(evt, value) => input.onChange(value)}
+          onBlur={noop}
+          value={input.value || 0}
+          {...custom}
+          className={classes.slider}
+        />
+      )}
+      {touched && error && <FormHelperText>{error}</FormHelperText>}
+    </FormControl>
+  );
+};
 
 Slider.propTypes = {
   classes: PropTypes.object.isRequired,
   input: PropTypes.object,
   label: PropTypes.string,
-  sublabel: PropTypes.string,
+  tooltip: PropTypes.string,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.any
