@@ -12,9 +12,7 @@ import MUITypography from '@material-ui/core/Typography';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { TextField, SelectField, CheckboxGroup } from '../';
-
-import { terrain as Terrains } from '../../logic/consts';
+import { TextField, SelectField, CheckboxGroup, Slider } from '../';
 
 const styles = theme => ({
   card: {
@@ -44,13 +42,26 @@ const TerrainForm = props => {
           <MUITypography variant="title" className={classes.title}>
             Navigation
           </MUITypography>
-          <Field name="terrain" key="terrain" component={SelectField} label="Terrain">
-            {Terrains.map(t => (
-              <MenuItem key={`terrain-${t.id}`} value={t.id}>
-                {t.name}
-              </MenuItem>
-            ))}
-          </Field>
+          <Field
+            name="navDC"
+            key="navDC"
+            component={Slider}
+            label="Nav DC [$value$]"
+            sublabel="(higher is harder)"
+            min={1}
+            max={30}
+            step={1}
+          />
+          <Field
+            name="encChance"
+            key="encChance"
+            component={Slider}
+            label="Encounter DC [$value$]"
+            sublabel="(higher is less common)"
+            min={1}
+            max={20}
+            step={1}
+          />
           <Field
             name="speed"
             key="speed"
@@ -163,7 +174,8 @@ TerrainForm.propTypes = {
 export default reduxForm({
   form: 'TerrainForm', // a unique identifier for this form
   initialValues: {
-    terrain: 2,
+    navDC: 15,
+    encChance: 20,
     speed: 'walk',
     pace: 'normal',
     modifier: 3,

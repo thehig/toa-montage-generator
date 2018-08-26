@@ -8,10 +8,13 @@ import MUISlider from '@material-ui/lab/Slider';
 
 const noop = () => {};
 
-const Slider = ({ input, label, meta: { touched, error } = {}, ...custom }) => (
+const Slider = ({ input, label, sublabel, meta: { touched, error } = {}, ...custom }) => (
   <FormControl error={Boolean(touched && error)} fullWidth>
     {label && (
-      <MUITypography id="slider-label">{label.replace(/\$value\$/g, input.value)}</MUITypography>
+      <MUITypography id="slider-label">
+        {label.replace(/\$value\$/g, input.value)}
+        {sublabel && <small> {sublabel} </small>}
+      </MUITypography>
     )}
     <MUISlider
       {...input}
