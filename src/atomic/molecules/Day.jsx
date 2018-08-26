@@ -25,11 +25,13 @@ class Day extends React.Component {
   createSummary = () => {
     const { day } = this.props;
     const lost = day.navigation.lost && day.navigation.direction;
+    const found = day.navigation.becameFound;
     const encounter = day.encounters.filter(e => e.encounter).map(e => e.tableRoll.roll);
     const weather = day.weather.filter(w => w.name === 'torrent').length > 0;
 
     const summary = [
       lost && `Lost (${lost})`,
+      found && 'Became Found',
       encounter.length && `Encounter(s) [${encounter.join(', ')}]`,
       weather && 'Weather'
     ]
