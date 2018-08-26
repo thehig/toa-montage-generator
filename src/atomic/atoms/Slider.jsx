@@ -12,11 +12,13 @@ import { Tooltip } from '@material-ui/core';
 const noop = () => {};
 
 const styles = theme => ({
-  root: {},
+  root: {
+    paddingBottom: theme.spacing.unit * 1
+  },
   slider: {
     width: `calc(100% - ${theme.spacing.unit * 2}px)`,
     paddingTop: theme.spacing.unit * 3,
-    paddingBottom: theme.spacing.unit * 4
+    paddingBottom: theme.spacing.unit * 1
   }
 });
 
@@ -48,7 +50,7 @@ const Slider = ({ classes, input, label, tooltip, meta: { touched, error } = {},
           className={classes.slider}
         />
       )}
-      {touched && error && <FormHelperText>{error}</FormHelperText>}
+      <FormHelperText>{error}</FormHelperText>
     </FormControl>
   );
 };
