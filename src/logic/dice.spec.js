@@ -1,4 +1,4 @@
-import { d20 as realD20, _dArray } from '../logic/dice';
+import { d20 as realD20, _dArray } from './dice';
 
 describe('dice', () => {
   const d20 = realD20;

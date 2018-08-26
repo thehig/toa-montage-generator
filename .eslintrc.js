@@ -23,7 +23,9 @@ module.exports = {
   },
   plugins: ['react', 'jsx-a11y', 'jest', 'prettier'],
   globals: {
-    process: true
+    process: true,
+    module: true,
+    __dirname: true
   },
   rules: {
     'prettier/prettier': 'error',
