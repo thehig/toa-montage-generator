@@ -113,9 +113,11 @@ const travel = ({ classes }) => (
       <Field
         name="numdays"
         key="numdays"
-        component={TextField}
-        label="Number of days to travel for"
-        type="number"
+        label="Number of days to travel for [$value$]"
+        component={Slider}
+        min={0}
+        max={30}
+        step={1}
       />
       <Field
         name="daysoffset"
@@ -128,7 +130,7 @@ const travel = ({ classes }) => (
         name="starts-lost"
         key="starts-lost"
         component={CheckboxGroup}
-        options={[{ value: 'lost', label: 'Lost' }]}
+        options={[{ value: 'lost', label: 'Lost', tooltip: 'Is the navigator currently lost' }]}
       />
     </MUICardContent>
   </MUICard>
