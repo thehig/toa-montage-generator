@@ -177,7 +177,7 @@ const MontageOptions = props => {
 
 const validate = values => {
   const errors = {};
-  const requiredFields = ['terrain', 'speed', 'pace', 'modifier', 'numdays'];
+  const requiredFields = ['speed', 'pace', 'numdays'];
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
