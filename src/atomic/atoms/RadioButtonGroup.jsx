@@ -10,9 +10,15 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import Tooltip from '@material-ui/core/Tooltip';
+
 import { withStyles } from '@material-ui/core/styles';
 
-export const RadioButton = props => <FormControlLabel control={<Radio />} {...props} />;
+export const RadioButton = ({ tooltip, ...props }) => (
+  <Tooltip title={tooltip || ''}>
+    <FormControlLabel control={<Radio />} {...props} />
+  </Tooltip>
+);
 
 const styles = (/*theme*/) => ({
   root: {},
@@ -21,7 +27,7 @@ const styles = (/*theme*/) => ({
   },
   radioGroup: {
     display: 'flex',
-    justifyContent: 'space-between'
+    justifyContent: 'space-evenly'
   },
   radioButton: {
     // flexGrow: 1
@@ -33,6 +39,7 @@ export const RadioButtonGroup = ({
   fullWidth,
   input,
   label,
+  tooltip,
   meta: { touched, error },
   options,
   ...rest
@@ -42,7 +49,10 @@ export const RadioButtonGroup = ({
     component="fieldset"
     error={Boolean(touched && error)}
   >
-    <FormLabel component="legend">{label}</FormLabel>
+    <Tooltip title={tooltip}>
+      <FormLabel component="legend">{label}</FormLabel>
+    </Tooltip>
+
     <RadioGroup
       className={classes.radioGroup}
       value={input.value}
@@ -66,6 +76,7 @@ RadioButtonGroup.propTypes = {
   fullWidth: PropTypes.bool,
   input: PropTypes.object,
   label: PropTypes.string,
+  tooltip: PropTypes.string,
   meta: PropTypes.shape({
     touched: PropTypes.bool,
     error: PropTypes.any
