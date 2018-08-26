@@ -26,8 +26,10 @@ const styles = (/*theme*/) => ({
     width: '100%'
   },
   group: {
-    display: 'flex',
-    justifyContent: 'space-evenly'
+    display: 'flex'
+  },
+  item: {
+    flexGrow: 1
   }
 });
 
@@ -58,7 +60,7 @@ export const RadioButtonGroup = ({
     >
       {options.map(option => (
         <RadioButton
-          className={classes.radioButton}
+          className={classes.item}
           key={option.key || option.name || option.label}
           {...option}
         />

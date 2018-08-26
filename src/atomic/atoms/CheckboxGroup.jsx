@@ -11,16 +11,16 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { withStyles } from '@material-ui/core/styles';
 
-const styles = theme => ({
-  root: {
-    margin: `${theme.spacing.unit * 2}px 0`
-  },
+const styles = (/* theme */) => ({
+  root: {},
   fullWidth: {
     width: '100%'
   },
   group: {
-    display: 'flex',
-    justifyContent: 'space-evenly'
+    display: 'flex'
+  },
+  item: {
+    flexGrow: 1
   }
 });
 
@@ -43,6 +43,7 @@ export const CheckboxGroup = ({
     <FormGroup className={classes.group} {...rest}>
       {options.map((option, i) => (
         <FormControlLabel
+          className={classes.item}
           control={<MUICheckbox />}
           key={i}
           {...option}
