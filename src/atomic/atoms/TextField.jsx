@@ -17,7 +17,7 @@ const styles = theme => ({
 export const TextField = ({ input, label, meta: { touched, error }, classes, ...custom }) => (
   <FormControl error={Boolean(touched && error)} fullWidth className={classes.root}>
     <MUITextField error={Boolean(touched && error)} label={label} {...input} {...custom} />
-    {touched && error && <FormHelperText>{error}</FormHelperText>}
+    <FormHelperText>{error}</FormHelperText>
   </FormControl>
 );
 
