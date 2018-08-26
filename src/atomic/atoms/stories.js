@@ -17,7 +17,7 @@ import {
 } from '../../../.storybook/decorators';
 
 // Components
-import { SelectField, TextField, CheckboxGroup, RadioButtonGroup } from '../';
+import { SelectField, TextField, CheckboxGroup, RadioButtonGroup, Slider } from '../';
 
 /**
  * Test a collection of components that should all take the same props and display them in some way
@@ -129,6 +129,13 @@ const reduxFormFieldComponents = [
       { label: 'Other', value: 'other' },
       { label: 'Disabled', value: 'disabled', disabled: true }
     ]
+  },
+  {
+    name: 'Slider',
+    component: Slider,
+    min: 1,
+    max: 20,
+    step: 1
   }
 ];
 reduxFormFieldComponents.map(makeStories);

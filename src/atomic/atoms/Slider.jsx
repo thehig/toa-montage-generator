@@ -10,13 +10,15 @@ const noop = () => {};
 
 const Slider = ({ input, label, meta: { touched, error } = {}, ...custom }) => (
   <FormControl error={Boolean(touched && error)} fullWidth>
-    {label && <MUITypography id="slider-label">{label}</MUITypography>}
+    {label && (
+      <MUITypography id="slider-label">{label.replace(/\$value\$/g, input.value)}</MUITypography>
+    )}
     <MUISlider
       {...input}
       aria-labelledby="slider-label"
-      onChange={event => input.onChange(event.target.value)}
+      onChange={(evt, value) => input.onChange(value)}
       onBlur={noop}
-      value={input.value}
+      value={input.value || 0}
       {...custom}
     />
     {touched && error && <FormHelperText>{error}</FormHelperText>}
