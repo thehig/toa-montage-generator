@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import cn from 'classnames';
+
 import { Field, reduxForm, formValueSelector } from 'redux-form';
 import { withStyles } from '@material-ui/core/styles';
 
 import MUICard from '@material-ui/core/Card';
-import CardContent from '@material-ui/core/CardContent';
+import MUICardContent from '@material-ui/core/CardContent';
 
-import MenuItem from '@material-ui/core/MenuItem';
+import MUIMenuItem from '@material-ui/core/MenuItem';
 import MUIButton from '@material-ui/core/Button';
 import MUITypography from '@material-ui/core/Typography';
 
@@ -23,7 +25,13 @@ const styles = theme => ({
     // backgroundColor: 'red'
   },
   title: {
-    padding: theme.spacing.unit
+    // padding: theme.spacing.unit
+  },
+  navigation: {
+    color: 'orange'
+  },
+  travel: {
+    color: 'blue'
   },
   terrainDC: {
     padding: theme.spacing.unit
@@ -42,8 +50,8 @@ const MontageOptions = props => {
   return (
     <form onSubmit={handleSubmit} className={classes.root}>
       <MUICard className={classes.card}>
-        <CardContent>
-          <MUITypography variant="title" className={classes.title}>
+        <MUICardContent>
+          <MUITypography variant="title" className={cn(classes.title, classes.navigation)}>
             Navigation
           </MUITypography>
           <Field
@@ -72,8 +80,8 @@ const MontageOptions = props => {
             component={SelectField}
             label="Speed (affects hexes travelled)"
           >
-            <MenuItem value="walk">Walking</MenuItem>
-            <MenuItem value="boat">Boating</MenuItem>
+            <MUIMenuItem value="walk">Walking</MUIMenuItem>
+            <MUIMenuItem value="boat">Boating</MUIMenuItem>
           </Field>
           <Field
             name="pace"
@@ -81,9 +89,9 @@ const MontageOptions = props => {
             component={SelectField}
             label="Pace (affects navigation DC & hexes travelled) "
           >
-            <MenuItem value="slow">Slow</MenuItem>
-            <MenuItem value="normal">Normal</MenuItem>
-            <MenuItem value="fast">Fast</MenuItem>
+            <MUIMenuItem value="slow">Slow</MUIMenuItem>
+            <MUIMenuItem value="normal">Normal</MUIMenuItem>
+            <MUIMenuItem value="fast">Fast</MUIMenuItem>
           </Field>
           <Field
             name="modifier"
@@ -102,12 +110,12 @@ const MontageOptions = props => {
               { value: 'disadvantage', label: 'Disadvantage' }
             ]}
           />
-        </CardContent>
+        </MUICardContent>
       </MUICard>
 
       <MUICard className={classes.card}>
-        <CardContent>
-          <MUITypography variant="title" className={classes.title}>
+        <MUICardContent>
+          <MUITypography variant="title" className={cn(classes.title, classes.travel)}>
             Travel
           </MUITypography>
           <Field
@@ -130,7 +138,7 @@ const MontageOptions = props => {
             component={CheckboxGroup}
             options={[{ value: 'lost', label: 'Lost' }]}
           />
-        </CardContent>
+        </MUICardContent>
       </MUICard>
 
       <MUIButton
