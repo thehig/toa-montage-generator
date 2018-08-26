@@ -11,9 +11,9 @@ import blue from '@material-ui/core/colors/blue';
 import { ReduxDecorator, ThemeDecorator } from '../../../.storybook/decorators';
 
 // Components
-import { MontageOutput, TerrainForm } from '../';
+import { MontageOutput, MontageOptions } from '../';
 
-import { selector as TerrainFormSelector } from './TerrainForm';
+import { selector as MontageOptionsSelector } from './MontageOptions';
 
 import { action } from '@storybook/addon-actions';
 
@@ -35,13 +35,13 @@ storiesOf(`Montage Components`, module)
       }
     })
   )
-  .add('TerrainForm', () => {
-    // The TerrainForm needs to have the selected 'id' passed back into itself
-    const ConnectedTerrainForm = connect(state => ({
-      terrain: TerrainFormSelector(state, 'terrain')
-    }))(TerrainForm);
+  .add('MontageOptions', () => {
+    // The MontageOptions needs to have the selected 'id' passed back into itself
+    const ConnectedMontageOptions = connect(state => ({
+      terrain: MontageOptionsSelector(state, 'terrain')
+    }))(MontageOptions);
 
-    return <ConnectedTerrainForm onSubmit={action('Terrain Form Submit')} />;
+    return <ConnectedMontageOptions onSubmit={action('Terrain Form Submit')} />;
   })
   .add('MontageOutput', () => <MontageOutput montage={sampleMontage} />);
 

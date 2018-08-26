@@ -12,7 +12,7 @@ export { default as Navigation } from './molecules/Navigation';
 export { default as Encounters } from './molecules/Encounters';
 export { default as Weathers } from './molecules/Weathers';
 
-export { default as TerrainForm } from './organisms/TerrainForm';
+export { default as MontageOptions } from './organisms/MontageOptions';
 export { default as MontageOutput } from './organisms/MontageOutput';
 
 export { default as MontagePage } from './ecosystems/Montage';

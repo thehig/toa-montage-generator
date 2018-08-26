@@ -7,7 +7,7 @@ import { terrain } from '../logic/consts';
 //TODO: Import terrain, make runMontage capable of taking terrain: id instead of encounterDC and navigationDC
 
 // Actions will be listened for and dispatched using this form name
-const form = 'TerrainForm';
+const form = 'MontageOptions';
 
 // Convert the redux form { values } into typesafe parameters and run
 const runMontage = options =>

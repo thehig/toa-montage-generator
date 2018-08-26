@@ -12,11 +12,15 @@ import MUITypography from '@material-ui/core/Typography';
 
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import RefreshIcon from '@material-ui/icons/Refresh';
-import { TextField, SelectField, CheckboxGroup, Slider } from '../';
+import { TextField, SelectField, CheckboxGroup, Slider } from '..';
 
 const styles = theme => ({
+  root: {
+    // background: 'red'
+  },
   card: {
     padding: theme.spacing.unit
+    // backgroundColor: 'red'
   },
   title: {
     padding: theme.spacing.unit
@@ -26,7 +30,7 @@ const styles = theme => ({
   }
 });
 
-const TerrainForm = props => {
+const MontageOptions = props => {
   const {
     handleSubmit,
     // pristine,
@@ -36,7 +40,7 @@ const TerrainForm = props => {
   } = props;
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={classes.root}>
       <MUICard className={classes.card}>
         <CardContent>
           <MUITypography variant="title" className={classes.title}>
@@ -128,6 +132,7 @@ const TerrainForm = props => {
           />
         </CardContent>
       </MUICard>
+
       <MUIButton
         aria-label="reset"
         disabled={submitting}
@@ -137,6 +142,7 @@ const TerrainForm = props => {
       >
         <RefreshIcon />
       </MUIButton>
+
       <MUIButton
         type="submit"
         color="primary"
@@ -162,9 +168,9 @@ const validate = values => {
   return errors;
 };
 
-export const selector = formValueSelector('TerrainForm');
+export const selector = formValueSelector('MontageOptions');
 
-TerrainForm.propTypes = {
+MontageOptions.propTypes = {
   handleSubmit: PropTypes.func,
   reset: PropTypes.func,
   submitting: PropTypes.bool,
@@ -172,7 +178,7 @@ TerrainForm.propTypes = {
 };
 
 export default reduxForm({
-  form: 'TerrainForm', // a unique identifier for this form
+  form: 'MontageOptions', // a unique identifier for this form
   initialValues: {
     navDC: 15,
     encChance: 20,
@@ -182,4 +188,4 @@ export default reduxForm({
     numdays: 10
   },
   validate
-})(withStyles(styles)(TerrainForm));
+})(withStyles(styles)(MontageOptions));
