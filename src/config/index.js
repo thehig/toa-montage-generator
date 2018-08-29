@@ -10,11 +10,12 @@ const tryRequire = moduleName => {
     configs.push(require(`${moduleName}`));
   } catch (err) {
     // Ignore MODULE_NOT_FOUND, just means file doesn't exist
-    if (err instanceof Error) {
-      if (err.message.match(/Cannot find module/)) return;
-      if (err.code && err.code === 'MODULE_NOT_FOUND') return;
-    }
-    throw err;
+    // if (err instanceof Error) {
+    //   if (err.message.match(/Cannot find module/)) return;
+    //   if (err.code && err.code === 'MODULE_NOT_FOUND') return;
+    // }
+    // throw err;
+    return;
   }
 };
 
