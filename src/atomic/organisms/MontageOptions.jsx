@@ -20,6 +20,13 @@ const defaults = config.get('defaults');
 
 const styles = theme => ({
   root: {},
+  buttons: {
+    display: 'flex'
+  },
+  button: {
+    margin: theme.spacing.unit,
+    height: theme.spacing.unit * 12
+  },
   card: {
     margin: theme.spacing.unit
   },
@@ -155,26 +162,30 @@ const MontageOptions = props => {
 
       {travel(props)}
 
-      <MUIButton
-        aria-label="reset"
-        disabled={submitting}
-        fullWidth
-        variant="raised"
-        onClick={reset}
-      >
-        <RefreshIcon />
-      </MUIButton>
+      <div className={classes.buttons}>
+        <MUIButton
+          className={classes.button}
+          aria-label="reset"
+          disabled={submitting}
+          fullWidth
+          variant="raised"
+          onClick={reset}
+        >
+          <RefreshIcon />
+        </MUIButton>
 
-      <MUIButton
-        type="submit"
-        color="primary"
-        aria-label="go"
-        fullWidth
-        variant="raised"
-        disabled={submitting}
-      >
-        <PlayArrowIcon />
-      </MUIButton>
+        <MUIButton
+          className={classes.button}
+          type="submit"
+          color="primary"
+          aria-label="go"
+          fullWidth
+          variant="raised"
+          disabled={submitting}
+        >
+          <PlayArrowIcon />
+        </MUIButton>
+      </div>
     </form>
   );
 };
