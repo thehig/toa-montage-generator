@@ -48,7 +48,7 @@ export const RadioButtonGroup = ({
     component="fieldset"
     error={Boolean(touched && error)}
   >
-    <Tooltip title={tooltip} placement="top-end">
+    <Tooltip title={tooltip || ''} placement="top-end">
       <FormLabel component="legend">{label}</FormLabel>
     </Tooltip>
 
