@@ -41,7 +41,12 @@ storiesOf(`Montage Components`, module)
       terrain: MontageOptionsSelector(state, 'terrain')
     }))(MontageOptions);
 
-    return <ConnectedMontageOptions onSubmit={action('Terrain Form Submit')} />;
+    return (
+      <ConnectedMontageOptions
+        onSubmit={action('Terrain Form Submit')}
+        handleReset={action('Handle Reset')}
+      />
+    );
   })
   .add('MontageOutput', () => <MontageOutput montage={sampleMontage} />);
 

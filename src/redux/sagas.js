@@ -1,5 +1,5 @@
 import { call, put, all, select, takeLatest } from 'redux-saga/effects';
-import { change, actionTypes as reduxActionTypes } from 'redux-form';
+import { change } from 'redux-form';
 import { CONSTS, getOptions, getDays } from './montage';
 import { montage } from '../logic/wrapper';
 
@@ -27,12 +27,14 @@ const runMontage = options =>
     lost: Boolean(options['starts-lost'] && options['starts-lost'].indexOf('lost') > -1)
   });
 
+// Note: No need for this as long as montageReset is called directly, rather than redux form reset
+
 // When the specific redux-form is reset, dispatch our own reset as well
-function* resetMontageSaga(action) {
-  if (action && action.meta && action.meta.form && action.meta.form === form) {
-    yield put({ type: CONSTS.MONTAGE_RESET });
-  }
-}
+// function* resetMontageSaga(action) {
+//   if (action && action.meta && action.meta.form && action.meta.form === form) {
+//     yield put({ type: CONSTS.MONTAGE_RESET });
+//   }
+// }
 
 // Take action props, run saga, and dispatch error, or success and redux-form changes
 function* montageSaga(action) {
@@ -63,7 +65,7 @@ function* montageSaga(action) {
 
 export default function* rootSaga() {
   yield all([
-    takeLatest(CONSTS.MONTAGE_SUBMIT, montageSaga),
-    takeLatest(reduxActionTypes.RESET, resetMontageSaga)
+    takeLatest(CONSTS.MONTAGE_SUBMIT, montageSaga)
+    // takeLatest(reduxActionTypes.RESET, resetMontageSaga)
   ]);
 }

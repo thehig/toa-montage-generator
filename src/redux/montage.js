@@ -12,6 +12,10 @@ export const montageSubmit = formValues => ({
   payload: formValues
 });
 
+export const montageReset = () => ({
+  type: CONSTS.MONTAGE_RESET
+});
+
 // Initial State
 export const initialState = {
   montage: {

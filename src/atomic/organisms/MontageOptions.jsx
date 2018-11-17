@@ -149,9 +149,10 @@ const travel = ({ classes }) => (
 
 const MontageOptions = props => {
   const {
+    handleReset,
     handleSubmit,
     // pristine,
-    reset,
+    // reset,
     submitting,
     classes
   } = props;
@@ -169,7 +170,7 @@ const MontageOptions = props => {
           disabled={submitting}
           fullWidth
           variant="raised"
-          onClick={reset}
+          onClick={handleReset}
         >
           <RefreshIcon />
         </MUIButton>
@@ -204,6 +205,7 @@ const validate = values => {
 export const selector = formValueSelector('MontageOptions');
 
 MontageOptions.propTypes = {
+  handleReset: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func,
   reset: PropTypes.func,
   submitting: PropTypes.bool,
